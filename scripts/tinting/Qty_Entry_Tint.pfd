@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Enter Quantity" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="300" Visible="False" Width="400" WindowState="wsNormal">
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="" Height="28" LabelCaption="Product" LabelWidth="70" Left="20" Name="eProduct" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="20" Width="350">
+    </TUserEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Decimals="2" Domain="Quantity" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-20" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelCaption="Qty" LabelWidth="70" Left="20" Name="eQuantity" ParentFont="False" TabOrder="1" TabStop="True" Top="70" Width="350">
+    </TUserNumberEdit>
+    <TUserButton Caption="OK" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="50" ImageIndex="2026" Left="20" Name="btnOK" OnClick="DoOK" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="140" Width="170">
+    </TUserButton>
+    <TUserButton Caption="Cancel" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="" Height="50" ImageIndex="2074" Left="200" Name="btnCancel" OnClick="DoCancel" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="140" Width="170">
+    </TUserButton>
+  </Form>
+  <![CDATA[Dim Cancelled as Number
+Cancelled = 1
+
+Property Let pProduct(Value as String)
+  eProduct.Text = Value
+End Property
+
+Property Let pQuantity(Value as Number)
+  eQuantity.Value = Value
+End Property
+
+Property Get pQuantity as Number
+  pQuantity = eQuantity.Value
+End Property
+
+Property Get pCancelled as Number
+  pCancelled = Cancelled
+End Property
+
+Sub DoOK
+  Cancelled = 0
+  Self.Close
+End Sub
+
+Sub DoCancel
+  Cancelled = 1
+  Self.Close
+End Sub
+]]>
+</Design>

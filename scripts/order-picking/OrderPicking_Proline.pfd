@@ -1,0 +1,1147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="3" DPI="96">
+  <Form Caption="Proline - Order Picking" Color="clBtnFace" Constraints.MaxHeight="52428" Constraints.MaxWidth="52428" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="800" Interactive="True" OnClose="ConfirmClose" OnShow="FormOpen" SaveSizeName="" Visible="True" Width="1200" WindowState="wsMaximized">
+
+    <!-- ============ MEMORY TABLES ============ -->
+
+    <!-- Order Lines Table (same as existing) -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="OrderLineScroll" BeforeDelete="tblOrder_BeforeDelete" IndexName="" Name="tblOrder" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
+      <TnIntegerField DisplayWidth="6" FieldName="LineID" Visible="False">
+      </TnIntegerField>
+      <TnUpperField DisplayLabel="Code" DisplayWidth="20" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="60" DomainName="Description" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Ordered" DisplayWidth="10" FieldName="QuantityOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Supplied" DisplayWidth="10" FieldName="QuantitySupplied" Visible="False">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Picked" DisplayWidth="10" FieldName="QuantityPicked">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Outstanding" DisplayWidth="10" FieldName="QuantityOutstanding">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="BackOrder" DisplayWidth="10" FieldName="QuantityBackOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Instock" DisplayWidth="10" FieldName="QuantityInstock">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="On Order" DisplayWidth="10" FieldName="QuantityOnOrder">
+      </TnQuantityField>
+      <TnBooleanField DisplayWidth="3" FieldName="NewRow" Visible="False">
+      </TnBooleanField>
+      <TnBooleanField DisplayWidth="3" FieldName="DeleteRow" Visible="False">
+      </TnBooleanField>
+      <TnStringField DisplayLabel="Bin" DisplayWidth="16" DomainName="IC Bin Location" FieldName="BinLocation">
+      </TnStringField>
+      <TnStringField DisplayLabel="Bin" DisplayWidth="10" DomainName="IC Bin Location" FieldName="PackBin" Visible="False">
+      </TnStringField>
+      <TnStringField DomainName="Unit" FieldName="Unit">
+      </TnStringField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+      <TIndexDef Fields="LineID" Name="LineID">
+      </TIndexDef>
+      <TIndexDef Fields="NewRow;LineID" Name="Order">
+      </TIndexDef>
+      <TIndexDef Fields="PackBin;BinLocation" Name="Bin">
+      </TIndexDef>
+    </TUserMemoryTable>
+
+    <!-- Deleted Lines Tracking Table -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblToDelete" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="30">
+      <TnIntegerField DisplayWidth="10" FieldName="LineID">
+      </TnIntegerField>
+      <TnUpperField DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TIndexDef Fields="LineID" Name="LineID">
+      </TIndexDef>
+    </TUserMemoryTable>
+
+    <!-- Order Preview Table (read-only, shows lines for selected order) -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblPreview" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="70">
+      <TnUpperField DisplayLabel="Code" DisplayWidth="20" DomainName="IC Product Code" FieldName="ProductCode" Visible="False">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="55" DomainName="Description" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="QuantityOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Available" DisplayWidth="8" FieldName="QuantityAvailable">
+      </TnQuantityField>
+    </TUserMemoryTable>
+
+    <!-- Unprocessed Orders List Table -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="PreviewOrder" BeforeDelete="" IndexName="" Name="tblOrderList" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="50">
+      <TnIntegerField DisplayWidth="10" FieldName="DocumentID">
+      </TnIntegerField>
+      <TnStringField DisplayLabel="P/Slip" DisplayWidth="12" FieldName="PackingSlipNo">
+      </TnStringField>
+      <TnUpperField DisplayLabel="Customer" DisplayWidth="12" FieldName="CustomerCode">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Name" DisplayWidth="30" FieldName="CustomerName" Size="100">
+      </TnStringField>
+      <TnDateField DisplayLabel="Date" DisplayWidth="10" FieldName="DocumentDate">
+      </TnDateField>
+      <TnStringField DisplayLabel="Reference" DisplayWidth="20" FieldName="Reference" Visible="False">
+      </TnStringField>
+      <TIndexDef Fields="PackingSlipNo" Name="PSlip">
+      </TIndexDef>
+    </TUserMemoryTable>
+
+    <!-- ============ TOP SECTION: ORDER SELECTION ============ -->
+
+    <!-- Unprocessed Orders List (left) -->
+    <TUserGroupBox Anchors="akLeft;akTop" Caption="Unprocessed Orders" Height="195" Left="4" Name="grpSelectOrder" TabOrder="0" Top="3" Width="650">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="140" Left="8" Name="gridOrderList" OnCalcCellColors="" OnDblClick="LoadSelectedOrder" Table="tblOrderList" TabOrder="0" Top="20" Width="634">
+      </TUserEditGrid>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Load Selected" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="8" Name="btnLoadSelected" OnClick="LoadSelectedOrder" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="162" Width="140">
+      </TUserButton>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Refresh" Height="30" ImageIndex="2069" Left="155" Name="btnRefreshList" OnClick="RefreshOrderList" ShortCut="0" TabOrder="2" TabStop="True" Top="162" Width="90">
+      </TUserButton>
+      <TUserEdit Anchors="akBottom;akRight" Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="28" LabelCaption="P/Slip No" LabelWidth="60" Left="350" Name="ePackingSlipInput" OnChange="" OnEnter="" OnExit="ManualLoadOrder" ParentFont="False" TabOrder="3" TabStop="True" Text="" Top="163" Width="170">
+      </TUserEdit>
+      <TUserButton Anchors="akBottom;akRight" Caption="Load" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="528" Name="btnLoadManual" OnClick="ManualLoadOrder" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="162" Width="114">
+      </TUserButton>
+    </TUserGroupBox>
+
+    <!-- Order Preview (right) -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Preview" Height="195" Left="660" Name="grpPreview" TabOrder="15" Top="3" Width="525">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="172" Left="8" Name="gridPreview" OnCalcCellColors="" OnDblClick="" Table="tblPreview" TabOrder="0" Top="20" Width="509">
+      </TUserEditGrid>
+    </TUserGroupBox>
+
+    <!-- ============ MIDDLE SECTION: ORDER DETAILS + LINES ============ -->
+
+    <!-- Order Header -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Details" Height="55" Left="4" Name="grpOrderHeader" TabOrder="2" Top="200" Width="1181">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" ButtonsAvailable="dcbOpen" Enabled="True" Height="22" IndexName="" LabelCaption="Customer" LabelWidth="65" Left="10" LookupSource="ARCUST" LookupType="ltNormal" Name="eCustomerCode" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="20" Width="200">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption=" - " LabelWidth="15" Left="210" Name="eCustomerName" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Text="" Top="20" Width="280">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Packing Slip" LabelWidth="90" Left="510" Name="ePackingSlipNo" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="True" Text="" Top="20" Width="150">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Order Ref" LabelWidth="70" Left="770" Name="eOrderRef" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="20" Width="150">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Staff Ref" LabelWidth="70" Left="940" Name="eReference" OnChange="RefChange" OnEnter="" OnExit="" TabOrder="4" TabStop="True" Text="" Top="20" Width="230">
+      </TUserEdit>
+    </TUserGroupBox>
+
+    <!-- Status Bar -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Color="clRed" Height="35" Left="4" Name="grpStatus" TabOrder="3" Top="257" Width="1181">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop;akRight" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="22" LabelVisible="False" Left="8" Name="eStatus" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="8" Width="1160">
+      </TUserEdit>
+    </TUserGroupBox>
+
+    <!-- Action Buttons Row -->
+    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAll" OnClick="PickAll" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="180">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akTop" Caption="Clear Picked" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="220" Name="btnClearPicked" OnClick="ClearPicked" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="296" Width="150">
+    </TUserButton>
+    <TUserButton Anchors="akTop;akRight" Caption="Add Item" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2034" Left="950" Name="btnAddItem" OnClick="AddNewItem" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="296" Width="120">
+    </TUserButton>
+    <TUserButton Anchors="akTop;akRight" Caption="Change Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2019" Left="1075" Name="btnChangeQty" OnClick="ChangeQuantity" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="296" Width="110">
+    </TUserButton>
+
+    <!-- Order Lines Grid -->
+    <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akTop;akBottom" Height="330" HookControl="gridOrderLines" Left="4" Name="navGridNav" Table="tblOrder" Top="345" Width="26">
+      <TUserSpeedButton Height="24" Hint="Delete Row" ImageIndex="2113" Left="1" Name="btnDeleteRow" NavIndex="22" OnClick="DeleteRow" ShortCut="114" Top="145" Width="24">
+      </TUserSpeedButton>
+    </TUserGridNavigator>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="330" Left="30" Name="gridOrderLines" OnCalcCellColors="" OnDblClick="ChangeQuantity" Table="tblOrder" TabOrder="8" Top="345" Width="1155">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" ButtonsAvailable="dcbOpen" Enabled="True" Height="17" IndexName="" LabelVisible="False" Left="76" LookupSource="ICPROD" LookupType="ltNormal" Name="eLineProductCode" OnBeforeChange="ProductB4Change" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Top="19" Visible="False" Width="201" DataField="ProductCode">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="17" LabelVisible="False" Left="278" Name="eLineDesc" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Top="19" Visible="False" Width="300" DataField="Description">
+      </TUserEdit>
+    </TUserEditGrid>
+
+    <!-- Hidden Controls -->
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Decimals="0" Height="22" Left="10" Name="eDocID" TabOrder="9" TabStop="False" Text="" Top="10" Visible="False" Width="100">
+    </TUserNumberEdit>
+    <TUserMemo Color="clWindow" Height="89" InlineSpellcheck="True" Left="10" LineLength="0" Name="eMemo1" ReadOnly="False" ScrollBars="ssNone" TabOrder="10" TabStop="False" Top="30" Visible="False" Width="200">
+    </TUserMemo>
+    <TUserMemo Color="clWindow" Height="89" InlineSpellcheck="True" Left="10" LineLength="0" Name="eNarrative" ReadOnly="False" ScrollBars="ssNone" TabOrder="11" TabStop="False" Top="50" Visible="False" Width="200">
+      <TUserStringItem Value="eNarrative">
+      </TUserStringItem>
+    </TUserMemo>
+
+    <!-- ============ BOTTOM SECTION: ACTION BAR ============ -->
+
+    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="16744448" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnComplete" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="685" Width="210">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Caption="Cancel / New Order" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="4" Name="btnCancelOrder" OnClick="ResetAndRefresh" ParentFont="False" ShortCut="0" TabOrder="13" TabStop="True" Top="685" Width="200">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Exit" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="870" Name="btnExit" OnClick="CloseForm" ParentFont="False" ShortCut="0" TabOrder="14" TabStop="True" Top="685" Width="100">
+    </TUserButton>
+
+  </Form>
+  <![CDATA[' ============================================================
+' Proline Order Picking Form
+' Rebuilt for keyboard/mouse workflow (no barcode scanners)
+' ============================================================
+
+OrderLoad = False
+StaffScan = False
+ForceClose = False
+
+Dim ICPROD as Object
+ICPROD = OpenTable("ICPROD")
+ICPROD.IndexName = "Product"
+
+Dim ICBAR as Object
+ICBAR = OpenTable("ICBAR")
+ICBAR.IndexName = "Barcode"
+
+Dim ARCUST as Object
+ARCUST = OpenTable("ARCUST")
+ARCUST.IndexName = "Customer"
+
+Dim OEHEAD as Object
+OEHEAD = OpenTable("OEHEAD")
+OEHEAD.IndexName = "Document"
+
+Dim ICQTY as Object
+ICQTY = OpenTable("ICQTY")
+ICQTY.IndexName = "ProductLocation"
+
+tblOrder.IndexName = "Product"
+tblOrder.AllowInsertDelete = False
+tblToDelete.IndexName = "LineID"
+
+Dim orderlog as String
+Dim DG_Flag as Boolean
+Dim MainF as Boolean
+DG_Flag = False
+MainF = False
+
+' ============================================================
+' STATUS DISPLAY
+' ============================================================
+
+Sub UpdateStatus
+  If Not OrderLoad Then
+    eStatus.Text = "Select an order from the list or enter a packing slip number"
+    grpStatus.Color = 255
+  ElseIf Not StaffScan Then
+    eStatus.Text = "Enter Staff Reference to enable completion"
+    grpStatus.Color = 65535
+  Else
+    eStatus.Text = "Ready - Pick items or click PICK ALL, then COMPLETE ORDER"
+    grpStatus.Color = 65280
+  End If
+  btnComplete.Enabled = (OrderLoad And StaffScan)
+  btnPickAll.Enabled = OrderLoad
+  btnClearPicked.Enabled = OrderLoad
+  btnAddItem.Enabled = OrderLoad
+  btnChangeQty.Enabled = OrderLoad
+End Sub
+
+' ============================================================
+' RESET
+' ============================================================
+
+Sub Reset
+  OrderLoad = False
+  StaffScan = False
+  DG_Flag = False
+  MainF = False
+  eDocID.Value = 0
+  tblOrder.AllowInsertDelete = True
+  tblOrder.Empty
+  tblOrder.AllowInsertDelete = False
+  tblToDelete.AllowInsertDelete = True
+  tblToDelete.Empty
+  tblToDelete.AllowInsertDelete = False
+  eCustomerCode.Text = ""
+  eCustomerName.Text = ""
+  ePackingSlipNo.Text = ""
+  eOrderRef.Text = ""
+  eReference.Text = ""
+  btnComplete.Enabled = False
+  UpdateStatus
+End Sub
+
+' ============================================================
+' ORDER PREVIEW
+' ============================================================
+
+Sub PreviewOrder
+  tblPreview.AllowInsertDelete = True
+  tblPreview.Empty
+
+  If tblOrderList.RecordMax = 0 Then
+    tblPreview.AllowInsertDelete = False
+    Exit Sub
+  End If
+
+  OEHEAD.IndexName = "Document"
+  OEHEAD.FindExact(tblOrderList.DocumentID)
+
+  Dim QryLines as Object
+  QryLines = ExecuteSQL( _
+    "SELECT OELINE.ProductCode, OELINE.Description, OELINE.LocationCode, " & _
+    "OELINE.QuantityOrdered - OELINE.QuantityInvoiced AS Qty " & _
+    "FROM OELINE " & _
+    "WHERE OELINE.DocumentID = :DocID " & _
+    "AND OELINE.LineType <> 'N' " & _
+    "ORDER BY OELINE.LineID", tblOrderList.DocumentID)
+
+  QryLines.First
+  Do Until QryLines.Eof
+    tblPreview.Append
+    tblPreview.ProductCode = QryLines.ProductCode
+    tblPreview.Description = QryLines.Description
+    tblPreview.QuantityOrdered = QryLines.Qty
+    If ICQTY.FindExact(QryLines.ProductCode, QryLines.LocationCode) Then
+      tblPreview.QuantityAvailable = ICQTY.QuantityAvailable
+    Else
+      tblPreview.QuantityAvailable = 0
+    End If
+    tblPreview.Save
+    QryLines.Next
+  Loop
+
+  tblPreview.AllowInsertDelete = False
+  tblPreview.First
+End Sub
+
+' ============================================================
+' UNPROCESSED ORDERS LIST
+' ============================================================
+
+Sub RefreshOrderList
+  tblOrderList.AllowInsertDelete = True
+  tblOrderList.Empty
+
+  Dim QryOrders as Object
+  QryOrders = ExecuteSQL( _
+    "SELECT OEHEAD.DocumentID, OEHEAD.PackingSlipNo, " & _
+    "OEHEAD.CustomerCode, OEHEAD.DocumentDate " & _
+    "FROM OEHEAD " & _
+    "WHERE OEHEAD.PostStatus = 'U' " & _
+    "AND OEHEAD.DocumentClass IN ('O','B') " & _
+    "ORDER BY OEHEAD.DocumentID DESC")
+
+  QryOrders.First
+  Do Until QryOrders.Eof
+    tblOrderList.Append
+    tblOrderList.DocumentID = QryOrders.DocumentID
+    tblOrderList.PackingSlipNo = QryOrders.PackingSlipNo
+    tblOrderList.CustomerCode = QryOrders.CustomerCode
+    tblOrderList.DocumentDate = QryOrders.DocumentDate
+    ' Look up customer name
+    If ARCUST.FindExact(QryOrders.CustomerCode) Then
+      tblOrderList.CustomerName = ARCUST.CustomerName
+    Else
+      tblOrderList.CustomerName = ""
+    End If
+    tblOrderList.Save
+    QryOrders.Next
+  Loop
+
+  tblOrderList.AllowInsertDelete = False
+  tblOrderList.First
+End Sub
+
+Sub ResetAndRefresh
+  Reset
+  RefreshOrderList
+End Sub
+
+' ============================================================
+' FORM OPEN / CLOSE
+' ============================================================
+
+Sub FormOpen
+  Company.MinimiseNavigator
+  RefreshOrderList
+End Sub
+
+Sub ConfirmClose
+  If ForceClose = False Then
+    If Not InputQuery("Confirm Close") Then
+      Abort("", True)
+    End If
+  End If
+  Company.ExpandNavigator
+End Sub
+
+Sub CloseForm
+  Self.Close
+End Sub
+
+Reset
+RefreshOrderList
+
+' ============================================================
+' ORDER LOADING
+' ============================================================
+
+Sub CustomerMemoAlarms(ByVal CustCode as String)
+  Dim ARMEMODATA as Object
+  ARMEMODATA = CreateObject("Accredo.ARMemoData")
+  ARMemoData.IndexName = "FileCodeTypeMemo"
+  ARMemoData.SetRange("ARCUST", CustCode, "A")
+  ARMemoData.First
+  Do Until ARMemoData.Eof
+    ARMemoData.OpenForm
+    ARMemoData.Next
+  Loop
+End Sub
+
+Sub Load(ByRef OrderID as Number)
+  OEHEAD.CancelRange
+  OEHEAD.IndexName = "Document"
+  tblOrder.AllowInsertDelete = True
+  eDocID.Value = OrderID
+  DG_Flag = False
+
+  If OEHEAD.FindExact(eDocID.Value) Then
+    If OEHEAD.PostStatus <> "U" Then
+      OrderLoad = False
+      eStatus.Text = "Order Not Unprocessed"
+      Reset
+      Exit Sub
+    End If
+    eCustomerCode.Text = OEHEAD.CustomerCode
+    If ARCUST.FindExact(OEHEAD.CustomerCode) Then
+      eCustomerName.Text = ARCUST.CustomerName
+    Else
+      eCustomerName.Text = ""
+    End If
+    ePackingSlipNo.Text = OEHEAD.PackingSlipNo
+    Try
+      eOrderRef.Text = OEHEAD.InternalReference
+    Catch e
+      eOrderRef.Text = ""
+    End Try
+  Else
+    OrderLoad = False
+    Error("Order not Found " & OrderID)
+  End If
+
+  Dim OELINE as Object
+  OELINE = OpenTable("OELINE")
+  OELINE.IndexName = "DocumentLine"
+  OELINE.SetRange(OEHEAD.DocumentID)
+  OELINE.First
+  Do Until OELINE.Eof
+    If OELINE.LineType <> "N" Or OELINE.LineType <> "S" Then
+      tblOrder.Append
+      CopyFieldsByName(OELINE, tblOrder)
+      tblOrder.QuantityOrdered = OELINE.QuantityOrdered - OELINE.QuantityInvoiced
+      tblOrder.QuantityOutstanding = tblOrder.QuantityOrdered - tblOrder.QuantityPicked
+      If ICPROD.FindExact(OELINE.ProductCode) Then
+        tblOrder.Unit = ICPROD.Unit
+        If ICProd.Z_DG_Product = True Then DG_Flag = True
+        If ICQTY.FindExact(OELINE.ProductCode, OELINE.LocationCode) Then
+          tblOrder.BinLocation = ICQTY.BinLocation
+          tblOrder.QuantityInstock = ICQTY.QuantityInstock
+          tblOrder.QuantityOnOrder = ICQTY.QuantityOnOrder
+        End If
+        If ICPROD.FindExact(tblOrder.ProductCode) Then
+          If ICPROD.BackOrder Or ICPROD.NonDiminishing Then
+            tblOrder.QuantityBackOrdered = tblOrder.QuantityOutstanding
+          Else
+            tblOrder.QuantityBackOrdered = 0
+          End If
+        End If
+      Else
+        tblOrder.QuantityBackOrdered = 0
+      End If
+      If OELINE.ProductCode = "FRENZMAINF" Then MainF = True
+      If OELINE.ProductCode = "FRELINKUP" Then
+        tblOrder.QuantityPicked = tblOrder.QuantityOrdered
+        tblOrder.QuantityOutstanding = 0
+        tblOrder.QuantityBackOrdered = 0
+      End If
+
+      ' Pad single-digit bin locations for sort order
+      If tblOrder.BinLocation = "1" Then
+        tblOrder.PackBin = "01"
+      ElseIf tblOrder.BinLocation = "2" Then
+        tblOrder.PackBin = "02"
+      ElseIf tblOrder.BinLocation = "3" Then
+        tblOrder.PackBin = "03"
+      ElseIf tblOrder.BinLocation = "4" Then
+        tblOrder.PackBin = "04"
+      ElseIf tblOrder.BinLocation = "5" Then
+        tblOrder.PackBin = "05"
+      ElseIf tblOrder.BinLocation = "6" Then
+        tblOrder.PackBin = "06"
+      ElseIf tblOrder.BinLocation = "7" Then
+        tblOrder.PackBin = "07"
+      ElseIf tblOrder.BinLocation = "8" Then
+        tblOrder.PackBin = "08"
+      ElseIf tblOrder.BinLocation = "9" Then
+        tblOrder.PackBin = "09"
+      Else
+        tblOrder.PackBin = tblOrder.BinLocation
+      End If
+
+      tblOrder.Save
+    End If
+    OELINE.Next
+  Loop
+
+  tblOrder.AllowInsertDelete = False
+  btnComplete.Enabled = False
+  tblOrder.IndexName = "Bin"
+  tblOrder.First
+  CustomerMemoAlarms(OEHEAD.CustomerCode)
+  UpdateStatus
+End Sub
+
+Function CheckOrderID(ByVal OrderID as Number)
+  OEHEAD.IndexName = "Document"
+  If OEHEAD.FindExact(OrderID) Then
+    If OEHEAD.DocumentClass = "O" Or OEHEAD.DocumentClass = "B" Then
+      If OEHEAD.PostStatus = "U" Then
+        OrderLoad = True
+        Load(OrderID)
+        Return True
+      ElseIf OEHEAD.PostStatus = "P" Then
+        OEHEAD.IndexName = "SourceOrder"
+        OEHEAD.SetRange(OrderID)
+        OEHEAD.First
+        Do Until OEHEAD.Eof
+          If OEHEAD.PostStatus = "U" And (OEHEAD.DocumentClass = "O" Or OEHEAD.DocumentClass = "B") Then
+            OrderLoad = True
+            Load(OEHEAD.DocumentID)
+            Return True
+          End If
+          OEHEAD.Next
+        Loop
+        OEHEAD.CancelRange
+        Return False
+      Else
+        Return False
+      End If
+    Else
+      Error("Order is wrong document type")
+      Return False
+    End If
+  Else
+    Return False
+  End If
+End Function
+
+Sub LoadSelectedOrder
+  If tblOrderList.RecordMax = 0 Then
+    Error("No orders in list")
+    Exit Sub
+  End If
+  Reset
+  OrderLoad = True
+  Load(tblOrderList.DocumentID)
+End Sub
+
+Sub ManualLoadOrder
+  If ePackingSlipInput.Text = "" Then Exit Sub
+  Reset
+  If CheckOrderID(Val(ePackingSlipInput.Text)) Then
+    OEHEAD.CancelRange
+  Else
+    Error("Order not found: " & ePackingSlipInput.Text)
+    OEHEAD.CancelRange
+  End If
+  ePackingSlipInput.Text = ""
+End Sub
+
+' ============================================================
+' STAFF REFERENCE
+' ============================================================
+
+Sub RefChange
+  If eReference.Text <> "" Then
+    StaffScan = True
+  Else
+    StaffScan = False
+  End If
+  UpdateStatus
+End Sub
+
+' ============================================================
+' PICK ALL / CLEAR PICKED
+' ============================================================
+
+Sub PickAll
+  If Not OrderLoad Then
+    btnPickAll.ShowErrorHint("Load an order first")
+    Exit Sub
+  End If
+
+  tblOrder.First
+  Do Until tblOrder.Eof
+    tblOrder.Edit
+    tblOrder.QuantityPicked = tblOrder.QuantityOrdered
+    tblOrder.QuantityOutstanding = 0
+    tblOrder.QuantityBackOrdered = 0
+    tblOrder.Save
+    tblOrder.Next
+  Loop
+  tblOrder.First
+End Sub
+
+Sub ClearPicked
+  If Not OrderLoad Then Exit Sub
+  If Not InputQuery("Clear all picked quantities?") Then Exit Sub
+
+  tblOrder.First
+  Do Until tblOrder.Eof
+    tblOrder.Edit
+    tblOrder.QuantityPicked = 0
+    tblOrder.QuantityOutstanding = tblOrder.QuantityOrdered
+    If ICPROD.FindExact(tblOrder.ProductCode) Then
+      If ICPROD.BackOrder Or ICPROD.NonDiminishing Then
+        tblOrder.QuantityBackOrdered = tblOrder.QuantityOutstanding
+      Else
+        tblOrder.QuantityBackOrdered = 0
+      End If
+    Else
+      tblOrder.QuantityBackOrdered = 0
+    End If
+    tblOrder.Save
+    tblOrder.Next
+  Loop
+  tblOrder.First
+End Sub
+
+' ============================================================
+' GRID INTERACTION
+' ============================================================
+
+Sub OrderLineScroll
+  ' Only sort by bin when not loading (Append triggers AfterScroll)
+  If OrderLoad And Not tblOrder.AllowInsertDelete Then
+    tblOrder.IndexName = "Bin"
+  End If
+End Sub
+
+Sub ProductB4Change
+  eLineProductCode.Text = tblOrder.ProductCode
+  tblOrder.Save
+  Abort("", True)
+End Sub
+
+' ============================================================
+' CHANGE QUANTITY
+' ============================================================
+
+Sub ChangeQuantity
+  If Not OrderLoad Then
+    Error("Load an order first")
+    Exit Sub
+  End If
+  If tblOrder.RecordMax = 0 Then Exit Sub
+
+  CalcForm = CreateCustomForm("Barcoding\Qty_Entry.pfd")
+  CalcForm.pProductCode = tblOrder.ProductCode
+  CalcForm.pOrderedQTY = tblOrder.QuantityOrdered
+  CalcForm.pLPickedQty = tblOrder.QuantityPicked
+  CalcForm.ShowModal
+
+  If Not CalcForm.eExitStatus.Checked Then
+    tblOrder.Edit
+    If tblOrder.NewRow Then tblOrder.QuantityOrdered = CalcForm.pPickedQty
+    tblOrder.QuantityPicked = CalcForm.pPickedQty
+    tblOrder.QuantityOutstanding = tblOrder.QuantityOrdered - tblOrder.QuantityPicked
+    If ICPROD.FindExact(tblOrder.ProductCode) Then
+      If ICPROD.BackOrder Then
+        tblOrder.QuantityBackOrdered = tblOrder.QuantityOutstanding
+      Else
+        tblOrder.QuantityBackOrdered = 0
+      End If
+    Else
+      tblOrder.QuantityBackOrdered = 0
+    End If
+    tblOrder.Save
+    If tblOrder.QuantityPicked > tblOrder.QuantityOrdered And Not tblOrder.NewRow Then
+      MsgBox("Warning: Picked quantity exceeds ordered quantity")
+    End If
+  End If
+End Sub
+
+Sub ChangeOrderQuantity
+  If Not OrderLoad Then
+    Error("Load an order first")
+    Exit Sub
+  End If
+  If tblOrder.RecordMax = 0 Then Exit Sub
+
+  CalcForm = CreateCustomForm("Barcoding\Qty_Entry.pfd")
+  CalcForm.pProductCode = tblOrder.ProductCode
+  CalcForm.pOrder = False
+  CalcForm.pLPickedQty = tblOrder.QuantityOrdered
+  CalcForm.pQuantityName = "Ordered Quantity"
+  CalcForm.ShowModal
+
+  If Not CalcForm.eExitStatus.Checked Then
+    tblOrder.Edit
+    tblOrder.QuantityOrdered = CalcForm.pPickedQty
+    tblOrder.QuantityOutstanding = tblOrder.QuantityOrdered - tblOrder.QuantityPicked
+    If ICPROD.FindExact(tblOrder.ProductCode) Then
+      If ICPROD.BackOrder Then
+        tblOrder.QuantityBackOrdered = tblOrder.QuantityOutstanding
+      Else
+        tblOrder.QuantityBackOrdered = 0
+      End If
+    Else
+      tblOrder.QuantityBackOrdered = 0
+    End If
+    tblOrder.Save
+  End If
+End Sub
+
+' ============================================================
+' ADD / DELETE ITEMS
+' ============================================================
+
+Sub AddNewItem
+  If Not OrderLoad Then
+    Error("Load an order first")
+    Exit Sub
+  End If
+
+  AddNewItemForm = CreateCustomForm("Barcoding\OrderPicking_AddProductToOrder.pfd")
+  AddNewItemForm.ShowModal
+  Dim NewProduct as String
+  NewProduct = AddNewItemForm.pNewProduct
+  NewBarcode = AddNewItemForm.pNewBarcode
+  If NewProduct <> "" Then
+    tblOrder.AllowInsertDelete = True
+    tblOrder.Append
+    tblOrder.NewRow = True
+    tblOrder.ProductCode = NewProduct
+    If ICPROD.FindExact(NewProduct) Then
+      tblOrder.Description = ICPROD.Description
+      tblOrder.QuantityInstock = ICPROD.QuantityInstock
+    End If
+    tblOrder.QuantityOutstanding = 0
+    tblOrder.QuantityPicked = 1
+    tblOrder.QuantityOrdered = 1
+    tblOrder.Save
+    tblOrder.AllowInsertDelete = False
+  End If
+  tblOrder.IndexName = "Order"
+End Sub
+
+Sub tblOrder_BeforeDelete
+  If tblOrder.NewRow = False Then
+    tblToDelete.Append
+    CopyFieldsByName(tblOrder, tblToDelete)
+    tblToDelete.Save
+  End If
+End Sub
+
+Sub DeleteRow
+  If tblOrder.RecordMax > 0 Then
+    tblOrder.AllowInsertDelete = True
+    tblOrder.Delete
+    tblOrder.AllowInsertDelete = False
+  End If
+End Sub
+
+' ============================================================
+' FREIGHT HELPERS
+' ============================================================
+
+Function CheckFreightCode(ByRef OEDATA as Object)
+  If ICPROD.FindExact(OEDATA.Line.ProductCode) Then
+    If ICPROD.StockGroupCode = "FREIGHT" Then
+      If ARCUST.FindExact(OEDATA.CustomerCode) Then
+        If ARCUST.Z_FreightFree <> 0 And ARCUST.Z_FreightFree <= (OEDATA.ExclusiveAmount - (OEDATA.Line.ExclusiveAmount)) Then
+          Return True
+        End If
+      End If
+    End If
+  End If
+  Return False
+End Function
+
+Sub LineAppend(ByRef Line as Object, ByRef Text as String)
+  Line.Append
+  Line.LineType = "Narrative"
+  Line.Description = Text
+End Sub
+
+Sub WordWrap(ByRef Line as Object, ByRef ColumnWidth as Number, ByRef Text as String)
+  Do Until Len(Text) = 0
+    If InStr(Text, Chr(13) & Chr(10)) < ColumnWidth And InStr(Text, Chr(13) & Chr(10)) <> 0 Then
+      LineAppend(Line, Left(Text, InStr(Text, Chr(13) & Chr(10))))
+      Text = Right(Text, Len(Text) - (InStr(Text, Chr(13) & Chr(10)) + 1))
+    ElseIf Len(Text) <= ColumnWidth Then
+      LineAppend(Line, Text)
+      Text = ""
+    ElseIf InStrRev(Left(Text, ColumnWidth), " ") <> 0 Then
+      LineAppend(Line, Left(Text, InStrRev(Left(Text, ColumnWidth), " ")))
+      Text = Right(Text, Len(Text) - InStrRev(Left(Text, ColumnWidth), " "))
+    Else
+      LineAppend(Line, Left(Text, ColumnWidth))
+      Text = Right(Text, Len(Text) - ColumnWidth)
+    End If
+  Loop
+End Sub
+
+' ============================================================
+' GENERATE INVOICE (ported from existing form)
+' ============================================================
+
+Sub GenerateInvoice(ByRef PrintInvoice as Boolean, ByRef ZeroFreight as Boolean)
+
+  Dim OEDATA as Object
+  OEDATA = CreateObject("Accredo.OEOrderData")
+  OEDATA.IndexName = "Document"
+  If OEDATA.FindExact(eDocID.Value) Then
+    OEDATA.Edit
+    OEDATA.Line.First
+    tblOrder.IndexName = "LineID"
+    Do Until OEDATA.Line.Eof
+      If tblOrder.FindExact(OEDATA.Line.LineID) And OEDATA.Line.LineType <> "N" Then
+        If OEDATA.Line.ProductCode <> tblOrder.ProductCode Then Error("Mismatch")
+        If OEDATA.Line.ProductCode = "PAINTMIX" And tblOrder.QuantityPicked <> 0 Then
+          MsgBox("ProductCode 'PAINTMIX'" & Chr(13) & "Please Replace with correct Code" & Chr(13) & "Save Aborted")
+          Exit Sub
+        End If
+        If OEDATA.Line.ProductCode = "PAINTMIX" Then
+          MsgBox("ProductCode 'PAINTMIX' needs to be placed on a new Order")
+        End If
+
+        Try
+          OEDATA.Line.Edit
+          OEDATA.Line.Description = tblOrder.Description
+          OEDATA.Line.QuantitySupplied = tblOrder.QuantityPicked
+          OEDATA.Line.Z_SortBin = tblOrder.PackBin
+          Try
+            OEDATA.Line.QuantityBackOrdered = tblOrder.QuantityBackOrdered
+          Catch e
+            MsgBox("Line BackOrder Error:" & e.Message & Chr(13) & OEDATA.Line.ProductCode)
+            Abort("", True)
+          End Try
+          If CheckFreightCode(OEDATA) Then
+            OEDATA.Line.DiscountPercentage = 100
+          ElseIf OEDATA.Line.ProductCode = "FRE/IH" Then
+            Dim Form as Object
+            Form = CreateObject("Accredo.ScriptedForm")
+            Form.Caption = "INWARDS & HANDLING CHARGES"
+            Form.InputNumber("Cost", "Cost")
+            Form.InputNumber("Sell", "Sell")
+            Form.InputInteger("Discount", "Discount Percentage")
+            Do
+              If Form.Execute Then
+                Cost = Form.GetValue("Cost")
+                Sell = Form.GetValue("Sell")
+                Discount = Form.GetValue("Discount")
+                If Discount >= 0 And Discount <= 100 And Cost >= 0 And Sell >= 0 Then
+                  OEDATA.Line.CostPrice = Cost
+                  OEDATA.Line.SellingPrice = Sell
+                  OEDATA.Line.DiscountPercentage = Discount
+                  Exit Do
+                Else
+                  MsgBox("Cost Must be Greater then or Equal to Zero" & Chr(13) & _
+                         "Sell Must be Greater then or Equal to Zero" & Chr(13) & _
+                         "Discount Must be between 0 to 100")
+                End If
+              Else
+                MsgBox("Cannot Cancel")
+              End If
+            Loop
+          ElseIf ZeroFreight = True Then
+            If ICPROD.FindExact(OEDATA.Line.ProductCode) Then
+              If ICPROD.StockGroupCode = "FREIGHT" Then
+                OEDATA.Line.DiscountPercentage = 100
+              End If
+            End If
+          End If
+          OEDATA.Line.Save
+        Catch e
+          MsgBox("Line Save Error:" & e.Message & Chr(13) & OEDATA.Line.ProductCode)
+          Abort("", True)
+        End Try
+      ElseIf tblOrder.FindExact(OEDATA.Line.LineID) Then
+        OEDATA.Line.Edit
+        Try
+          OEDATA.Line.Description = tblOrder.Description
+        Catch e
+        End Try
+        OEDATA.Line.Save
+      End If
+      If tblToDelete.FindExact(OEDATA.Line.LineID) Then
+        OEDATA.Line.Delete
+      Else
+        OEDATA.Line.Next
+      End If
+    Loop
+
+    ' Add new items
+    tblOrder.First
+    Do Until tblOrder.Eof
+      If tblOrder.NewRow Then
+        OEDATA.Line.Last
+        OEDATA.Line.Append
+        OEDATA.Line.ProductCode = tblOrder.ProductCode
+        OEDATA.Line.Description = tblOrder.Description
+        OEDATA.Line.QuantityOrdered = tblOrder.QuantityOrdered
+        OEDATA.Line.QuantitySupplied = tblOrder.QuantityPicked
+        OEDATA.Line.Z_SortBin = tblOrder.PackBin
+        If CheckFreightCode(OEDATA) Then
+          OEDATA.Line.DiscountPercentage = 100
+        ElseIf OEDATA.Line.ProductCode = "FRE/IH" Then
+          Dim Form as Object
+          Form = CreateObject("Accredo.ScriptedForm")
+          Form.Caption = "INWARDS & HANDLING CHARGES"
+          Form.InputNumber("Cost", "Cost")
+          Form.InputNumber("Sell", "Sell")
+          Form.InputInteger("Discount", "Discount Percentage")
+          Do
+            If Form.Execute Then
+              Cost = Form.GetValue("Cost")
+              Sell = Form.GetValue("Sell")
+              Discount = Form.GetValue("Discount")
+              If Discount >= 0 And Discount <= 100 And Cost >= 0 And Sell >= 0 Then
+                OEDATA.Line.CostPrice = Cost
+                OEDATA.Line.SellingPrice = Sell
+                OEDATA.Line.DiscountPercentage = Discount
+                Exit Do
+              Else
+                MsgBox("Cost Must be Greater then or Equal to Zero" & Chr(13) & _
+                       "Sell Must be Greater then or Equal to Zero" & Chr(13) & _
+                       "Discount Must be between 0 to 100")
+              End If
+            Else
+              MsgBox("Cannot Cancel")
+            End If
+          Loop
+        ElseIf ZeroFreight = True Then
+          If ICPROD.FindExact(OEDATA.Line.ProductCode) Then
+            If ICPROD.StockGroupCode = "FREIGHT" Then
+              OEDATA.Line.DiscountPercentage = 100
+            End If
+          End If
+        End If
+        OEDATA.Line.Save
+      End If
+      tblOrder.Next
+    Loop
+
+    ' Add memo/freight lines
+    If Trim(eMemo1.Text) <> "" Then
+      OEDATA.Line.Last
+      For I = 1 To eMemo1.LineCount
+        OEDATA.Line.Append
+        OEDATA.Line.LineType = "N"
+        OEDATA.Line.Description = eMemo1.GetLine(I)
+        OEDATA.Line.Save
+      Next
+    End If
+
+    OEDATA.Save
+
+    Dim INNumber as Number
+    INNumber = OEDATA.GenerateInvoice
+    If INNumber = 0 Then Abort("No invoice Generated, was there no product picked?")
+
+    If PrintInvoice Then
+      Dim INDATA as Object
+      INDATA = CreateObject("Accredo.INInvoiceData")
+      INDATA.IndexName = "Document"
+      If INDATA.FindExact(INNumber) Then
+        PrintForm = INDATA.PrintPackingSlip
+        If ARCUST.FindExact(INDATA.CustomerCode) Then
+          If ARCUST.Z_Discount_Template = True Then
+            PrintForm.ReportFileName = "INInvoiceNote_Discount.pfd"
+          End If
+        End If
+        If Upper(User.LoginUserName) = "ACCREDO" Then PrintForm.Destination = "SCREEN"
+        PrintForm.Run
+        If DG_Flag = True And MainF = False Then
+          INDATA.Ship.First
+          If INDATA.Ship.ShipperCode <> "MAIN" Then
+            If InputQuery("Print DG Report?", "Dangerous Goods Information") Then
+              Dim Form3 as Object
+              Form3 = INDATA.PrintPackingSlip
+              Form3.Destination = "Printer"
+              If Upper(User.LoginUserName) = "ACCREDO" Then Form3.Destination = "Screen"
+              Form3.ReportFileName = "DBNZ Linkup_DGForm_DBNZ.pfd"
+              Form3.Run
+            End If
+          End If
+        End If
+      End If
+    End If
+
+    ' Post-invoice processing
+    Dim INDATA as Object
+    INDATA = CreateObject("Accredo.INInvoiceData")
+    INDATA.IndexName = "Document"
+    If INDATA.FindExact(INNumber) Then
+      INDATA.Edit
+      If SystemDate > OEDATA.DocumentDate Then
+        INDATA.DocumentDate = SystemDate
+      Else
+        INDATA.DocumentDate = OEDATA.DocumentDate
+      End If
+      INDATA.PeriodId = PeriodForDate(INDATA.DocumentDate)
+      INDATA.InternalReference = eReference.Text
+      WordWrap(INDATA.Line, 60, eNarrative.Text)
+      INDATA.Save
+      InvoiceForm = INDATA.OpenForm
+
+      SourceID = eDocID.Value
+      Dim Query as Object
+      SelectQuery = "SELECT OELINE.* " & _
+        "      ,OEHEAD.PostStatus " & _
+        "      ,OEHEAD.DocumentType " & _
+        "FROM   OEHEAD " & _
+        "       INNER JOIN OELINE  ON OEHEAD.DocumentID=OELINE.DocumentID " & _
+        "Where OEHEAD.PostStatus = 'U' " & _
+        "and   OEHEAD.DocumentClass = 'B' " & _
+        "and   OEHEAD.SourceID =" & INDATA.SourceID & """"
+      Query = ExecuteSQL(SelectQuery)
+
+      If Query.RecordCount >= 1 Then
+        ' Print back order report
+        Dim Form2 as Object
+        Form2 = CreateObject("Accredo.UTCustomReport")
+        Form2.ReportFileName = "D:\apps\AccredoSaturn\Reports\Custom\OE_BackOrderReport.pfd"
+        Form2.Destination = "Printer"
+        Form2.Run(SourceID)
+
+        ' Copy narrative lines to back order
+        Dim OEDATA as Object
+        OEDATA = CreateObject("Accredo.OEOrderData")
+        OEDATA.IndexName = "Document"
+
+        Dim OldOrder as Object
+        OldOrder = ExecuteSQL("SELECT OEHEAD.DocumentID " & _
+                      "      ,OEHEAD.SourceID " & _
+                      "      ,OELINE.ProductCode" & _
+                      "      ,OELINE.LineType " & _
+                      "      ,OELINE.Description " & _
+                      "FROM   OEHEAD " & _
+                      "       INNER JOIN OELINE  ON OEHEAD.DocumentID=OELINE.DocumentID " & _
+                      "WHERE (OEHEAD.DocumentID = :SourceID " & _
+                      "   AND ( OELINE.LineType = 'N'  or OELINE.Productcode = 'FRELINKUP')) ", SourceID)
+
+        If OldOrder.RecordCount >= 1 Then
+          Dim NewOrder as Object
+          NewOrder = ExecuteSQL("SELECT OEHEAD.DocumentID " & _
+                   "      ,OEHEAD.SourceID " & _
+                   "FROM   OEHEAD " & _
+                   "WHERE OEHEAD.SourceId = :SourceID ", SourceID)
+          NewOrder.First
+          If OEDATA.FindExact(NewOrder.DocumentID) Then
+            OldOrder.First
+            OEDATA.Edit
+            Do Until OldOrder.Eof
+              OEDATA.Line.Last
+              OEDATA.Line.Append
+              If OldOrder.ProductCode <> "" And OldOrder.LineType = "P" Then
+                OEDATA.Line.ProductCode = OldOrder.ProductCode
+                OEDATA.Line.QuantityOrdered = 1
+                OEDATA.Line.QuantitySupplied = 1
+              End If
+              OEDATA.Line.LineType = OldOrder.LineType
+              OEDATA.Line.Description = OldOrder.Description
+              OEDATA.Line.Save
+              OldOrder.Next
+            Loop
+            OEDATA.Save
+          End If
+        End If
+      End If
+
+      ' Check if any products contain "GRP" - if so, open Jotun Mix Bank
+      Dim HasGRP as Boolean
+      HasGRP = False
+      tblOrder.First
+      Do Until tblOrder.Eof
+        If InStr(Upper(tblOrder.ProductCode), "GRP") > 0 Then
+          HasGRP = True
+          Exit Do
+        End If
+        tblOrder.Next
+      Loop
+
+      If HasGRP Then
+        Dim TintForm as Object
+        TintForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\TintingForm.pfd")
+        TintForm.pInvoiceNumber = CStr(INNumber)
+        TintForm.ShowModal
+      End If
+
+      InvoiceForm.Edit
+      InvoiceForm.BringToFront
+      InvoiceForm.ActiveProperty = "CustomerCode"
+
+      ForceClose = True
+      Self.Close
+    Else
+      Error("Invoice Not Found")
+    End If
+  Else
+    Error("Order Not Found")
+  End If
+  Reset
+End Sub
+
+' ============================================================
+' COMPLETE ORDER
+' ============================================================
+
+Sub CompleteOrder
+  If OrderLoad = False Then
+    btnComplete.ShowErrorHint("Order Not Loaded")
+    Exit Sub
+  ElseIf StaffScan = False Then
+    btnComplete.ShowErrorHint("Staff Reference Missing")
+    Exit Sub
+  End If
+
+  BOFound = False
+  tblOrder.First
+  Do Until tblOrder.Eof
+    If tblOrder.QuantityOutstanding <> 0 Or tblOrder.QuantityBackOrdered <> 0 Then
+      If ICQTY.FindExact(tblOrder.ProductCode, OEHEAD.DefaultLocationCode) Then
+        If ICQTY.QuantityAvailable > 0 Then
+          BOFound = True
+          OrderLog = OrderLog & tblOrder.ProductCode & " has Qty Outstanding = " & tblOrder.QuantityOutstanding & " or Qty on B/Order " & tblOrder.QuantityBackOrdered & _
+          " Qty Available = " & ICQTY.QuantityAvailable & Chr(13)
+        End If
+      End If
+    End If
+    tblOrder.Next
+  Loop
+
+  ContinueOrder = True
+  If BOFound = True Then
+    If InputQuery("The Following Products Have Outstanding Order Quantities: " & Chr(13) & _
+                  OrderLog & Chr(13) & _
+                  "Would you like to proceed with Completion of the order") Then
+    Else
+      ContinueOrder = False
+    End If
+  End If
+
+  If ContinueOrder = True Then
+    Dim OrderExitForm as Object
+    OrderExitForm = CreateCustomForm("Barcoding\OrderExitForm.pfd")
+    OrderExitForm.ShowModal
+    Dim ExitStatus as String
+    ExitStatus = OrderExitForm.pExitStatus
+    eMemo1.Text = OrderExitForm.pFreightNo
+    eNarrative.Text = OrderExitForm.pNarrative
+    If ExitStatus = "GenerateAndPrint" Then
+      GenerateInvoice(True, False)
+    ElseIf ExitStatus = "Generate" Then
+      GenerateInvoice(False, False)
+    ElseIf ExitStatus = "GenerateAndPrintZero" Then
+      GenerateInvoice(False, True)
+    ElseIf ExitStatus = "Close" Then
+      Reset
+      RefreshOrderList
+    Else
+      Error("Exit Status Unknown")
+    End If
+  End If
+End Sub
+
+UpdateStatus]]>
+</Design>

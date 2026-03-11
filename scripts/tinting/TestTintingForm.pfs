@@ -1,0 +1,10 @@
+' TestTintingForm.pfs
+' Opens the Tinting Form with a fake invoice number for testing.
+' Run this from Accredo: File > Run Script
+
+Dim TintForm as Object
+TintForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\TintingForm.pfd")
+TintForm.pInvoiceNumber = "99999"
+TintForm.ShowModal
+
+MsgBox("Exit Status: " & TintForm.pExitStatus)

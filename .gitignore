@@ -1,1 +1,8 @@
 .DS_Store
+
+# Accredo auto-backup files (git handles versioning)
+*.bak
+*.bk[0-9]
+
+# Old pre-git archive (kept locally, not tracked)
+_archive/

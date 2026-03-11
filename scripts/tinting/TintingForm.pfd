@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1" DPI="96">
+  <Form Caption="Jotun Tinting - Mix Bank Entry" Color="clBtnFace" Constraints.MaxHeight="52428" Constraints.MaxWidth="52428" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="530" Interactive="True" OnClose="" OnShow="" SaveSizeName="" Visible="False" Width="700" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblTint" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
+      <TnIntegerField DisplayWidth="4" FieldName="LineNo" Visible="False">
+      </TnIntegerField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="60" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="Quantity">
+      </TnQuantityField>
+      <TIndexDef Fields="LineNo" Name="LineNo">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Invoice" Height="50" Left="8" Name="grpHeader" TabOrder="0" Top="5" Width="676">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clNavy" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="24" LabelCaption="Invoice #" LabelWidth="75" Left="10" Name="eInvoiceNo" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="18" Width="250">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight;akBottom" Caption="Tinted Products" Height="360" Left="8" Name="grpLines" TabOrder="1" Top="60" Width="676">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbWordLookup" Enabled="True" Height="24" IndexName="" LabelCaption="Product" LabelWidth="60" Left="32" LookupFilter="Inactive = False" LookupSource="ICPROD" LookupType="ltNormal" Name="eProductSearch" OnAfterChange="ProductSelected" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="20" Width="500">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akRight;akTop" Height="24" LabelCaption="Qty" LabelWidth="30" Left="548" Name="eQty" OnChange="" OnEnter="" OnExit="" TabOrder="1" TabStop="True" Text="1" Top="20" Width="120">
+      </TUserEdit>
+      <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akTop;akBottom" Height="250" HookControl="gridTint" Left="4" Name="navTint" Table="tblTint" Top="50" Width="26">
+        <TUserSpeedButton Height="24" Hint="Delete Row" ImageIndex="2113" Left="1" Name="btnNavDelete" NavIndex="22" OnClick="DeleteLine" ShortCut="0" Top="120" Width="24">
+        </TUserSpeedButton>
+      </TUserGridNavigator>
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="250" Left="32" Name="gridTint" OnCalcCellColors="" OnDblClick="ChangeQty" Table="tblTint" TabOrder="2" Top="50" Width="636">
+      </TUserEditGrid>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Add Line" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-13" Font.Name="Arial" Font.Style="" Height="30" ImageIndex="2034" Left="32" Name="btnAddLine" OnClick="AddLine" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="304" Width="120">
+      </TUserButton>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Change Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-13" Font.Name="Arial" Font.Style="" Height="30" ImageIndex="2019" Left="160" Name="btnChangeQty" OnClick="ChangeQty" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="304" Width="120">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserButton Anchors="akRight;akBottom" Caption="Complete" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="480" Name="btnComplete" OnClick="CompleteTinting" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="428" Width="200">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Caption="Skip / Cancel" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="8" Name="btnCancel" OnClick="CancelTinting" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="428" Width="160">
+    </TUserButton>
+  </Form>
+  <![CDATA[Dim ExitStatus as String
+ExitStatus = "Cancelled"
+
+Dim LineCounter as Number
+LineCounter = 0
+
+Dim InvoiceNumber as String
+InvoiceNumber = ""
+
+Dim ICPROD as Object
+ICPROD = OpenTable("ICPROD")
+ICPROD.IndexName = "Product"
+
+Property Let pInvoiceNumber(Value as String)
+  InvoiceNumber = Value
+  eInvoiceNo.Text = Value
+End Property
+
+Property Get pExitStatus as String
+  pExitStatus = ExitStatus
+End Property
+
+Sub ProductSelected
+  If eProductSearch.Text <> "" Then
+    If ICPROD.FindExact(eProductSearch.Text) Then
+      Dim qty as Number
+      qty = Val(eQty.Text)
+      If qty <= 0 Then qty = 1
+
+      LineCounter = LineCounter + 1
+      tblTint.Append
+      tblTint.LineNo = LineCounter
+      tblTint.Description = ICPROD.Description
+      tblTint.Quantity = qty
+      tblTint.Save
+      tblTint.Last
+    End If
+  End If
+End Sub
+
+Sub AddLine
+  Dim qty as Number
+  qty = Val(eQty.Text)
+  If qty <= 0 Then qty = 1
+
+  LineCounter = LineCounter + 1
+  tblTint.Append
+  tblTint.LineNo = LineCounter
+  tblTint.Quantity = qty
+  tblTint.Save
+  tblTint.Last
+End Sub
+
+Sub ChangeQty
+  MsgBox("ChangeQty fired - Eof=" & tblTint.Eof)
+End Sub
+
+Sub DeleteLine
+  If Not tblTint.Eof Then
+    tblTint.Delete
+  End If
+End Sub
+
+Sub CompleteTinting
+  tblTint.First
+  If tblTint.Eof Then
+    MsgBox("Please add at least one tinting line, or click Skip/Cancel.")
+    Exit Sub
+  End If
+
+  tblTint.First
+  Do Until tblTint.Eof
+    If Trim(tblTint.Description) = "" Then
+      MsgBox("All lines must have a description.")
+      Exit Sub
+    End If
+    tblTint.Next
+  Loop
+
+  Try
+    Dim frmINInvoiceList as Object
+    frmINInvoiceList = CreateObject("Accredo.INInvoiceListForm")
+    frmINInvoiceList.CustomerCode = "MIXJOTUN"
+    frmINInvoiceList.AutoSelect = True
+    frmINInvoiceList.Find("MIXJOTUN")
+
+    Dim frmINInvoice as Object
+    frmINInvoice = frmINInvoiceList.Invoice.Open
+    frmINInvoiceList.Close
+    frmINInvoice.Edit
+
+    frmINInvoice.Line.Append
+    frmINInvoice.Line.Description = "INV " & InvoiceNumber
+    frmINInvoice.Line.Save
+
+    tblTint.First
+    Do Until tblTint.Eof
+      frmINInvoice.Line.Append
+      frmINInvoice.Line.Description = tblTint.Description
+      frmINInvoice.Line.Quantity = tblTint.Quantity
+      frmINInvoice.Line.Save
+      tblTint.Next
+    Loop
+
+    frmINInvoice.Line.Append
+    frmINInvoice.Line.Save
+
+    frmINInvoice.Save
+    frmINInvoice.Close
+
+    ExitStatus = "Completed"
+    Self.Close
+
+  Catch e
+    MsgBox("Jotun Mix Bank Error: " & e.Message)
+  End Try
+End Sub
+
+Sub CancelTinting
+  ExitStatus = "Cancelled"
+  Self.Close
+End Sub
+]]>
+</Design>

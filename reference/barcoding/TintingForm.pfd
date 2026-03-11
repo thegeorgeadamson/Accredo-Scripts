@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="3" DPI="96">
+  <Form Caption="Jotun Tinting - Mix Bank Entry" Color="clBtnFace" Constraints.MaxHeight="52428" Constraints.MaxWidth="52428" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="500" Interactive="True" OnClose="" OnShow="" SaveSizeName="" Visible="True" Width="700" WindowState="wsNormal">
+
+    <!-- Memory Table for tint lines -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblTint" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
+      <TnIntegerField DisplayWidth="4" FieldName="LineNo" Visible="False">
+      </TnIntegerField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="60" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="Quantity">
+      </TnQuantityField>
+      <TIndexDef Fields="LineNo" Name="LineNo">
+      </TIndexDef>
+    </TUserMemoryTable>
+
+    <!-- Header: Invoice reference -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Invoice" Height="50" Left="8" Name="grpHeader" TabOrder="0" Top="5" Width="676">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clNavy" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="24" LabelCaption="Invoice #" LabelWidth="75" Left="10" Name="eInvoiceNo" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="18" Width="250">
+      </TUserEdit>
+    </TUserGroupBox>
+
+    <!-- Tint Lines Grid -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight;akBottom" Caption="Tinted Products" Height="330" Left="8" Name="grpLines" TabOrder="1" Top="60" Width="676">
+      <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akTop;akBottom" Height="270" HookControl="gridTint" Left="4" Name="navTint" Table="tblTint" Top="20" Width="26">
+        <TUserSpeedButton Height="24" Hint="Delete Row" ImageIndex="2113" Left="1" Name="btnNavDelete" NavIndex="22" OnClick="DeleteLine" ShortCut="0" Top="120" Width="24">
+        </TUserSpeedButton>
+      </TUserGridNavigator>
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="270" Left="32" Name="gridTint" OnCalcCellColors="" OnDblClick="" Table="tblTint" TabOrder="0" Top="20" Width="636">
+      </TUserEditGrid>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Add Line" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-13" Font.Name="Arial" Font.Style="" Height="30" ImageIndex="2034" Left="32" Name="btnAddLine" OnClick="AddLine" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="294" Width="120">
+      </TUserButton>
+    </TUserGroupBox>
+
+    <!-- Bottom Buttons -->
+    <TUserButton Anchors="akRight;akBottom" Caption="Complete" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="480" Name="btnComplete" OnClick="CompleteTinting" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="398" Width="200">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Caption="Skip / Cancel" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="8" Name="btnCancel" OnClick="CancelTinting" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="398" Width="160">
+    </TUserButton>
+
+  </Form>
+  <![CDATA[' ============================================================
+' Jotun Tinting Form
+' Allows user to enter tinted product lines.
+' On Complete, appends lines to the MIXJOTUN invoice.
+' ============================================================
+
+Dim ExitStatus as String
+ExitStatus = "Cancelled"
+
+Dim LineCounter as Integer
+LineCounter = 0
+
+Dim InvoiceNumber as String
+InvoiceNumber = ""
+
+' --- Properties for the calling form ---
+
+Property Let pInvoiceNumber(Value as String)
+  InvoiceNumber = Value
+  eInvoiceNo.Text = Value
+End Property
+
+Property Get pExitStatus as String
+  pExitStatus = ExitStatus
+End Property
+
+' --- Add a new blank line ---
+
+Sub AddLine
+  LineCounter = LineCounter + 1
+  tblTint.Append
+  tblTint.LineNo = LineCounter
+  tblTint.Quantity = 1
+  tblTint.Save
+  tblTint.Last
+End Sub
+
+' --- Delete selected line ---
+
+Sub DeleteLine
+  If Not tblTint.Eof Then
+    tblTint.Delete
+  End If
+End Sub
+
+' --- Complete: write lines to MixBank invoice ---
+
+Sub CompleteTinting
+  ' Check we have at least one line
+  tblTint.First
+  If tblTint.Eof Then
+    MsgBox("Please add at least one tinting line, or click Skip/Cancel.")
+    Exit Sub
+  End If
+
+  ' Validate all lines have a description
+  tblTint.First
+  Do Until tblTint.Eof
+    If Trim(tblTint.Description) = "" Then
+      MsgBox("All lines must have a description.")
+      Exit Sub
+    End If
+    tblTint.Next
+  Loop
+
+  ' Append lines to the MIXJOTUN invoice
+  Try
+    Dim frmINInvoiceList as Object
+    frmINInvoiceList = CreateObject("Accredo.INInvoiceListForm")
+    frmINInvoiceList.CustomerCode = "MIXJOTUN"
+    frmINInvoiceList.AutoSelect = True
+    frmINInvoiceList.Find("MIXJOTUN")
+
+    Dim frmINInvoice as Object
+    frmINInvoice = frmINInvoiceList.Invoice.Open
+    frmINInvoiceList.Close
+    frmINInvoice.Edit
+
+    ' First line: invoice reference header
+    frmINInvoice.Line.Append
+    frmINInvoice.Line.Description = "INV " & InvoiceNumber
+    frmINInvoice.Line.Save
+
+    ' Append each tint line
+    tblTint.First
+    Do Until tblTint.Eof
+      frmINInvoice.Line.Append
+      frmINInvoice.Line.Description = tblTint.Description
+      frmINInvoice.Line.Quantity = tblTint.Quantity
+      frmINInvoice.Line.Save
+      tblTint.Next
+    Loop
+
+    ' Add a blank separator line
+    frmINInvoice.Line.Append
+    frmINInvoice.Line.Save
+
+    frmINInvoice.Save
+    frmINInvoice.Close
+
+    ExitStatus = "Completed"
+    Self.Close
+
+  Catch e
+    MsgBox("Jotun Mix Bank Error: " & e.Message)
+  End Try
+End Sub
+
+' --- Cancel without saving ---
+
+Sub CancelTinting
+  ExitStatus = "Cancelled"
+  Self.Close
+End Sub
+]]>
+</Design>
