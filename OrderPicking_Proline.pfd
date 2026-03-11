@@ -56,19 +56,31 @@
       </TIndexDef>
     </TUserMemoryTable>
 
+    <!-- Order Preview Table (read-only, shows lines for selected order) -->
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblPreview" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="70">
+      <TnUpperField DisplayLabel="Code" DisplayWidth="20" DomainName="IC Product Code" FieldName="ProductCode" Visible="False">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="55" DomainName="Description" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="QuantityOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Available" DisplayWidth="8" FieldName="QuantityAvailable">
+      </TnQuantityField>
+    </TUserMemoryTable>
+
     <!-- Unprocessed Orders List Table -->
-    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblOrderList" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="50">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="PreviewOrder" BeforeDelete="" IndexName="" Name="tblOrderList" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="50">
       <TnIntegerField DisplayWidth="10" FieldName="DocumentID">
       </TnIntegerField>
       <TnStringField DisplayLabel="P/Slip" DisplayWidth="12" FieldName="PackingSlipNo">
       </TnStringField>
       <TnUpperField DisplayLabel="Customer" DisplayWidth="12" FieldName="CustomerCode">
       </TnUpperField>
-      <TnStringField DisplayLabel="Name" DisplayWidth="40" FieldName="CustomerName" Size="100">
+      <TnStringField DisplayLabel="Name" DisplayWidth="30" FieldName="CustomerName" Size="100">
       </TnStringField>
       <TnDateField DisplayLabel="Date" DisplayWidth="10" FieldName="DocumentDate">
       </TnDateField>
-      <TnStringField DisplayLabel="Reference" DisplayWidth="20" FieldName="Reference">
+      <TnStringField DisplayLabel="Reference" DisplayWidth="20" FieldName="Reference" Visible="False">
       </TnStringField>
       <TIndexDef Fields="PackingSlipNo" Name="PSlip">
       </TIndexDef>
@@ -76,24 +88,24 @@
 
     <!-- ============ TOP SECTION: ORDER SELECTION ============ -->
 
-    <!-- Left: Unprocessed Orders List -->
-    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Unprocessed Orders" Height="195" Left="4" Name="grpSelectOrder" TabOrder="0" Top="3" Width="780">
-      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16758122" Anchors="akLeft;akTop;akRight;akBottom" Height="140" Left="8" Name="gridOrderList" OnCalcCellColors="" OnDblClick="LoadSelectedOrder" Table="tblOrderList" TabOrder="0" Top="20" Width="755">
+    <!-- Unprocessed Orders List (left) -->
+    <TUserGroupBox Anchors="akLeft;akTop" Caption="Unprocessed Orders" Height="195" Left="4" Name="grpSelectOrder" TabOrder="0" Top="3" Width="650">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="140" Left="8" Name="gridOrderList" OnCalcCellColors="" OnDblClick="LoadSelectedOrder" Table="tblOrderList" TabOrder="0" Top="20" Width="634">
       </TUserEditGrid>
-      <TUserButton Anchors="akLeft;akBottom" Caption="Load Selected" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="8" Name="btnLoadSelected" OnClick="LoadSelectedOrder" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="162" Width="180">
+      <TUserButton Anchors="akLeft;akBottom" Caption="Load Selected" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="8" Name="btnLoadSelected" OnClick="LoadSelectedOrder" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="162" Width="140">
       </TUserButton>
-      <TUserButton Anchors="akLeft;akBottom" Caption="Refresh" Height="30" ImageIndex="2069" Left="195" Name="btnRefreshList" OnClick="RefreshOrderList" ShortCut="0" TabOrder="2" TabStop="True" Top="162" Width="120">
+      <TUserButton Anchors="akLeft;akBottom" Caption="Refresh" Height="30" ImageIndex="2069" Left="155" Name="btnRefreshList" OnClick="RefreshOrderList" ShortCut="0" TabOrder="2" TabStop="True" Top="162" Width="90">
+      </TUserButton>
+      <TUserEdit Anchors="akBottom;akRight" Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="28" LabelCaption="P/Slip No" LabelWidth="60" Left="350" Name="ePackingSlipInput" OnChange="" OnEnter="" OnExit="ManualLoadOrder" ParentFont="False" TabOrder="3" TabStop="True" Text="" Top="163" Width="170">
+      </TUserEdit>
+      <TUserButton Anchors="akBottom;akRight" Caption="Load" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="528" Name="btnLoadManual" OnClick="ManualLoadOrder" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="162" Width="114">
       </TUserButton>
     </TUserGroupBox>
 
-    <!-- Right: Manual Entry + Staff Reference -->
-    <TUserGroupBox Anchors="akTop;akRight" Caption="Manual Entry" Height="195" Left="790" Name="grpManualEntry" TabOrder="1" Top="3" Width="395">
-      <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-18" Font.Name="Arial" Font.Style="" Height="30" LabelCaption="P/Slip No" LabelWidth="90" Left="10" Name="ePackingSlipInput" OnChange="" OnEnter="" OnExit="ManualLoadOrder" ParentFont="False" TabOrder="0" TabStop="True" Text="" Top="25" Width="370">
-      </TUserEdit>
-      <TUserButton Caption="Load Order" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="35" ImageIndex="2026" Left="10" Name="btnLoadManual" OnClick="ManualLoadOrder" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="60" Width="370">
-      </TUserButton>
-      <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="" Height="28" LabelCaption="Staff Ref" LabelWidth="90" Left="10" Name="eReference" OnChange="RefChange" OnEnter="" OnExit="" ParentFont="False" TabOrder="2" TabStop="True" Text="" Top="115" Width="370">
-      </TUserEdit>
+    <!-- Order Preview (right) -->
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Preview" Height="195" Left="660" Name="grpPreview" TabOrder="15" Top="3" Width="525">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="172" Left="8" Name="gridPreview" OnCalcCellColors="" OnDblClick="" Table="tblPreview" TabOrder="0" Top="20" Width="509">
+      </TUserEditGrid>
     </TUserGroupBox>
 
     <!-- ============ MIDDLE SECTION: ORDER DETAILS + LINES ============ -->
@@ -104,9 +116,11 @@
       </TUserDataCombo>
       <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption=" - " LabelWidth="15" Left="210" Name="eCustomerName" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Text="" Top="20" Width="280">
       </TUserEdit>
-      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Packing Slip" LabelWidth="90" Left="510" Name="ePackingSlipNo" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="True" Text="" Top="20" Width="200">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Packing Slip" LabelWidth="90" Left="510" Name="ePackingSlipNo" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="True" Text="" Top="20" Width="150">
       </TUserEdit>
-      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Order Ref" LabelWidth="70" Left="730" Name="eOrderRef" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="20" Width="200">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Order Ref" LabelWidth="70" Left="770" Name="eOrderRef" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="20" Width="150">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Staff Ref" LabelWidth="70" Left="940" Name="eReference" OnChange="RefChange" OnEnter="" OnExit="" TabOrder="4" TabStop="True" Text="" Top="20" Width="230">
       </TUserEdit>
     </TUserGroupBox>
 
@@ -117,7 +131,7 @@
     </TUserGroupBox>
 
     <!-- Action Buttons Row -->
-    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAll" OnClick="PickAll" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="180">
+    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAll" OnClick="PickAll" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="180">
     </TUserButton>
     <TUserButton Anchors="akLeft;akTop" Caption="Clear Picked" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="220" Name="btnClearPicked" OnClick="ClearPicked" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="296" Width="150">
     </TUserButton>
@@ -131,7 +145,7 @@
       <TUserSpeedButton Height="24" Hint="Delete Row" ImageIndex="2113" Left="1" Name="btnDeleteRow" NavIndex="22" OnClick="DeleteRow" ShortCut="114" Top="145" Width="24">
       </TUserSpeedButton>
     </TUserGridNavigator>
-    <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16758122" Anchors="akLeft;akTop;akRight;akBottom" Height="300" Left="30" Name="gridOrderLines" OnCalcCellColors="" OnDblClick="ChangeQuantity" Table="tblOrder" TabOrder="8" Top="345" Width="1155">
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="300" Left="30" Name="gridOrderLines" OnCalcCellColors="" OnDblClick="ChangeQuantity" Table="tblOrder" TabOrder="8" Top="345" Width="1155">
       <TUserDataCombo Align="alNone" Alignment="taLeftJustify" ButtonsAvailable="dcbOpen" Enabled="True" Height="17" IndexName="" LabelVisible="False" Left="76" LookupSource="ICPROD" LookupType="ltNormal" Name="eLineProductCode" OnBeforeChange="ProductB4Change" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Top="19" Visible="False" Width="201" DataField="ProductCode">
       </TUserDataCombo>
       <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="17" LabelVisible="False" Left="278" Name="eLineDesc" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Top="19" Visible="False" Width="300" DataField="Description">
@@ -150,7 +164,7 @@
 
     <!-- ============ BOTTOM SECTION: ACTION BAR ============ -->
 
-    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnComplete" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="650" Width="210">
+    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="16744448" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnComplete" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="650" Width="210">
     </TUserButton>
     <TUserButton Anchors="akLeft;akBottom" Caption="Cancel / New Order" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="4" Name="btnCancelOrder" OnClick="ResetAndRefresh" ParentFont="False" ShortCut="0" TabOrder="13" TabStop="True" Top="650" Width="200">
     </TUserButton>
@@ -245,6 +259,50 @@ Sub Reset
 End Sub
 
 ' ============================================================
+' ORDER PREVIEW
+' ============================================================
+
+Sub PreviewOrder
+  tblPreview.AllowInsertDelete = True
+  tblPreview.Empty
+
+  If tblOrderList.RecordMax = 0 Then
+    tblPreview.AllowInsertDelete = False
+    Exit Sub
+  End If
+
+  OEHEAD.IndexName = "Document"
+  OEHEAD.FindExact(tblOrderList.DocumentID)
+
+  Dim QryLines as Object
+  QryLines = ExecuteSQL( _
+    "SELECT OELINE.ProductCode, OELINE.Description, OELINE.LocationCode, " & _
+    "OELINE.QuantityOrdered - OELINE.QuantityInvoiced AS Qty " & _
+    "FROM OELINE " & _
+    "WHERE OELINE.DocumentID = :DocID " & _
+    "AND OELINE.LineType <> 'N' " & _
+    "ORDER BY OELINE.LineID", tblOrderList.DocumentID)
+
+  QryLines.First
+  Do Until QryLines.Eof
+    tblPreview.Append
+    tblPreview.ProductCode = QryLines.ProductCode
+    tblPreview.Description = QryLines.Description
+    tblPreview.QuantityOrdered = QryLines.Qty
+    If ICQTY.FindExact(QryLines.ProductCode, QryLines.LocationCode) Then
+      tblPreview.QuantityAvailable = ICQTY.QuantityAvailable
+    Else
+      tblPreview.QuantityAvailable = 0
+    End If
+    tblPreview.Save
+    QryLines.Next
+  Loop
+
+  tblPreview.AllowInsertDelete = False
+  tblPreview.First
+End Sub
+
+' ============================================================
 ' UNPROCESSED ORDERS LIST
 ' ============================================================
 
@@ -259,7 +317,7 @@ Sub RefreshOrderList
     "FROM OEHEAD " & _
     "WHERE OEHEAD.PostStatus = 'U' " & _
     "AND OEHEAD.DocumentClass IN ('O','B') " & _
-    "ORDER BY OEHEAD.DocumentDate DESC, OEHEAD.PackingSlipNo DESC")
+    "ORDER BY OEHEAD.DocumentID DESC")
 
   QryOrders.First
   Do Until QryOrders.Eof
