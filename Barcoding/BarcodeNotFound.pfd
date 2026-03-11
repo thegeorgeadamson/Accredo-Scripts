@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="frmBarcodeNotFound" Color="8421631" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="416" SaveSizeName="frmBarcodeError" Visible="True" Width="680" WindowState="wsNormal">
+    <TUserLabel Alignment="taCenter" Caption="Product Not Found" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Arial" Font.Style="" Height="56" Left="178" Name="lLabel1" ParentFont="False" Top="35" Width="297">
+    </TUserLabel>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelCaption="Barcode Hold Box" Left="169" Name="eEdit1" OnExit="Leave" TabOrder="0" TabStop="True" Top="125" Width="250">
+    </TUserEdit>
+    <TUserButton Caption="Close" Height="51" ImageIndex="2074" Left="241" Name="btnClose" OnClick="Close" ShortCut="0" TabOrder="1" TabStop="True" Top="209" Width="162">
+    </TUserButton>
+  </Form>
+  <![CDATA[
+
+Sub Close
+  Self.Close
+End Sub
+
+
+
+Sub Leave
+  IF eEdit1.Text <> "" Then
+    eEdit1.Text = ""
+    eEdit1.SetFocus
+  End IF
+End Sub]]>
+</Design>

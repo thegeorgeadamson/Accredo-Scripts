@@ -1,0 +1,1613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="2" DPI="96">
+  <Form Caption="Barcoding - Transfers" Color="clBtnFace" Constraints.MaxHeight="65535" Constraints.MaxWidth="65535" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="477" Interactive="True" OnClose="ConfirmClose" OnShow="OnLoad" SaveSizeName="frmPO" Visible="True" Width="1233" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblTransfers" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="275" Top="371">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="60" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+      <TnIntegerField DisplayWidth="10" FieldName="LineID" Visible="False">
+      </TnIntegerField>
+      <TnUpperField DisplayWidth="8" DomainName="Bar Code" FieldName="Barcode" Visible="False">
+      </TnUpperField>
+      <TnQuantityField DisplayLabel="Variance" DisplayWidth="10" FieldName="Adjustment">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Qty in Stock" DisplayWidth="10" FieldName="QtyAvailable">
+      </TnQuantityField>
+      <TnStringField DisplayLabel="Bin" DisplayWidth="16" DomainName="IC Bin Location" FieldName="BinLocation">
+      </TnStringField>
+      <TnStringField DisplayLabel="Bin 2" DisplayWidth="16" DomainName="IC Bin Location" FieldName="BinLocation2">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Outstanding" DisplayWidth="16" FieldName="QtyOutstanding">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Qty Expected" DisplayWidth="16" FieldName="QuantityExpected">
+      </TnQuantityField>
+      <TnStringField DisplayLabel="Bin Key" DisplayWidth="10" DomainName="Custom" FieldName="BinKey" Size="10">
+      </TnStringField>
+      <TIndexDef Fields="ProductCode" Name="Product" Options="ixUnique">
+      </TIndexDef>
+      <TIndexDef Fields="LineID" Name="LineID">
+      </TIndexDef>
+      <TIndexDef Fields="BinKey" Name="BinKey" Options="ixPrimary">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblEan128" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="240" Top="371">
+      <TnStringField DisplayWidth="10" DomainName="Comment" FieldName="FieldId">
+      </TnStringField>
+      <TnStringField DisplayLabel="Field Name" DisplayWidth="20" DomainName="Comment" FieldName="FieldName">
+      </TnStringField>
+      <TnStringField DisplayWidth="50" DomainName="Description" FieldName="Value">
+      </TnStringField>
+      <TIndexDef Fields="FieldId" Name="FieldId">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblReturn" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="526" Top="408">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="40" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayWidth="10" FieldName="Expected">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Dispatched" DisplayWidth="10" FieldName="Dispatch">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Difference" DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+    </TUserMemoryTable>
+    <TUserGroupBox Color="clRed" Height="35" Left="0" Name="grpGroupBox7" TabOrder="22" Top="137" Width="495">
+    </TUserGroupBox>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akBottom" Height="22" LabelCaption="Barcode" Left="242" Name="eBarcode" OnChange="" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Text="" Top="413" Width="250">
+    </TUserEdit>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Last Product Scanned" Color="16435269" Height="75" Left="4" Name="grpGroupBox1" TabOrder="1" Top="66" Width="1014">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbOpen;dcbWordLookup" Enabled="True" Height="22" IndexName="" LabelVisible="False" Left="17" LookupSource="ICPROD" LookupType="ltNormal" Name="eProductCode" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="27" Width="219">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop;akRight" Height="22" LabelVisible="False" Left="242" Name="eProductName" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Text="" Top="27" Width="458">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akTop;akRight" Height="22" LabelCaption="Cost" LabelWidth="55" Left="700" Name="eCostPrice" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="True" Text="" Top="3" Width="150">
+      </TUserEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akTop;akRight" CalculatorFontSize="291" CurrencyCode="" Decimals="0" Domain="" Height="22" LabelCaption="Picked" LabelWidth="70" Left="855" Name="ePicked" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="27" Width="147">
+      </TUserNumberEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akTop;akRight" Height="22" LabelCaption="Weight" LabelWidth="55" Left="700" Name="eWeight" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="4" TabStop="True" Text="" Top="27" Width="150">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akTop;akRight" Height="22" LabelCaption="Volume" LabelWidth="55" Left="700" Name="eVolume" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="5" TabStop="True" Text="" Top="49" Width="150">
+      </TUserEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akTop;akRight" CalculatorFontSize="291" CurrencyCode="" Decimals="0" Domain="" Height="22" LabelCaption="Qty Expected" LabelWidth="70" Left="855" Name="eExpected" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="6" TabStop="True" Text="" Top="4" Width="147">
+      </TUserNumberEdit>
+    </TUserGroupBox>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16758122" Anchors="akLeft;akTop;akRight;akBottom" Height="217" Left="25" Name="gridEditGrid1" OnCalcCellColors="" OnDblClick="" Table="tblTransfers" TabOrder="2" Top="172" Width="1186">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbFilter;dcbOpen;dcbWordLookup" Enabled="True" Height="17" IndexName="" LabelCaption="eProduct" LabelVisible="False" Left="0" LookupSource="ICPROD" LookupType="ltNormal" Name="eProduct" OnAfterChange="AddProduct" OnChange="" OnEnter="ProductDetails" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Top="19" Visible="False" Width="201" DataField="ProductCode">
+      </TUserDataCombo>
+      <TUserNumberEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" CalculatorFontSize="291" CurrencyCode="" Decimals="2" Domain="Amount" Height="17" LabelCaption="eQty" LabelVisible="False" Left="628" Name="eQty" OnAfterChange="Amend_Qty" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Top="19" UseDecimals="False" Visible="False" Width="75" DataField="Quantity">
+      </TUserNumberEdit>
+    </TUserEditGrid>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="291" CurrencyCode="" Decimals="0" Domain="" Height="22" Left="284" Name="eDocID" OnChange="" OnEnter="" OnExit="" TabOrder="3" TabStop="True" Text="" Top="312" Visible="False" Width="212">
+    </TUserNumberEdit>
+    <TUserGroupBox Caption="Source Location" Height="54" Left="3" Name="grpGroupBox2" TabOrder="4" Top="6" Width="150">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="22" IndexName="" LabelVisible="False" Left="8" LookupFilter="inactive = False" LookupSource="ICLOCN" LookupType="ltNormal" Name="eSourceLocation" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="20" Width="135">
+      </TUserDataCombo>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Destination Location" Height="54" Left="157" Name="grpGroupBox3" TabOrder="5" Top="7" Width="150">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="22" IndexName="" LabelVisible="False" Left="8" LookupFilter="inactive = False" LookupSource="ICLOCN" LookupType="ltNormal" Name="eDestinationLocation" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="20" Width="135">
+      </TUserDataCombo>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akTop;akRight" Height="109" Left="1036" Name="grpGroupBox4" TabOrder="6" Top="44" Width="185">
+      <TUserButton Anchors="akTop;akRight" Caption="Change Quantity" Height="48" ImageIndex="2019" Left="8" Name="btnButton2" OnClick="ChangeQuantity" ShortCut="0" TabOrder="0" TabStop="True" Top="10" Width="168">
+      </TUserButton>
+      <TUserButton Anchors="akTop;akRight" Caption="Add Item" Height="48" ImageIndex="2034" Left="7" Name="btnAdditem" OnClick="AddNewItem" ShortCut="0" TabOrder="1" TabStop="True" Top="58" Width="168">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Reference" Height="54" Left="663" Name="grpGroupBox5" TabOrder="7" Top="6" Width="179">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="1" Name="eReference" OnChange="" OnEnter="" OnExit="Ref_Leave" TabOrder="0" TabStop="True" Text="" Top="20" Width="162">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserButton Anchors="akLeft;akBottom" Height="53" ImageIndex="2053" Left="33" Name="btnButton1" OnClick="Move_Prev" ShortCut="0" TabOrder="8" TabStop="True" Top="396" Width="90">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Height="53" ImageIndex="2054" Left="126" Name="btnButton3" OnClick="Move_Next" ShortCut="0" TabOrder="9" TabStop="True" Top="396" Width="90">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Complete" Height="53" ImageIndex="2026" Left="1112" Name="btnComplete" OnClick="CompleteTransfer" ShortCut="0" TabOrder="10" TabStop="True" Top="395" Width="100">
+    </TUserButton>
+    <TUserGroupBox Caption="Transfer Date" Height="54" Left="311" Name="grpGroupBox6" TabOrder="11" Top="6" Width="150">
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="8" Name="eTransferDate" OnChange="" OnEnter="" OnExit="" TabOrder="0" TabStop="True" Text="" Top="20" Width="135">
+      </TUserDateEdit>
+    </TUserGroupBox>
+    <TUserButton Height="53" ImageIndex="2050" Left="600" Name="btnButton4" OnClick="Next_Date" ShortCut="0" TabOrder="12" TabStop="True" Top="392" Visible="False" Width="50">
+    </TUserButton>
+    <TUserButton Height="53" ImageIndex="2051" Left="546" Name="btnButton5" OnClick="Prev_Date" ShortCut="0" TabOrder="13" TabStop="True" Top="392" Visible="False" Width="50">
+    </TUserButton>
+    <TUserButton Anchors="akTop;akRight" Caption="Exit" Height="42" ImageIndex="2074" Left="1051" Name="btnExit" OnClick="Close" ShortCut="0" TabOrder="14" TabStop="True" Top="3" Width="153">
+    </TUserButton>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelVisible="False" Left="6" Name="eStatus" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="15" TabStop="True" Text="" Top="145" Width="486">
+    </TUserEdit>
+    <TUserButton Anchors="akRight;akBottom" Caption="Assign Barcode" Height="53" ImageIndex="2100" Left="765" Name="btnAssignBarcode" OnClick="btnAssignBarcode_Click" ShortCut="0" TabOrder="16" TabStop="True" Top="395" Visible="False" Width="119">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Save &amp;&amp; Print" Height="53" ImageIndex="2039" Left="1000" Name="btnPrint" OnClick="btnPrint_Click" ShortCut="0" TabOrder="17" TabStop="True" Top="395" Width="104">
+    </TUserButton>
+    <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akTop;akBottom" Height="120" HookControl="gridEditGrid1" Left="0" Name="navGridNavigator1" OnBtnClick="navGrid_Click" Table="tblTransfers" Top="174" VisibleButtons="ebDelete;ebCustomise" Width="26">
+    </TUserGridNavigator>
+    <TUserButton Anchors="akRight;akBottom" Caption="Save" Height="53" ImageIndex="2067" Left="890" Name="btnSave" OnClick="btnSave_Click" ShortCut="0" TabOrder="18" TabStop="True" Top="395" Width="104">
+    </TUserButton>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="fsBold" Height="22" LabelVisible="False" LabelWidth="40" Left="511" Name="eMode" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="19" TabStop="True" Text="" Top="141" Width="250">
+    </TUserEdit>
+    <TUserPanel AlternateColour="False" BevelInner="bvSpace" BevelOuter="bvLowered" BorderStyle="bsSingle" BorderWidth="1" Height="208" Left="699" Name="pnlInit" TabOrder="20" Top="233" Visible="False" Width="366">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="37" IndexName="" LabelCaption="Source" LabelWidth="150" Left="46" LookupFilter="LocationCode &lt;&gt; &quot;ZZ&quot;" LookupSource="ICLOCN" LookupType="ltNormal" Name="pnlInitSource" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="33" Width="300">
+      </TUserDataCombo>
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="37" IndexName="" LabelCaption="Destination" LabelWidth="150" Left="46" LookupFilter="LocationCode &lt;&gt; &quot;ZZ&quot;" LookupSource="ICLOCN" LookupType="ltNormal" Name="pnlInitDest" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="1" TabStop="True" Text="" Top="100" Width="300">
+      </TUserDataCombo>
+      <TUserButton Caption="OK" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="35" ImageIndex="-1" Left="252" Name="pnlInitBtnOk" OnClick="pnlInitBtnOK_Click" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="162" Width="93">
+      </TUserButton>
+      <TUserButton Caption="SWITCH" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="35" ImageIndex="2065" Left="21" Name="pnlInitBtnSwitch" OnClick="btnInitSwitch_Click" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="163" Width="129">
+      </TUserButton>
+    </TUserPanel>
+    <TUserGroupBox Caption="Carrier" Height="54" Left="474" Name="grpCarrier" TabOrder="21" Top="6" Width="179">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" ExactAllowEmpty="True" Height="22" IndexName="" LabelVisible="False" Left="8" LookupFilter="Upper(Left(Category2,7))=&quot;FREIGHT&quot;" LookupSource="ICPROD" LookupType="ltNormal" Name="eCarrierCode" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="22" Width="150">
+      </TUserDataCombo>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Receipt Date" Height="54" Left="854" Name="grpGroupBox8" TabOrder="23" Top="6" Width="150">
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="8" Name="eReceiptDate" OnChange="" OnEnter="" OnExit="" TabOrder="0" TabStop="True" Text="" Top="20" Width="135">
+      </TUserDateEdit>
+    </TUserGroupBox>
+  </Form>
+  <![CDATA['Imports "API\CheckPreDefined.pfs"
+'Imports "API\getAppSetting.pfs"
+
+Dim TransferListForm as Object
+IF Company.CompanyMenuCode = "LPSA" or Company.CompanyMenuName = "Linkup Play (Auckland) Ltd" Then
+  DefaultSourceLocation = "AKL"
+Else
+  DefaultSourceLocation = "DBNZ"
+End if
+Dim MyPrinter as String
+
+Dim _TransferList as Object
+
+Public Property Let P_TransferList(Value as Object)
+  _TransferList = Value
+End Property
+
+StaffScan = False
+CarierReqd = False
+CarrierScan = False
+ForceClose = False
+DocID = 0
+OpenExisting = False
+InsertMode = False
+LoadMode = False
+EditMode = False
+ReceiptMode = False
+Returnprod = False
+
+SourceLocation = False
+DestinationLocation = False
+Dim AutoDest as String
+
+Dim Builder as Object
+Builder = CreateObject("Accredo.MemoryTableBuilder")
+Dim NewField as Object
+NewField = Builder.AddField("ProductCode", "IC Product Code")
+NewField = Builder.AddField("Description", "Description")
+NewField = Builder.AddField("Expected","Quantity")
+NewField = Builder.AddField("Dispatch","Quantity")
+NewField = Builder.AddField("Difference","Quantity")
+Difftable = Builder.CreateTable
+NewField = Nothing
+Builder = Nothing
+
+Dim Directory as object
+Directory = Createobject("Accredo.Directory")
+
+Dim ICProdData as object
+ICProdData = createobject("Accredo.ICProductData")
+ICProdData.Indexname = "Product"
+
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Dim ICBAR as OBJECT
+ICBAR = Opentable("ICBAR")
+ICBAR.indexname = "Barcode"
+
+Dim ICQTY as Object
+ICQTY = opentable("ICQTY")
+ICQTY.IndexName = "ProductLocation"
+
+
+Dim ICLOCN as OBJECT
+ICLOCN = Opentable("ICLOCN")
+ICLOCN.indexname = "ActiveLocation"
+
+Dim TOLOCN as OBJECT
+TOLOCN = Opentable("ICLOCN")
+TOLOCN.indexname = "Location"
+
+Dim ICTFER as Object
+ICTFER = createobject("Accredo.ICTransferData")
+ICTFER.IndexName = "Document"
+
+Dim IsDG as Boolean
+IsDG = False
+
+
+Sub Status
+  IF Not StaffScan then
+    eStatus.Text = "Scan Staff Reference"
+  ElseIF eCarrierCode.Text = "" and CarierReqd Then
+    eStatus.Text = "Scan Carrier Bar Code"
+  Else
+    eStatus.Text = "Scan Product"
+  End IF
+End Sub
+
+Sub btnInitSwitch_Click
+
+  preSource = pnlInitSource.Text
+  pnlInitSource.Text = pnlInitDest.Text
+  pnlInitDest.Text = preSource
+
+End Sub
+
+
+Sub Reset
+  OpenExisting = False
+  SourceLocation = false
+  DestinationLocation = False
+  StaffScan = False
+  eDocID.Value = 0
+  tblTransfers.Empty
+  eSourceLocation.Text = ""
+  eDestinationLocation.Text = ""
+  btnComplete.Enabled = True
+  eSourceLocation.Enabled = SourceLocation
+  eDestinationLocation.Enabled = DestinationLocation
+  eMode.Text = ""
+  Status
+End Sub
+
+
+'Sub btnAssignBarcode_Click
+'
+'  eBarcode.SetFocus
+'  AssignBarcodeForm = CreateCustomForm("BinLocation_Quick_Input_EAN128.pfd")
+'
+'
+'End Sub
+
+
+
+
+Sub Close
+  Self.Close
+  Try
+  _TransferList.RefreshGrid
+  Catch
+  End Try
+End Sub
+
+Sub ConfirmClose
+  IF ForceClose = False then
+    If Not inputquery("Confirm Close") then
+      abort("",True)
+    End IF
+  End IF
+  try
+  _TransferList.RefreshGrid
+  Catch
+  End Try
+
+End SUb
+
+Sub ProductDetails
+  IF ICPROD.FIndexact(tblTransfers.ProductCode) then
+    eProductCode.Text = ICPROD.ProductCode
+    eProductName.Text = ICPROD.Description
+    if ApplicationSetting( "IC\ValuationBasis") = "L" Then
+      eCostPrice.Text = formatNumber(ICPROD.LatestCost,"Amount")
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "A" Then
+      eCostPrice.Value = ICPROD.AverageCost
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "S" Then
+      eCostPrice.Value = ICPROD.StandardCost
+    End IF
+  End IF
+  ePicked.Value = tblTransfers.Quantity
+  eExpected.Value = tblTransfers.QuantityExpected
+  eWeight.value = ICProd.Weight
+  eVolume.value = ICProd.Volume
+End Sub
+
+Sub pnlInitBtnOK_Click
+
+  IF pnlInitSource.Text = "" then
+    pnlInitSource.ShowErrorHint("Please Enter Source Location")
+    Abort("",True)
+  ElseIF pnlInitDest.Text = "" then
+    pnlInitDest.ShowErrorHint("Please Enter Destination Location")
+    Abort("",True)
+  End IF
+
+  IF ICLOCN.Findexact(False,pnlInitSource.Text) then
+    If ICLOCN.LocationCode <> pnlInitDest.Text Then
+      eSourceLocation.Text = ICLOCN.LocationCode
+      SourceLocation = True
+      eSourceLocation.Enabled = SourceLocation
+    Else
+      PnlInitSource.ShowErrorHint("Source Location Cannot be Same as Destination")
+      Abort("",True)
+    End IF
+  Else
+    PnlInitSource.ShowErrorHint("Location Not Found")
+    Abort("",True)
+  End IF
+
+  IF ICLOCN.Findexact(False,pnlInitDest.Text) then
+    If ICLOCN.LocationCode <> pnlInitSource.Text Then
+      eDestinationLocation.Text = ICLOCN.LocationCode
+      DestinationLocation = True
+      eDestinationLocation.Enabled = DestinationLocation
+    Else
+      PnlInitDest.ShowErrorHint("Destination Location Cannot be Same as Source")
+      Abort("",True)
+    End IF
+  Else
+    PnlInitDest.ShowErrorHint("Location Not Found")
+    Abort("",True)
+  End IF
+
+  pnlInit.Visible = False
+  eBarcode.SetFocus
+End Sub
+
+Sub Location_Transfer
+'IF User.LoginUserName = "ACCREDO" then Msgbox(Autodest)
+  ProdTable = ExecuteSQl("SELECT ICQTY.ProductCode " & _
+                        "      ,ICPROD.Description " & _
+                        "      ,ICPROD.BarCode " & _
+                        "      ,ICQTY.LocationCode " & _
+                        "      ,ICQTY.QuantityInStock " & _
+                        "      ,ICQTY.QuantityOnBackOrder " & _
+                        "      ,ICQTY.QuantityAvailable " & _
+                        "      ,ICQTY.MinimumQuantity " & _
+                        "      ,ICQTY.QuantityInTransit " & _
+                        "      ,ICQTY.QuantityOnOrder " & _
+                        "      ,ICQTY.QuantityRecReorder " & _
+                        "      ,HAMQty.QuantityInStock as HamQty " & _
+                        "      ,HamQty.QuantityAvailable as HamAvail " & _
+                        "FROM   ICQty " & _
+                        "       LEFT JOIN ICProd ON ICQty.ProductCode=ICPROD.ProductCode " & _
+                        "       Left JOIN ICQTY HamQTY ON ICQTY.ProductCode=HamQty.ProductCode and HamQTY.LocationCode = 'DBNZ' " & _
+                        "WHERE ICQTY.LocationCode = :Locn " & _
+                        "   and ICQTY.QuantityRecReorder > 0  " & _
+                        "   and ICPROD.Discontinued = False " & _
+                        "   and ICPROD.Inactive = False " & _
+                        "   and ICPROD.NonDiminishing = False " & _
+                        " Order By ICPROD.ProductCode " , AutoDest)
+
+'                        "   and (ICPROD.CreditorCode <> 'DBA' AND ICPROD.CreditorCode <> 'NZCOUR' AND ICPROD.CreditorCode <> 'PBTC' " & _
+''                        "   and ICPROD.CreditorCode <> 'VALS' AND ICPROD.CreditorCode <> 'PAINTS' ) " & _
+
+'                        "   and (ICQTY.QuantityInStock + ICQTY.QuantityOnOrder + ICQTY.QuantityInTransit < ICQTY.QuantityRecReorder ) " & _
+'                         "   AND ICQTY.MinimumQuantity > 0) " & _
+
+  eSourceLocation.text = "DBNZ"
+  eDestinationLocation.text = AutoDest
+  eReference.text = User.LoginUserCode
+  eTransferDate.value = Date
+  eStatus.text = "Scan Staff Reference"
+  tblTransfers.Empty
+  ProdTable.First
+'IF User.LoginUserName = "ACCREDO" then Browsedataset(Prodtable)
+  Do until ProdTable.Eof
+    IF ICQTY.FindExact(ProdTable.ProductCode,"DBNZ") Then
+'        IF ICQTY.QuantityAvailable > 0 Then
+'
+       QTYREQD = (Prodtable.MinimumQuantity + ICQTY.QuantityOnBackOrder ) - Prodtable.QuantityAvailable - Prodtable.QuantityonOrder - Prodtable.QuantityInTransit
+'
+      tblTransfers.Append
+      tblTransfers.ProductCode  = ProdTable.ProductCode
+      tblTransfers.Description  = Prodtable.description
+      tblTransfers.BarCode      = Prodtable.BarCode
+      tblTransfers.Quantity     = ProdTable.QuantityRecReorder 'QtyReqd
+      tblTransfers.QtyAvailable = Prodtable.HamQty
+      Lgth = 0
+      Lgth=LEN(ICQTY.BinLocation)
+      If lgth = 1 Then
+        tblTransfers.BinKey = "00" & ICQTY.BinLocation
+      ElseIf lgth = 2 Then
+        tblTransfers.BinKey = "0" & ICQTY.BinLocation
+      Else
+        tblTransfers.BinKey = ICQTY.BinLocation
+      End If
+      tblTransfers.Save
+
+    End If
+  ProdTable.Next
+  Loop
+  InsertMode = True
+'  MSGBOX("Auto Transfer from Hamilton to " & AutoDest & " Completed")
+
+End Sub
+
+Sub OnLoad
+
+  eTransferDate.Value = Systemdate
+  Dim ICQTY as Object
+  ICQTY = OpenTable("ICQTY")
+  ICQTY.IndexName = "LocationProduct"
+  Autodest = ""
+
+  IF ScriptArgs.Count > 1 then
+    AutoDest = ScriptArgs[3]
+    If AutoDest = "WGTN" or AutoDest = "TAS" Then
+      Location_Transfer
+    Else
+      DocID = ScriptArgs[1]
+
+      IF ScriptArgs.Count > 2 then
+        IF ScriptArgs[2] = "EDIT" then
+          EditMode = True
+          LoadMode = False
+          ReceiptMode = False
+          eMode.Text = "EDIT MODE"
+          tblTransfers.Fields.item("Adjustment").Visible = False
+          btnComplete.Enabled = False
+
+        End IF
+        IF ScriptArgs[2] = "LOADPALLET" THEN
+          eMode.Text = "LOAD PALLET MODE"
+      IF User.LoginUserName = "ACCREDO" Then MSGBOX("Load Pallet")
+          LoadMode = True
+          EditMode = False
+          ReceiptMode = False
+          tblTransfers.Fields.item("Adjustment").Visible = False
+          btnComplete.Caption = "Dispatch"
+          btnSave.Enabled = False
+          btnPrint.Enabled = False
+        End If
+        IF ScriptArgs[2] = "RECEIPT" then
+          ReceiptMode = True
+          EditMode = False
+          LoadMode = False
+          eMode.Text = "RECEIPT MODE"
+          btnSave.Enabled = False
+          btnPrint.Enabled = False
+        End IF
+      End IF
+
+      IF ICTFER.FindExact(DocID) then
+        OpenExisting = True
+        tblTransfers.AllowInsertDelete = True
+        IF NOT EditMode then
+          tblTransfers.Active = False
+  '        tblTransfers.AddField("QuantityExpected","Quantity")
+          tblTransfers.Active = True
+        End IF
+        eSourceLocation.Text = ICTFER.SourceLocationCode
+        eDestinationLocation.Text = ICTFER.DestinationLocationCode
+        eCarriercode.text = ICTFER.Z_ShipperCode
+        If ICTfer.TransitLocationCode <> "" and ICTFER.Z_ShipperCode = "" Then
+          CarierReqd = True
+        End If
+        SourceLocation = True
+        DestinationLocation = True
+        eReference.Text = ICTFER.Reference
+        Status
+
+        LN = ICTFER.Line
+
+        Ln.First
+
+        tblTransfers.IndexName = "Product"
+        Do Until LN.EOF
+          tblTransfers.Append
+          tblTransfers.ProductCode = LN.ProductCode
+          tblTransfers.Description = LN.Description
+          IF EditMode then
+            tblTransfers.Quantity = LN.QuantityDispatched
+          Else
+            tblTransfers.QuantityExpected = LN.QuantityDispatched
+            tblTransfers.Adjustment = LN.QuantityDispatched
+          End IF
+          tblTransfers.QtyOutstanding = LN.QuantityDispatched
+          IF ICProdData.FindExact(LN.ProductCode) then
+            ICProdData.Barcodes.First
+            IF ICProdData.Barcodes.Barcode <> "" then
+              tblTransfers.Barcode = ICProdData.Barcodes.Barcode
+            End IF
+          End IF
+          tblTransfers.LineID = LN.LineID
+          If ICQTY.Findexact(eSourceLocation.text,LN.ProductCode) Then
+            Lgth = 0
+            Lgth=LEN(ICQTY.BinLocation)
+            tblTransfers.BinLocation = ICQTY.BinLocation
+            tblTransfers.BinLocation2 = ICQTY.Z_BinLocation2
+            tblTransfers.QtyAvailable = ICQTY.QuantityAvailable
+            If lgth = 1 Then
+              tblTransfers.BinKey = "00" & ICQTY.BinLocation
+            ElseIf lgth = 2 Then
+              tblTransfers.BinKey = "0" & ICQTY.BinLocation
+            Else
+              tblTransfers.BinKey = ICQTY.BinLocation
+            End If
+          End If
+          tblTransfers.Save
+          tblTransfers.Refresh
+         LN.Next
+        Loop
+        tblTransfers.First
+        ProductDetails
+      End IF
+
+      tblTransfers.Fields.Item("ProductCode").Readonly = True
+      tblTransfers.Fields.Item("Quantity").Readonly = True
+    End If
+  Else
+    'Insert Mode
+    InsertMode = True
+    SourceLocation = False
+    DestinationLocation = False
+    Dest = IIF(User.Defaultlocationcode <> DefaultSourceLocation,User.DefaultLocationCode,"")
+    IF User.DefaultLocationCode <> "" then
+      pnlInitDest.Text = Dest
+      ICL = opentable("ICLOCN")
+      ICL.IndexName = "Location"
+      ICL.First
+      Do Until ICL.EOF
+        IF ICL.LocationCode <> pnlInitDest.Text then
+          Source = ICL.LocationCode
+          Exit Do
+        End IF
+       ICL.Next
+      Loop
+      pnlInitSource.Text = DefaultSourceLocation
+    Else
+      msgbox("Please set User's Default Location Code")
+    End IF
+    pnlInit.Top = 168
+    pnlInit.Left = 307
+    pnlInit.Visible = True
+    pnlInitSource.SetFocus
+    Reset
+    Status
+    eMode.Text = "INSERT MODE"
+    btnComplete.Enabled = False
+    tblTransfers.Fields.Item("ProductCode").Readonly = False
+    tblTransfers.Fields.Item("Quantity").Readonly = False
+  End IF
+
+'  grpCarrier.Visible = getAppSetting("ST_UseCarrier")
+  tblTransfers.IndexName = "BinKey"
+  tblTransfers.Refresh
+End Sub
+
+
+Sub Prev_Date
+  eTransferDate.Value = eTransferDate.Value - 1
+  eBarcode.SetFocus
+End Sub
+
+Sub Next_Date
+  eTransferDate.Value = eTransferDate.Value + 1
+  eBarcode.SetFocus
+End Sub
+
+
+Sub ProductScanCheck
+
+  tblTransfers.Fields.Item("ProductCode").Readonly = False
+  tblTransfers.Fields.Item("Quantity").Readonly = False
+  CPD_Weight = 1
+  Dim CPD_ProdCode as String
+  If ICPROD.FindExact(eBarcode.Text) Then
+    CPD_ProdCode = ICProd.ProductCode
+  Else
+    Dim ICBar as Object
+    ICBar = Opentable("ICBAR")
+    ICBAR.indexname = "Barcode"
+    IF ICBar.FindExact(eBarcode.Text) then
+      CPD_ProdCode = ICBar.ProductCode
+    End If
+'    CheckPreDefined(eBarcode.Text,tblEAN128)
+  End If
+  Qty = CPD_Weight
+  tblTransfers.indexname = "Product"
+  IF CPD_ProdCode <> "" then
+    IF ICProd.FindExact(CPD_ProdCode) then
+      IF ICPROD.NonDiminishing <> True then
+        IF Not ICPROD.Inactive then
+          IF tblTransfers.Findexact(CPD_ProdCode) then
+            tblTransfers.Edit
+            tblTransfers.Quantity = (tblTransfers.Quantity + Qty)
+            tblTransfers.QtyOutstanding = tblTransfers.QuantityExpected - tblTransfers.Quantity
+            IF ReceiptMode then
+              tblTransfers.Adjustment = tblTransfers.QuantityExpected - tbltransfers.Quantity
+            End IF
+            tblTransfers.Save
+
+            ProductDetails
+          Else
+            IF NOT EditMode then
+              IF OpenExisting = True then
+                IF NOT InputQuery("Product " & CPD_ProdCode & " (" & ICProd.Description & ") was NOT found on the transfer!" & chr(13) & _
+                "Would you like to add this product to the transfer or cancel scan?") then
+                    tblTransfers.Fields.Item("ProductCode").Readonly = True
+                    tblTransfers.Fields.Item("Quantity").Readonly = True
+                  Exit Sub
+                End IF
+              End IF
+            End IF
+
+            tblTransfers.AllowInsertDelete = True
+            tblTransfers.Append
+            tblTransfers.ProductCode = CPD_ProdCode
+            tblTransfers.Description = ICPROD.Description
+            tblTransfers.Quantity = (tblTransfers.Quantity + Qty)
+
+            tblTransfers.QtyOutstanding = tblTransfers.QuantityExpected - tblTransfers.Quantity
+            IF ICQTY.Findexact(ICProd.ProductCode,eSourceLocation.Text) Then
+                tblTransfers.QtyAvailable = ICQty.Quantityinstock
+'                Lgth = 0
+'                Lgth=LEN(ICQTY.BinLocation)
+'                If lgth = 1 Then
+'                  tblTransfers.BinKey = "00" & ProdTable.BinLocation
+'                ElseIf lgth = 2 Then
+'                  tblTransfers.BinKey = "0" & ProdTable.BinLocation
+'                Else
+'                  tblTransfers.BinKey = ProdTable.BinLocation
+'                End If
+            End if
+'            MSGBOX("out = " & tblTransfers.QtyOutstanding & " - "  & tblTransfers.QuantityExpected & " - "  & tblTransfers.Quantity)
+            tblTransfers.Save
+            'tblTransfers.AllowInsertDelete = False
+
+            ProductDetails
+          End IF
+          tblTransfers.refresh
+
+        Else
+          eBarcode.Showerrorhint("Product is Inactive")
+        End IF
+
+        eProductCode.Text = CPD_ProdCode
+        eProductName.Text = ICPROD.Description
+
+      Else
+        eBarcode.Showerrorhint("Product is No Diminishing")
+      End IF
+    End IF
+  Else
+'    MSGBOX("Barcode not found - " & CPD_ProdCode)
+    eBarcode.Showerrorhint("Barcode not found")
+    IF NOT InsertMode then
+      tblTransfers.Fields.Item("ProductCode").Readonly = True
+      tblTransfers.Fields.Item("Quantity").Readonly = True
+    End IF
+    eBarcode.SetFocus
+  End If
+
+  tblTransfers.IndexName = "BinKey"
+  tblTransfers.Refresh
+
+'  MSGBOX("Error Hint " & CPD_ProdCode)
+'  eBarcode.SetFocus
+'  IF NOT InsertMode then
+   tblTransfers.Fields.Item("ProductCode").Readonly = True
+   tblTransfers.Fields.Item("Quantity").Readonly = True
+'  End IF
+End Sub
+
+Sub Amend_Qty
+
+  tblTransfers.QtyOutstanding = tblTransfers.QuantityExpected - tblTransfers.Quantity
+'  MSGBOX("out = " & tblTransfers.QtyOutstanding & " - "  & tblTransfers.QuantityExpected & " - "  & tblTransfers.Quantity)
+
+End Sub
+
+Sub AddProduct
+
+  IF ICProd.FindExact(eProduct.Text) AND InsertMode then
+    tblTransfers.ProductCode = ICProd.ProductCode
+    tblTransfers.Description = ICProd.Description
+    IF ICQTY.Findexact(ICProd.ProductCode,eSourceLocation.Text) Then
+      tblTransfers.QtyAvailable = ICQty.Quantityinstock
+      Lgth = 0
+      Lgth=LEN(ICQTY.BinLocation)
+      If lgth = 1 Then
+        tblTransfers.BinKey = "00" & ICQty.BinLocation
+      ElseIf lgth = 2 Then
+        tblTransfers.BinKey = "0" & ICQty.BinLocation
+      Else
+        tblTransfers.BinKey = ICQty.BinLocation
+      End If
+    End if
+  End IF
+
+
+End Sub
+
+Sub Move_Next
+  tblTransfers.Next
+  ProductDetails
+ eBarcode.SetFocus
+
+End Sub
+
+Sub Move_Prev
+  tblTransfers.Prev
+  ProductDetails
+ eBarcode.SetFocus
+End Sub
+
+Sub Save(PrintTransfer as Boolean)
+  Dim TransfData as Object
+  TransfData = CreateObject("Accredo.ICTransferData")
+  IF DocID = 0 then
+    TransfData.InsertTransfer
+  Else
+    IF TransfData.FindExact(DocID) then
+      TransfData.Edit
+    End IF
+  End IF
+  ToLocn.FindExact(eDestinationLocation.Text)
+  ICLOCN.Findexact(False,eSourceLocation.Text)
+  TransfData.DocumentDate = eTransferDate.value
+  TransfData.ReceiptDate = eTransferDate.value
+  TransfData.PeriodID = PeriodforDate(TransfData.DocumentDate)
+  TransfData.ReceiptPeriodID = PeriodforDate(TransfData.ReceiptDate)
+  TransfData.SourceLocationCode = eSourceLocation.Text
+  TransfData.DestinationLocationCode = eDestinationLocation.Text
+  If Autodest <> "" Then TransfData.Comment = "Auto Transfer for " & autodest
+  If ToLocn.Z_Van = True or ICLocn.Z_Van = True Then
+    TransfData.TransitLocationCode = ""
+  Else
+    TransfData.TransitLocationCode = "TRANSIT" 'getAppSetting("ST_DefaultTransitLoc")
+  End If
+
+  TransfData.Reference = eReference.Text
+'  IF getAppSetting("ST_UseCarrier") Then TransfData.Z_ShipperCode = eCarrierCode.Text
+  TransfData.Z_ShipperCode = eCarrierCode.Text
+  tblTransfers.First
+  TransfData.Line.Empty
+
+  Do until tblTransfers.Eof
+    TransfData.Line.Append
+    TransfData.Line.ProductCode = tblTransfers.ProductCode
+    IF NOT EditMode then
+      IF tblTransfers.Quantity = 0 then
+        TransfData.Line.QuantityDispatched = tblTransfers.QuantityExpected
+      Else
+        TransfData.Line.QuantityDispatched = tblTransfers.Quantity
+      End IF
+    Else
+      TransfData.Line.QuantityDispatched = tblTransfers.Quantity
+    End IF
+    TransfData.Line.Z_Sort_Bin = tblTransfers.BinKey
+    TransfData.Line.Save
+   tblTransfers.Next
+  Loop
+  TransfData.Save
+
+  Dim MyPrinter as String
+  Dim Locn as String
+  Dim PrintTransF as Object
+  Dim PrintTransS as Object
+
+'  IF PrintTransfer Then
+'IF User.LoginUserName = "ACCREDO" Then MSGBOX(eDestinationLocation.text)
+  If ToLocn.Z_Van = False Then
+    Locn = eDestinationLocation.text 'eSourceLocation.text 'User.DefaultLocationCode
+    If Left(Locn,1) = "D" then
+      MyPrinter =  "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+    ElseIf Left(Locn,1) = "W" then
+      MyPrinter = "Toshiba Wellington" '"HP Wellington B&W"
+    Else
+      MyPrinter = "SCREEN"
+    End If
+    PrintTransf = TransfData.Print
+    PrintTransf.ReportFileName = "ICTransfer1_BarcodeEAN.pfd"'"ICTransfer_Modify.pfd"
+    IF User.LoginUserName = "ACCREDO" then
+      PrintTransf.Destination = "SCREEN"
+      MSGBOX("Prt Trf " & MyPrinter)
+    Else
+      PrintTransf.Destination = "Printer"
+      PrintTransf.Printer.PrinterName = MyPrinter
+    End If
+    PrintTransf.Run
+
+  End IF
+  Locn = eSourceLocation.text 'User.DefaultLocationCode
+  If Left(Locn,1) = "D" then
+'    MyPrinter = "HP LaserJet Pro MFP M127-M128 PCLmS"
+    MyPrinter =  "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+'  ElseIf Left(Locn,1) = "C" then
+'    MyPrinter = "CHCH_HP M570"
+  ElseIf Left(Locn,1) = "W" then
+    MyPrinter = "Toshiba Wellington" '"HP Wellington B&W"
+  Else
+    MyPrinter = ""
+  End If
+
+  PrintTransS = TransfData.Print
+  PrintTransS.ReportFileName = "ICTransfer1_BarcodeEAN.pfd"'"ICTransfer_Modify.pfd"
+  IF User.LoginUserName = "ACCREDO" then
+    PrintTransS.Destination = "SCREEN"
+    MSGBOX("+++ " & MyPrinter)
+  Else
+    PrintTransS.Destination = "Printer"
+    PrintTransS.Printer.PrinterName = MyPrinter
+  End If
+  PrintTransS.Run
+
+
+  Status
+  ForceClose = True
+  Try
+    _TransferList.RefreshGrid
+  Catch e
+
+  end try
+
+  Self.close
+End Sub
+
+Sub btnSave_Click
+  Save(False)
+End Sub
+
+Sub btnPrint_Click
+  Save(True)
+End Sub
+
+Sub CheckForDG(ByVal ProdCode as Object)
+  IF ICProd.FindExact(ProdCode) then
+      IsDG = ICProd.Z_DG_Product
+  End If
+End Sub
+
+Sub SaveTransfer(Byref Post as Boolean)
+  Dim TransfData as Object
+  TransfData = CreateObject("Accredo.ICTransferData")
+  IF DocID = 0 then
+    TransfData.InsertTransfer
+  Else
+    IF TransfData.FindExact(DocID) then
+      TransfData.Edit
+    End IF
+  End IF
+
+  IF NOT ReceiptMode then
+
+    TransfData.DocumentDate = eTransferDate.value
+    TransfData.ReceiptDate = eTransferDate.value
+    TransfData.PeriodID = PeriodforDate(TransfData.DocumentDate)
+    TransfData.ReceiptPeriodID = PeriodforDate(TransfData.ReceiptDate)
+    TransfData.SourceLocationCode = eSourceLocation.Text
+    TransfData.DestinationLocationCode = eDestinationLocation.Text
+    TOLOCN.Findexact(TransfData.DestinationLocationCode)
+    If ( TransfData.DestinationLocationCode = "TAS" or TransfData.DestinationLocationCode = "WGTN" or TransfData.DestinationLocationCode = "DBNZ")  Then
+      TransfData.TransitLocationCode = "TRANSIT"
+    Else
+     TransfData.TransitLocationCode = ""
+    End If
+    TransfData.Reference = eReference.Text
+    TransfData.Z_ShipperCode = eCarrierCode.Text
+    tblTransfers.First
+    TransfData.Line.Empty
+    Do until tblTransfers.Eof
+      TransfData.Line.Append
+      TransfData.Line.ProductCode = tblTransfers.ProductCode
+      If IsDG = False Then CheckForDG(tblTransfers.ProductCode)
+      IF tblTransfers.Quantity = 0 then
+        If TOLocn.Z_Van = True Then TransfData.Line.QuantityReceipted = tblTransfers.Quantity 'Expected
+        TransfData.Line.QuantityDispatched = tblTransfers.Quantity 'Expected
+      Else
+        If TOLocn.Z_Van = True Then TransfData.Line.QuantityReceipted = tblTransfers.Quantity 'Expected
+        TransfData.Line.QuantityDispatched = tblTransfers.Quantity
+      End IF
+'      MSGBOX("trf = " & TransfData.Line.QuantityReceipted & " Ad= " & TransfData.Line.QuantityAdjusted  & " Dis= " & TransfData.Line.QuantityDispatched)
+      TransfData.Line.Z_Sort_Bin = tblTransfers.BinKey
+      TransfData.Line.Save
+     tblTransfers.Next
+    Loop
+    TransfData.Save
+  ElseIF ReceiptMode then
+    TransfData.Line.First
+    Do Until TransfData.Line.EOF
+      '-----
+      tblTransfers.First
+      Do Until tblTransfers.EOF
+        If TransfData.Line.LineID = tblTransfers.LineID then
+          TransfData.Line.Edit
+          If tblTransfers.Quantity < tblTransfers.QuantityExpected Then
+            TransfData.Line.QuantityReceipted = tblTransfers.QuantityExpected
+            TransfData.Line.QuantityAdjusted = 0
+          Else
+            TransfData.Line.QuantityAdjusted = 0
+            TransfData.Line.QuantityReceipted = tblTransfers.Quantity
+          End if
+          TransfData.Line.QuantityAdjusted = 0 '
+          TransfData.Line.Save
+        End IF
+        IF TransfData.EOF then
+          msgbox("Failed to Find matching Lines on Transfer")
+          Exit Sub
+        End IF
+       tblTransfers.Next
+      Loop
+     TransfData.Line.Next
+    '-----
+    Loop
+    If eReceiptDate.value <> ## Then
+      TransfData.ReceiptDate = eReceiptDate.value
+      TransfData.ReceiptPeriodID = PeriodforDate(TransfData.ReceiptDate)
+    end if
+    TransfData.Save
+
+  End IF
+'MSGBOX(TOLocn.Z_Van)
+  If Post = True then
+    IF LoadMode then
+      TOLOCN.Findexact(TransfData.DestinationLocationCode)
+'      msgbox(TransfData.DestinationLocationCode)
+      If TOLocn.Z_Van = True Then
+        TransfData.Transfer
+      Else
+        TransfData.Dispatch
+      End If
+    End If
+    IF ReceiptMode then TransfData.Receipt
+  End IF
+
+  'TransfData.openform
+  PrintTransf = TransfData.Print
+'  PrintDG = TransfData.Print
+  PrintTransf.ReportFileName = "ICTransfer1_BarcodeEAN.pfd" '"ICTransfer_Modify.pfd"
+  IF User.LoginUserName = "ACCREDO" then PrintTransf.Destination = "SCREEN"
+  'PrintTransf.Printer.PrinterName = "Hamilton Plain"
+  PrintTransf.Run
+
+  IF TransfData.TransitLocationCode <> "" and IsDG and eMode.Text <> "RECEIPT MODE"  then
+    PrintDG = TransfData.Print
+    PrintDG.ReportFileName = "ICTransfer_DG.pfd"
+    IF User.LoginUserName = "ACCREDO" then PrintDG.Destination = "SCREEN"
+'    IF InputQuery("Print DG? - (Prompt to be removed after testing)") Then
+      PrintDG.Run
+'    End IF
+    PrintDG = Nothing
+  End IF
+
+  Status
+  ForceClose = True
+  Self.close
+End Sub
+
+
+'Reset
+
+Function CheckFailedLines
+  Difftable.empty
+  Returnprod = False
+  LineString = ""
+  tblTransfers.First
+  Do Until tblTransfers.EOF
+    IF tblTransfers.Quantity <> tblTransfers.QuantityExpected then
+      DiffQty = tblTransfers.Quantity - tblTransfers.QuantityExpected
+      LineString = LineString & tblTransfers.ProductCode & " : " & tblTransfers.Description &  " Expected: " & tblTransfers.QuantityExpected & " : Dispatched: " & tblTransfers.Quantity & " : Difference: " & DiffQty & chr(13)
+      Returnprod = True
+      tblReturn.Append
+      tblReturn.ProductCode = tblTransfers.ProductCode
+      tblReturn.Description = tblTransfers.Description
+      tblReturn.Quantity = tblTransfers.Quantity - tblTransfers.QuantityExpected
+    ' Old Modify tblReturn.Quantity = tblTransfers.QuantityExpected - tblTransfers.Quantity
+      tblReturn.Expected = tblTransfers.QuantityExpected
+      tblReturn.Dispatch = tblTransfers.Quantity
+      tblReturn.Save
+    End IF
+   tblTransfers.Next
+  Loop
+
+
+ Return LineString
+
+End Function
+
+Sub DeleteLine
+
+  IF InputQuery("Are you sure you want to delete Product " & tblTransfers.ProductCode & " from the Transfer List?") then
+    IF tblTransfers.LineID <> 0 AND DocID <> 0 then
+      IF ICTFER.FindExact(DocID) then
+        LN = ICTFER.Line
+        LN.First
+        Do Until LN.EOF
+          IF LN.LineID = tblTransfers.LineID then
+            ICTFER.Edit
+            LN.Delete
+            ICTFER.Save
+            Exit Do
+          End IF
+         LN.Next
+        Loop
+      Else
+        self.showerrorhint("Logic Error: Can't Find DocumentID: " & DocID)
+        Abort("",True)
+      End IF
+    Else
+      ';;Just Delete off tblTransfers
+    End IF
+  Else
+    Abort("",True)
+  End IF
+
+End Sub
+
+Sub UpdateTransfer
+  LN = ICTFER.Line
+  tblTransfers.First
+'  IF User.LoginUserName = "ACCREDO" Then BrowseDataset(tblTransfers)
+    Do Until tblTransfers.EOF
+'    IF User.LoginUserName = "ACCREDO" Then MSGBOX("Read " & tblTransfers.ProductCode & " Qty= " & tblTransfers.Quantity & " - " & LoadMode)
+      IF LoadMode then
+ '       IF User.LoginUserName = "ACCREDO" Then MSGBOX("At load" & tblTransfers.ProductCode & " Qty= " & tblTransfers.Quantity)
+        IF tblTransfers.Quantity = 0 then
+          ';;IF QUANTITIES ARE 0 WHICH MEANS THE PRODUCT WAS NOT SCANNED AND THE QUANTITIES WERE ACCEPTED
+
+'          IF InputQuery("Are you sure you want to delete Product " & tblTransfers.ProductCode & " from the Transfer List?") then
+
+            IF tblTransfers.LineID <> 0 AND DocID <> 0 then
+
+              IF ICTFER.FindExact(DocID) then
+                ';;LOOP THROUGH TRANSFER'S LINES UNTIL IT FINDS A MATCH ON LINEID
+                LN = ICTFER.Line
+                LN.First
+                FoundLine = False
+                Do Until LN.EOF
+                  IF LN.LineID = tblTransfers.LineID then
+                    ICTFER.Edit
+                    LN.Delete
+                    ICTFER.Save
+                    tblTransfers.Delete
+                    Exit Do
+                  End IF
+                 LN.Next
+                Loop
+              Else
+                self.showerrorhint("Logic Error: Can't Find DocumentID: " & DocID)
+                Abort("",True)
+              End IF 'ICTFER.Findexact
+
+            Else
+              msgbox("Logic Error Line No 777: No LineID= " & tblTransfers.LineID & " / DocID Match= " & DocID )
+              Abort("",True)
+            End IF'LineID <> 0 DocID <> 0
+
+'          Else
+''            MSGBOX("Despatch will fail with Zero Qty Line")
+'            tblTransfers.Next
+'          End IF 'InputQuery to Delete
+        Else 'tblTransfers.Quantity <> 0 but is d
+          LN = ICTFER.Line
+'          tblTransfers.First
+'          IF User.LoginUserName = "ACCREDO" Then MSGBOX("Read2")
+          ICTFER.Edit
+          IF ICTFER.Z_ShipperCode = "" and eCarrierCode.Text <> "" Then
+            ICTFER.Z_ShipperCode = eCarrierCode.Text
+          End If
+'          Do Until tblTransfers.EOF
+            IF tblTransfers.Quantity <> LN.QuantityDispatched then
+              LN.First
+              Do Until LN.EOF
+                IF LN.LineID = tblTransfers.LineID then
+                  LN.Edit
+                  LN.QuantityDispatched = tblTransfers.Quantity
+                  LN.Z_Sort_Bin = tblTransfers.BinKey
+                  LN.Save
+                  Exit Do
+                End IF
+               LN.Next
+              Loop
+            End IF
+           tblTransfers.Next
+'          Loop
+          ICTFER.Save
+        End IF 'tblTransfers.Quantity = 0
+
+      ElseIF tblTransfers.Quantity <> tblTransfers.QuantityExpected then
+        ';;IF NOT LOADMODE
+'          IF User.LoginUserName = "ACCREDO" Then MSGBOX("Not Load")
+        IF ICTFER.FindExact(DocID) then
+          LN = ICTFER.Line
+          LN.First
+          Do Until LN.EOF
+            IF LN.LineID = tblTransfers.LineID then
+              ICTFER.Edit
+              IF ICTFER.Z_ShipperCode = "" and eCarrierCode.Text <> "" Then
+                 ICTFER.Z_ShipperCode = eCarrierCode.Text
+              End If
+              LN.Edit
+              IF LoadMode then
+                LN.QuantityDispatched
+              ElseIF ReceiptMode then
+'                LN.QuantityAdjusted = tblTransfers.Quantity - tblTransfers.QuantityExpected
+                LN.QuantityReceipted = tblTransfers.QuantityExpected
+              End IF
+              LN.Save
+              ICTFER.Save
+              Exit Do
+            End IF
+           LN.Next
+          Loop
+        End If
+        tblTransfers.Next
+      Else
+        tblTransfers.Next
+      End IF
+    Loop
+'  IF User.LoginUserName = "ACCREDO" Then MSGBOX("B4 Sub")
+End Sub
+
+Sub CompleteTransfer
+
+  IF OpenExisting = True then
+    Log = CheckFailedLines
+    IF User.LoginUserName = "ACCREDO" Then MSGBOX("Complete Transfer")
+    IF Log <> "" then
+        IF InputQuery("The Following Products Have Different Quantities to the Original Transfer: " & chr(13) & _
+                      Log & chr(13) & _
+                      IIF(LoadMode,"Would You Like to Proceed With The Current Quantities?","Would You Like to Proceed With The Current Quantities and Mark any Variances as Adjustments?")) then
+          UpdateTransfer
+          If ReturnProd = True Then
+              IF ReceiptMode Then
+                IF User.LoginUserName = "ACCREDO" Then MSGBOX("Receipt Mode")
+                Dim TransfData as Object
+                TransfData = CreateObject("Accredo.ICTransferData")
+                TransfData.InsertTransfer
+                TransfData.DocumentDate = Date
+                TransfData.ReceiptDate = Date
+                TransfData.PeriodID = PeriodforDate(TransfData.DocumentDate)
+                TransfData.ReceiptPeriodID = PeriodforDate(TransfData.ReceiptDate)
+                TransfData.SourceLocationCode = eDestinationLocation.Text
+                TransfData.DestinationLocationCode = eSourceLocation.Text
+                If ( TransfData.DestinationLocationCode = "TAS" or TransfData.DestinationLocationCode = "WGTN" or TransfData.DestinationLocationCode = "DBNZ")  Then
+                  TransfData.TransitLocationCode = "TRANSIT"
+                Else
+                  TransfData.TransitLocationCode = ""
+                End If
+                TransfData.Reference = "Undelivered trf"
+                TransfData.Comment = "Undelivered Trf"
+                TransfData.Z_ShipperCode = ""
+                tblReturn.First
+
+                TransfData.Line.Empty
+                Do until tblReturn.Eof
+                  TransfData.Line.Append
+                  TransfData.Line.ProductCode = tblReturn.ProductCode
+                  TransfData.Line.Dispatch = tblReturn.Quantity * -1
+                  TransfData.Line.Receipt = tblReturn.Quantity * -1
+                  TransfData.Line.Save
+                  tblReturn.Next
+                Loop
+                TransfData.Save
+                TransfData.Transfer
+                Dim Printername as String
+                IF left(eSourceLocation.text,1) = "C" Then
+                   PRINTERNAME = "CHCH_HP M570"
+                ElseIF left(eSourceLocation.text,1) = "W" Then
+                   PRINTERNAME = "Toshiba Wellington" '"HP Wellington B&W"
+                Else
+'                  PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+                  Printername = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+
+                End If
+                PrintTransf = TransfData.Print
+                PrintTransf.ReportFileName = "ICTransfer1_BarcodeEAN.pfd"
+                IF User.LoginUserName = "ACCREDO" then
+                   PrintTransf.Destination = "SCREEN"
+                else
+                   PrintTransf.Printer.PrinterName = PRINTERNAME
+                End if
+                PrintTransf.Run
+                IF left(eDestinationLocation.text,1) = "C" Then
+                   PRINTERNAME = "CHCH_HP M570"
+                ElseIF left(eDestinationLocation.text,1) = "W" Then
+                   PRINTERNAME = "Toshiba Wellington" '"HP Wellington B&W"
+                Else
+'                  PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+                   Printername = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+                End If
+                PrintTransf = TransfData.Print
+                PrintTransf.ReportFileName = "ICTransfer1_BarcodeEAN.pfd"
+                IF User.LoginUserName = "ACCREDO" then
+                   PrintTransf.Destination = "SCREEN"
+                else
+                   PrintTransf.Printer.PrinterName = PRINTERNAME
+                End if
+                PrintTransf.Run
+
+              Elseif LoadMode then
+                Dim Mailer as object
+                Mailer = createobject("Accredo.SMTPMailer")
+'                IF eDestinationLocation.value = "CHC" or eDestinationLocation.value = "WGTN" or eDestinationLocation.value = "HV1" Then
+'                  IF eDestinationLocation.value = "CHC" Then
+'                    Mailer.To = "mark.floris@linkup.co.nz"
+'                  ElseIF eDestinationLocation.value = "WGTN" Then
+'                    Mailer.To = "brian.church@linkup.co.nz"
+'                 '   Mailer.bcc = "colin@zealsystems.co.nz
+'                  ElseIF eDestinationLocation.value = "HV1" Then
+'                    Mailer.To = "daryl.landers@linkup.co.nz"
+'                  '  Mailer.bcc = "colin@zealsystems.co.nz"
+'                  End if
+'
+'                  Mailer.BCC = "freight@linkup.co.nz" ';colin@zealsystems.co.nz"
+'                  Mailer.From = "freight@linkup.co.nz"
+'                  Mailer.Subject = "Product Transfer Request - Differences ID = " & DocId
+'                  Mailer.Contents.Text = LOG
+'                  EDI = createreport(tblReturn, "Transfer Differenct Report" )
+'                  EDI.Destination = "Disk file"
+'                  EDI.FileName = Directory.SystemDirectory & "TransferReports\"& eDestinationLocation.value & "_" & DocId & ".pdf"
+'
+'                  EDI.Run
+'                  AttFile = Directory.SystemDirectory & "TransferReports\"& eDestinationLocation.value & "_" & DocId & ".pdf"
+''                  Mailer.Attachments = Directory.SystemDirectory & "TransferReports\"& eDestinationLocation.value & "_" & DocId & ".pdf"
+'                  Mailer.Attachments = Attfile
+''                  MSGBOX("Email Subject: " & "Product Transfer Request - Differences ID = " & DocId)
+''                  MSGBOX("Email: " & LOG)
+''                  MSGBOX("Att= " & Mailer.Attachments)
+'                  Try
+'                    IF User.LoginUserName <> "ACCREDO" then Mailer.Send
+'                    Deletefile(Attfile)
+'                  Catch e
+'                    ErrorMsg = e.Message & chr(13) & e.SourcePos & Chr(13) & e.ExceptionClass & Chr(13) & "Mailer To = " & Mailer.To & Chr(13) & LOG
+'                    Msgbox(ErrorMsg)
+'                  End Try
+'                End If
+                TOLOCN.Findexact(eDestinationLocation.text)
+ '               If TOLocn.Z_Van = True Then
+                  Dim ICTFER as Object
+                  ICTFER = opentable("ICTFER")
+                  ICTFER.indexname = "TypeDestinationPeriodDocument"
+                  Dim BackOrderData as Object
+                  BackOrderData = CreateObject("Accredo.ICTransferData")
+                  BackorderData.Indexname = "Document"
+                  TfrPer = Periodfordate(Date)
+                  ICTFER.SetRange("N",eDestinationLocation.text,TFRPer)
+                  TRFFound = False
+                  ICTFER.First
+'                  MSGBOX(TRFFound & " - " & ICTFER.DocumentID & " Per= " & Tfrper)
+                  Do Until ICTFER.EOF
+                    IF left(ICTFER.Comment,6) = "+Auto-" and ICTFER.DocumentID <> DocId Then
+                       TRFFound = True
+
+                       Exit Do
+                    End If
+                  ICTFER.Next
+                  Loop
+'                  MSGBOX(TRFFound & " - " & ICTFER.DocumentID)
+                  Prttrf = False
+                  IF TRFFound = True Then
+                    BackOrderData.Findexact(ICTFER.DocumentID)
+                    BackOrderData.Edit
+                  Else
+                    BackOrderData.InsertTransfer
+                    BackOrderData.DocumentDate = eTransferDate.value
+                    BackOrderData.ReceiptDate = eTransferDate.value
+                    BackOrderData.PeriodID = PeriodforDate(BackOrderData.DocumentDate)
+                    BackOrderData.ReceiptPeriodID = PeriodforDate(BackOrderData.ReceiptDate)
+                    BackOrderData.SourceLocationCode = eSourceLocation.Text
+                    BackOrderData.DestinationLocationCode = eDestinationLocation.Text
+                    If (BackOrderData.DestinationLocationCode = "TAS" or BackOrderData.DestinationLocationCode = "WGTN" or BackOrderData.DestinationLocationCode = "DBNZ")  Then
+                      BackOrderData.TransitLocationCode = "TRANSIT"
+                    Else
+                     BackOrderData.TransitLocationCode = ""
+                    End If
+                    BackOrderData.Comment = "+Auto-BackOrder"
+                    BackOrderData.Reference = eReference.Text
+                  End If
+                  tblReturn.First
+                  Do until tblReturn.Eof
+                    IF tblReturn.Quantity < 0 Then
+                      prttrf = True
+                      ProdFound = False
+                      BackOrderData.Line.First
+                      Do Until BackOrderData.Line.EOF
+
+                        IF BackOrderData.Line.ProductCode = tblReturn.ProductCode Then
+                          BackOrderData.Line.Edit
+                          BackOrderData.Line.Dispatch = BackOrderData.Line.Dispatch + (tblReturn.Quantity  * -1)
+                          ProdFound = True
+                          Exit Do
+                        End If
+
+                      BackOrderData.Line.Next
+                      Loop
+                      If ProdFound = False Then
+                        If tblReturn.ProductCode <> "" Then
+                          BackOrderData.Line.Append
+                          BackOrderData.Line.ProductCode = tblReturn.ProductCode
+                          BackOrderData.Line.Dispatch = tblReturn.Quantity  * -1
+                        End if
+'                      MSGBOX("Return = " & BackOrderData.Line.Dispatch)
+                    ' Old Modify removed * -1
+                      End if
+                      BackOrderData.Line.Save
+                    End if
+                  tblReturn.Next
+                  Loop
+                  BackOrderData.Save
+'                  IF eDestinationLocation.value = "HV1" and prttrf = True Then
+'                    PrintBO = BackOrderData.Print
+'                    PrintBO.ReportFileName = "ICTransfer1_BarcodeEAN.pfd"
+'                    Dim Printername as String
+''                    PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+'                    Printername = "TOSHIBA e-S2802A"
+'                    PrintBO.Printer.PrinterName = PRINTERNAME
+'                    IF User.LoginUserName <> "ACCREDO" then PrintBo.run
+'                  End If
+                  btnComplete.ShowStatusHint("BackOrder Transfer Created")
+            '    End if
+              ELSE
+              End if
+            End if
+        Else
+          IIF(LoadMode,btnComplete.ShowErrorHint("Dispatch Aborted"),btnComplete.ShowErrorHint("Complete Aborted"))
+          Exit Sub
+        End IF
+    Else
+      btnComplete.ShowStatusHint("All Lines Complete")
+    End IF
+  End IF
+
+
+  'TransferExitForm = Createcustomform("Barcoding\TransferExitForm.pfd")
+  'TransferExitForm.ShowModal
+  'Dim ExitStatus as String
+  'ExitStatus = TransferExitForm.pExitStatus
+  'If ExitStatus = "TransferAndPost" then
+   SaveTransfer(True)
+   Dim Printername as String
+   IF left(eDestinationLocation.text,1) = "C" Then
+      PRINTERNAME = "CHCH_HP M570"
+   ElseIF left(eDestinationLocation.text,1) = "W" Then
+      PRINTERNAME = "Toshiba Wellington" '"HP Wellington B&W"
+   Else
+'      PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+      Printername = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+   End If
+'   MSGBOX(" - Doc Id B - " & DocID)
+   Trftable = ExecuteSql("SELECT ICTFER.DocumentID " & _
+                         "      ,ICTFER.DocumentDate " & _
+                         "      ,ICLINE.ProductCode " & _
+                         "      ,icline.QuantityReceipted " & _
+                         "      ,ICPROD.Description " & _
+                         "      ,ICPEND.Class " & _
+                         "      ,ICPEND.LocationCode " & _
+                         "      ,ICPEND.SourceDocumentID " & _
+                         "      ,ICPEND.Quantity " & _
+                         "      ,OEHEAD.CustomerCode " & _
+                         "      ,OEHEAD.OrderNo " & _
+                         "      ,OEHEAD.SalesPersonCode " & _
+                         "FROM   ICTFER " & _
+                         "       INNER JOIN ICLINE  ON ICTFER.DocumentID=ICLINE.DocumentID " & _
+                         "       INNER JOIN ICPEND ON ICPEND.ProductCode=ICLINE.ProductCode and ICPEND.LocationCode = ICTFER.DestinationLocationCode " & _
+                         "       INNER JOIN OEHEAD ON OEHEAD.DocumentID=ICPEND.SourceDocumentID " & _
+                         "       inner Join ICPROD on ICProd.productCode = ICLINE.ProductCode " & _
+                         "WHERE (ICTFER.DocumentID = :DocumentID " & _
+                         "   AND ICPEND.Class = 'B' " & _
+                         "   and icline.QuantityReceipted > 0) " DocID )
+    If Trftable.recordMax > 0 then
+      Dim Form15 as Object
+      Form15 = CreateObject("Accredo.UTCustomReport")
+      Form15.ReportFileName = "Trf_OutstandingCustomerOrders.pfd"
+'      IF User.LoginUserName = "ACCREDO" Then
+         Form15.Destination = "Screen"
+      Form15.Run(DocID)
+    Else
+      eBarcode.SetFocus
+    End IF
+
+    ToLocn.FindExact(eDestinationLocation.Text)
+    If ToLocn.Z_Van = True Then
+       IF InputQuery("Do you wish to print VAN DG reports?") Then
+          Locn = eDestinationLocation.text 'eSourceLocation.text 'User.DefaultLocationCode
+          If Left(Locn,1) = "D" then
+            MyPrinter =  "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+          ElseIf Left(Locn,1) = "W" then
+            MyPrinter = "Toshiba Wellington" ' "HP Wellington B&W"
+          Else
+            MyPrinter = "SCREEN"
+          End If
+          dim Vanreport1 as string
+          dim Vanreport2 as string
+          Vanreport1 = Directory.SystemDirectory & "\Reports\Custom\DangerousGoodsStockReportDP.pfd"
+          Vanreport2 = Directory.SystemDirectory & "\Reports\Custom\DangerousGoodsCertificateAndDeclaration.pfd"
+          Dim Report1 as Object
+          Report1 = CreateObject("Accredo.UTCustomReport")
+          Report1.ReportFileName = Vanreport1
+          Report1.Destination = "Printer"
+          Report1.Printer.PrinterName =  MyPrinter
+          Report1.Run
+          Report1 = Nothing
+          Dim Report2 as Object
+          Report2 = CreateObject("Accredo.UTCustomReport")
+          Report2.ReportFileName = Vanreport2
+          Report2.Destination = "Printer"
+          Report2.DPrinter.PrinterName =  MyPrinter
+          Report2.Run
+          Report2 = Nothing
+       End If
+    End If
+  '  Reset
+  'ElseIf ExitStatus = "Transfer" then
+   ' SaveTransfer(False)
+   ' Reset
+  'ElseIf ExitStatus = "Close" then
+  'Else
+  'Error("Exit Status Unkown")
+  'End IF
+'  eBarcode.SetFocus
+End Sub
+
+
+Sub OnEnter
+  eBarcode.Text = ""
+  tblTransfers.IndexName = "BinKey"
+End Sub
+
+
+Sub OnLeave
+  IF SourceLocation and DestinationLocation and eBarcode.text = "000000000000" then
+    CompleteTransfer
+'    GenerateInvoice
+  ElseIF eBarcode.text <> "" then
+    IF Not StaffScan then
+      if Upper(LEFT(eBarcode.value,5)) = "STAFF" Then
+        eReference.Text = Upper(Mid(eBarcode.value,6,20))
+        StaffScan = True
+
+      Else
+        eBarcode.Showerrorhint("Scan Staff")
+      End IF
+    ElseIf eCarrierCode.Text = "" and CarierReqd Then
+      ICBAR.indexname = "Barcode"
+        IF ICBAR.Findexact(eBarcode.text) then
+        eProductCode.Text = ICBAR.ProductCode
+          IF ICPROD.FIndexact(ICBAR.ProductCode) then
+            If Upper(Left(ICProd.Category2,7))= "FREIGHT" Then
+              eCarrierCode.Text = ICProd.ProductCode
+              CarrierScan = True
+              eCarrierCode.Enabled = CarrierScan
+
+            Else
+              eBarcode.Showerrorhint("Code selected not a Freight Code")
+            End IF
+          End IF
+        Else
+          eBarcode.Showerrorhint("Carrier Not Found")
+        End IF
+'        MSGBOX("Select Carrier before scanning Barcodes")
+    Else
+        ProductScanCheck
+    End if
+
+  End IF
+  Status
+IF eBarcode.Text <> "" then eBarcode.SetFocus
+End Sub
+
+Sub Product_Click
+  IF eStatus.text = "Scan Product" Then
+     eBarcode.text = tbltransfers.ProductCode
+     ProductScanCheck
+  End If
+End Sub
+
+
+Sub ChangeQuantity
+
+  tblTransfers.Fields.Item("ProductCode").Readonly = False
+  tblTransfers.Fields.Item("Quantity").Readonly = False
+
+
+  If eproductCode.text <> "" then
+      tblTransfers.indexname = "Product"
+      IF tblTransfers.Findexact(eproductCode.text) then
+        tblTransfers.IndexName = "BinKey"
+        CalcForm = Createcustomform("Barcoding\Qty_Entry.pfd")
+        CalcForm.pProductCode = eproductCode.text
+        CalcForm.pOrder = False
+  '      CalcForm.pOrderedQTY = tblTransfers.QuantityOrdered
+  '      CalcForm.pLPickedQty = tblTransfers.QuantityOutstanding
+        CalcForm.ShowModal
+        IF CalcForm.eExitStatus.Checked = True Then
+          btnButton2.showstatushint("Cancelled")
+          IF Not InsertMode then
+            tblTransfers.Fields.Item("ProductCode").Readonly = True
+            tblTransfers.Fields.Item("Quantity").Readonly = True
+          End IF
+          Exit Sub
+        End IF
+        tblTransfers.Edit
+        tblTransfers.Quantity = CalcForm.pPickedQty
+        Try
+          tblTransfers.Adjustment = tblTransfers.Quantity - tblTransfers.QuantityExpected
+          tblTransfers.QtyOutstanding = tblTransfers.QuantityExpected - tblTransfers.Quantity
+        Catch
+        End Try
+  '      tblTransfers.QuantityOutstanding = tblTransfers.QuantityOrdered - tblTransfers.QuantityScanned
+        tblTransfers.Save
+        tblTransfers.IndexName = "BinKey"
+        ProductDetails
+      Else
+        eBarcode.Showerrorhint("Item Not Found On Transfer: " & eProductCode.Text)
+      End IF
+  Else
+    eproductCode.Showerrorhint("Scan Product First")
+  End IF
+
+  IF Not InsertMode then
+    tblTransfers.Fields.Item("ProductCode").Readonly = True
+    tblTransfers.Fields.Item("Quantity").Readonly = True
+  End IF
+  eBarcode.SetFocus
+End SUb
+
+Sub Ref_Leave
+  eBarcode.SetFocus
+';;DISABLED TEMPORARILY AS THE SAVE BUTTON IS HAVING TO BE CLICKED TWICE IF COMING FROM THE REFERENCE BOX
+End Sub
+
+
+
+Sub AddNewItem
+  IF not SourceLocation Then
+    eBarcode.Showerrorhint("Scan Source Location")
+  ElseIF not DestinationLocation Then
+    eBarcode.Showerrorhint("Scan Destination Location")
+  ElseIf not StaffScan Then
+    eBarcode.Showerrorhint("Scan Staff Reference")
+  Else
+    AddNewItemForm = Createcustomform("Barcoding\OrderPicking_AddProductToOrder.pfd")
+    AddNewItemForm.ShowModal
+    Dim NewProduct as String
+    NewProduct = AddNewItemForm.pNewProduct
+    NewBarcode = AddNewItemForm.pNewBarcode
+    If NewProduct <> "" then
+      tblTransfers.Indexname = "Product"
+      If tblTransfers.Findexact(NewProduct) Then
+        MSGBOX("Product already exists on Transfer")
+      Else
+        tblTransfers.AllowInsertDelete = True
+        tblTransfers.Fields.Item("ProductCode").Readonly = False
+        tblTransfers.Fields.Item("Quantity").Readonly = False
+        tblTransfers.Append
+        'tblTransfers.NewRow = True
+        tblTransfers.ProductCode = NewProduct
+        eproductCode.text = NewProduct
+        IF ICPROD.Findexact(NewProduct) then
+          tblTransfers.Description = ICPROD.DEscription
+        End IF
+
+         tblTransfers.Quantity = 1
+
+    '    tblTransfers.QuantityPicked = 1
+    '    tblTransfers.QuantityOrdered = 1
+        tblTransfers.Save
+        tblTransfers.Fields.Item("ProductCode").Readonly = true
+        tblTransfers.Fields.Item("Quantity").Readonly = True
+      'tblTransfers.AllowInsertDelete = False
+      End If
+    End IF
+    Call ProductDetails
+  '  tblTransfers.indexname = "Order"
+    eBarcode.SetFocus
+  End IF
+End SUb
+
+
+
+Sub navGrid_Click(Sender as Object,Button as Number, Handled as Boolean)
+
+  IF Button = ebDelete  then
+    DeleteLine
+  End IF
+
+End Sub]]>
+</Design>

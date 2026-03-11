@@ -1,0 +1,4 @@
+' OrderPicking.pfs
+' Opens the Proline Order Picking form directly.
+
+CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\OrderPicking_Proline.pfd")

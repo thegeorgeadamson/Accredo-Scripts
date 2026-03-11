@@ -1,0 +1,14 @@
+Dim Form1 as Object
+Form1 = GetTriggerObject
+if IsNull(Form1) or Form1.ClassName <> "OESalesOrderEntryForm" then Error "Wrong form class for script"
+If Form1.PrintStatus = "U" Then
+  Dim Form2 as Object
+  Form2 = Form1.Print
+  Form2.Destination = "Printer"
+  IF User.LoginUserName <> "ACCREDO" Then
+'    Form2.Printer.PrinterName = "Brother MFC-7360N Hamilton"  
+  End IF  
+  Form2.Run
+  Form2 = Nothing
+End If
+Form1 = Nothing

@@ -1,0 +1,16 @@
+' MixBank_NewLine.pfs
+' Opens the current MIXJOTUN invoice and appends a new line ready for entry.
+
+Dim frmINInvoiceList As Object
+frmINInvoiceList = CreateObject("Accredo.INInvoiceListForm")
+frmINInvoiceList.CustomerCode = "MIXJOTUN"
+frmINInvoiceList.AutoSelect = True
+frmINInvoiceList.Find("MIXJOTUN")
+
+Dim frmINInvoice As Object
+frmINInvoice = frmINInvoiceList.Invoice.Open
+frmINInvoiceList.Close
+frmINInvoice.Edit
+frmINInvoice.Line.Append
+frmINInvoice.Line.Description = "INV"
+frmINInvoice.Line.Append

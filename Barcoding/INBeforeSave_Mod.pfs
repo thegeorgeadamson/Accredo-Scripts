@@ -1,0 +1,255 @@
+Confirmed = False
+
+Dim Form1 as Object
+Form1 = GetActiveObject
+if IsNull(Form1) or Form1.ClassName <> "INInvoiceEntryForm" then Error "Wrong form class for script"
+
+Dim ICProduct as Object
+ICProduct = CreateObject("Accredo.ICProductData")
+ICProduct.IndexName = "Product"
+
+Dim INCategory1Data as Object
+INCategory1Data = CreateObject("Accredo.INCategory1Data")
+INCategory1Data.IndexName = "Category"
+
+Dim INCategory2Data as Object
+INCategory2Data = CreateObject("Accredo.INCategory2Data")
+INCategory2Data.IndexName = "Category"
+
+Dim ARCUST as Object
+ARCUST = OpenTable("ARCUST")
+ARCUST.indexName = "Customer"
+
+Dim ICLocn as Object
+ICLOCN = OpenTable("ICLOCN")
+ICLOCN.indexName = "Location"  
+
+IF ICLocn.findexact(Form1.DefaultLocationCode) Then
+'  IF ARCust.Findexact(Form1.CustomerCode) Then
+    If ICLocn.BranchCode <> Form1.BranchCode Then
+      MSGBOX("Invoice Branch Location " & Form1.BranchCode & " does not match entered Location " & Form1.DefaultLocationCode)
+      Dim TLocn as String
+      Dim FormL as Object
+      FormL = CreateObject("Accredo.ScriptedForm")
+      FormL.Caption = "Enter Updated Location Code"    
+      FormL.InputCode("NewLocn","ICLOCN","Select Location","",FALSE,FALSE,FALSE,TRUE)
+      FormL.Setvalue("NewLocn",Form1.DefaultLocationCode)
+      Do
+        If FormL.Execute Then
+          TLocn = Forml.GetValue("NewLocn")
+          ICLocn.findexact(Tlocn)
+          If ICLocn.BranchCode = Form1.BranchCode Then 
+            Exit Do
+          Else
+            MSGBOX("Customer Branch Location does not match entered Location - Select Again")
+          End If  
+  '        Exit Do
+        Else
+          Abort("User Cancelled Entry",TRUE)
+        End If
+      Loop
+      Form1.DefaultLocationCode = Forml.GetValue("NewLocn")
+    End If
+'  End If
+End If
+
+
+
+Form1.Line.First
+Do Until Form1.Line.EOF
+
+  IF Form1.Line.ProductCode = "PAINTMIX" then
+    Form1.ActiveProperty = "Line.ProductCode"
+    Abort("Line with ProductCode: PAINTMIX. Please correct")
+  END IF
+  If Form1.Line.ProductCode = "FRENZETICKIT" and Form1.Line.CostPrice = 0 then 
+    Dim Forms as Object
+    Forms = CreateObject("Accredo.ScriptedForm")    
+    DIM CostPS as Number      
+    FormS.Caption = "Electronic Freight Cost"
+    FormS.InputNumber("FrtCost","Freight Cost price")
+    Do
+      IF FormS.Execute Then     
+         CostPS = FormS.GetValue("FrtCost")
+         Exit Do
+      Else
+  '      AsQuoted = False
+        Abort("Cancelled by User")
+      End If
+    Loop
+    If CostPS <> 0 Then
+      Form1.Line.CostPrice = CostPS
+      Form1.Line.SellingPrice = Markup(Form1.Line.CostPrice,60)
+    End If      
+  End If
+  If Form1.Line.QuantitySupplied = 0 And Form1.Line.LineType = "Product" Then
+    Form1.ActiveProperty = "Line.QuantitySupplied"
+    Abort("Line with zero quantity. Please correct")
+  End If
+
+  If ICProduct.FindExact(Form1.Line.ProductCode) then
+    If Upper(Left(ICProduct.Category2, 7)) = "FREIGHT" then
+      IF Not INCategory2Data.FindExact(ICProduct.Category2) then
+        INCategory2Data.Insert
+        INCategory2Data.Code = ICProduct.Category2
+        INCategory2Data.Description = ICProduct.Category2
+        INCategory2Data.Save
+      End If
+'      If not Form1.Editing then Form1.Edit
+      Form1.Category2 = ICProduct.Category2
+'      Confirmed = True
+''      Exit Do
+'    ElseIf Confirmed = False then
+'      Form1.Category2 = ""
+    End IF
+
+    If ICProduct.Z_HazClass <> "" and ICProduct.Z_FlashPoint <> "" then
+'      IF Not INCategory1Data.FindExact(ICProduct.Category1) then
+'        INCategory1Data.Insert
+'        INCategory1Data.Code = ICProduct.Category1
+'        INCategory1Data.Description = ICProduct.Category1
+'        INCategory1Data.Save
+'      End If
+       Form1.Category1 = ICProduct.Z_FlashPoint
+       Form1.Custom2 = ICProduct.Z_HazClass
+'    Else
+'      Form1.Category1 = ""
+    End IF
+
+  End If
+
+    Form1.Line.Next
+'  End If
+Loop
+
+IF Form1.Ship.ShipperCode <> "" then
+  IF Not INCategory2Data.FindExact("FREIGHT") then
+    INCategory2Data.Insert
+    INCategory2Data.Code = "FREIGHT"
+    INCategory2Data.Description = "FREIGHT"
+    INCategory2Data.Save
+  End If
+'      If not Form1.Editing then Form1.Edit
+  Form1.Category2 = "FREIGHT"
+End IF
+
+IF Form1.DocumentClass = "Q" then
+
+  If Form1.OrderNo = "" OR Form1.InternalReference = "" then
+
+    Dim Form as Object
+    Form = CreateObject("Accredo.ScriptedForm")
+    Form.Caption = "Invoice Details"
+    'Form.InputDate("Delivery", "Delivery Date :")
+
+    If Form1.OrderNo = "" then
+      Form.InputBox("OrderNo", "Order No :")
+      Form.SetValue("OrderNo", Form1.OrderNo)
+    Else
+      OrderNo = Form1.OrderNo
+    End If
+
+    If Form1.InternalReference = "" then
+      Form.InputBox("InternalReference", "Internal Reference :")
+      Form.SetValue("InternalReference", Form1.InternalReference)
+    Else
+      InternalReference = Form1.InternalReference
+    End If
+
+    Do
+      If Not Form.Execute Then Abort("Script cancelled by user.")
+
+      'Get values from Scripted Form
+    If Form1.OrderNo = "" then
+      OrderNo = Form.GetValue("OrderNo")
+    End If
+
+    If Form1.InternalReference = "" then
+      InternalReference = Form.GetValue("InternalReference")
+    End If
+
+      'Validate users details
+      If OrderNo <> "" And InternalReference <> "" Then Exit Do
+    Loop
+
+    Form1.OrderNo = OrderNo
+    Form1.InternalReference = UPPER(InternalReference)
+
+  End If
+End If
+
+If Upper(Form1.OrderNo) = "REQUIRED" Or Upper(Form1.OrderNo) = "FAKE"Then 
+Form1.ShowerrorHint("Order Number is REQUIRED/FAKE, Plese Change")
+Abort("",True)
+
+end if
+''' =========================================================================
+''  ' Special Pricing check
+''' =========================================================================
+'
+'
+'  Form1.Line.First
+'  Do until Form1.Line.EOF
+'
+'    Dim Data as Object
+'    Data = CreateObject("Accredo.SPEnquiryData")
+'
+'    Data.Customer.IndexName = "Customer"
+'    Data.Customer.FindExact(Form1.CustomerCode)
+'
+'    ' Set the context for the Price Query by populatin the Equirey Data sub objects:
+'    Data.Product.IndexName = "Product"
+'    Data.Product.FindExact(Form1.Line.ProductCode)
+'
+'    'Data.Date = #10/09/04#
+'    Data.Quantity = 999999
+'
+'    NextQuantity = Data.Quantity
+'    SellPrice = 0
+'    Data.Collect ' Collects all rules that match the context into the Data.Rule sub-object
+'    'Print "--------------- List of rules that meet the criteria ---------------"
+'    Data.Rule.First
+'    Do Until Data.Rule.EOF
+'
+'    MinimumQuantity  = Data.Rule.MinimumQuantity
+'    If Form1.Line.QuantitySupplied < MinimumQuantity then
+'      If NextQuantity > MinimumQuantity then
+'        NextQuantity = MinimumQuantity
+'        SellPrice = Data.Rule.EffectivePrice
+'      End If
+'    End If
+'
+'    Data.Rule.Next
+'    Loop
+'
+'    'Print "--------------------------------------------------------------------"
+'    'Print ""
+'
+'    Data.Query ' Executes the script and returns the winning rule and Special Price
+'
+'  If Form1.Line.ProductCode <> "" then
+'      If Data.Rule.RuleType = "F" then
+'        If Data.Rule.MinimumQuantity > Form1.Line.QuantitySupplied then
+'          msgbox(str("Sell " & NextQuantity - Form1.Line.QuantitySupplied & " more: " & Form1.Line.ProductCode & " products for Specail Price: $" & SellPrice))
+'        End IF
+'      End If
+'
+'      If Data.Rule.RuleType = "S" then
+'        If Data.Rule.MinimumQuantity > Form1.Line.QuantitySupplied then
+'          msgbox(str("Sell " & NextQuantity - Form1.Line.QuantitySupplied & " more: " & Form1.Line.ProductCode & " products for Specail Price: $" & SellPrice))
+'        End IF
+'      End If
+'
+'
+'      If Data.Rule.RuleType = "C" then
+'        If Data.Rule.MinimumQuantity > Form1.Line.QuantitySupplied then
+'          msgbox(str("Sell " & NextQuantity - Form1.Line.Quantity & " more: " & Form1.Line.ProductCode & " products for Specail Price: $" & SellPrice))
+'        End IF
+'      End If
+'  End If
+'  Form1.Line.Next
+'  Loop
+'
+''End If
+
+

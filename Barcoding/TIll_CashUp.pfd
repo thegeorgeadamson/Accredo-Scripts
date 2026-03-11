@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="TIll Cash-Up" Color="clBtnFace" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="495" OnClose="Save" SaveSizeName="frmTIll_CashUp" Visible="True" Width="747" WindowState="wsNormal">
+    <TUserLabel Caption=" =" Height="22" Left="190" Name="lLabel1" Top="182" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="190" Name="lLabel2" Top="40" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="190" Name="lLabel3" Top="75" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="190" Name="lLabel4" Top="110" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="190" Name="lLabel5" Top="145" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="557" Name="lLabel6" Top="40" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="557" Name="lLabel7" Top="75" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="557" Name="lLabel8" Top="110" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="557" Name="lLabel9" Top="145" Width="17">
+    </TUserLabel>
+    <TUserLabel Caption=" =" Height="22" Left="557" Name="lLabel10" Top="182" Width="17">
+    </TUserLabel>
+    <TUserPanel BevelInner="bvSpace" BevelOuter="bvLowered" Height="240" Left="6" Name="panPanel4" TabOrder="29" Top="15" Width="719">
+    </TUserPanel>
+    <TUserPanel BevelInner="bvSpace" BevelOuter="bvLowered" Height="74" Left="4" Name="panPanel1" TabOrder="26" Top="270" Width="719">
+      <TUserButton Height="25" Hint="Refresh Data" ImageIndex="2001" Left="1" Name="btnButton1" OnClick="SQLUpdate" ShortCut="0" TabOrder="0" TabStop="True" Top="1" Width="30">
+      </TUserButton>
+    </TUserPanel>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$ 100 X" LabelWidth="50" Left="35" Name="count100" OnChange="Update100" TabOrder="0" TabStop="True" Top="40" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="242" Name="Total100" ReadOnly="True" TabOrder="1" TabStop="True" Top="40" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="242" Name="Total50" ReadOnly="True" TabOrder="2" TabStop="True" Top="75" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$  50 X" LabelWidth="50" Left="35" Name="Count50" OnChange="Update50" TabOrder="3" TabStop="True" Top="75" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="242" Name="Total20" ReadOnly="True" TabOrder="4" TabStop="True" Top="110" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$ 20 X" LabelWidth="50" Left="35" Name="Count20" OnChange="Update20" TabOrder="5" TabStop="True" Top="110" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$ 10 X" LabelWidth="50" Left="35" Name="Count10" OnChange="Update10" TabOrder="6" TabStop="True" Top="145" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="242" Name="Total10" ReadOnly="True" TabOrder="7" TabStop="True" Top="145" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="242" Name="Total5" ReadOnly="True" TabOrder="8" TabStop="True" Top="182" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$  5 X" LabelWidth="50" Left="35" Name="Count5" OnChange="Update5" TabOrder="9" TabStop="True" Top="182" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$  2 X" LabelWidth="50" Left="402" Name="Count2" OnChange="Update2" TabOrder="10" TabStop="True" Top="40" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="609" Name="Total2" ReadOnly="True" TabOrder="11" TabStop="True" Top="40" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption="$  1 X" LabelWidth="50" Left="402" Name="Count1" OnChange="Update1" TabOrder="12" TabStop="True" Top="75" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="609" Name="Total1" ReadOnly="True" TabOrder="13" TabStop="True" Top="75" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption=" 50c X" LabelWidth="50" Left="402" Name="Count50c" OnChange="Update50c" TabOrder="14" TabStop="True" Top="110" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="609" Name="Total50c" ReadOnly="True" TabOrder="15" TabStop="True" Top="110" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption=" 20c X" LabelWidth="50" Left="402" Name="Count20c" OnChange="Update20c" TabOrder="16" TabStop="True" Top="145" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="609" Name="Total20c" ReadOnly="True" TabOrder="17" TabStop="True" Top="145" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="0" Height="22" LabelCaption=" 10c X" LabelWidth="50" Left="402" Name="Count10c" OnChange="Update10c" TabOrder="18" TabStop="True" Top="182" Width="120">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Height="22" LabelWidth="0" Left="609" Name="Total10c" ReadOnly="True" TabOrder="19" TabStop="True" Top="182" Width="80">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Eftpos" LabelWidth="80" Left="17" Name="TotalEftpos" OnChange="UpdateMedia" TabOrder="20" TabStop="True" Top="221" Width="200">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Total Cash" LabelWidth="80" Left="268" Name="TotalCash" ReadOnly="True" TabOrder="21" TabStop="True" Top="221" Width="200">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Eftpos" LabelWidth="80" Left="16" Name="ACEftpos" ReadOnly="True" TabOrder="22" TabStop="True" Top="296" Width="200">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Cheque" LabelWidth="80" Left="505" Name="ACCheque" ReadOnly="True" TabOrder="23" TabStop="True" Top="296" Width="200">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Cash" LabelWidth="80" Left="260" Name="ACCash" ReadOnly="True" TabOrder="24" TabStop="True" Top="283" Width="200">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Cheque" LabelWidth="80" Left="506" Name="TotalCheque" OnChange="UpdateMedia" TabOrder="25" TabStop="True" Top="221" Width="200">
+    </TUserNumberEdit>
+    <TUserPanel BevelOuter="bvNone" Height="23" Left="323" Name="panPanel2" TabOrder="27" Top="256" Width="110">
+      <TUserLabel Caption="TRANSACTIONS" Color="clBtnFace" Height="22" Left="4" Name="lLabel11" ParentColor="False" Top="0" Width="100">
+      </TUserLabel>
+    </TUserPanel>
+    <TUserPanel BevelOuter="bvNone" Height="23" Left="322" Name="panPanel3" TabOrder="28" Top="5" Width="110">
+      <TUserLabel Alignment="taCenter" Caption="Count" Color="clBtnFace" Height="22" Left="5" Name="lLabel12" ParentColor="False" Top="-1" Width="100">
+      </TUserLabel>
+    </TUserPanel>
+    <TUserPanel BevelInner="bvSpace" BevelOuter="bvLowered" Height="61" Left="4" Name="panPanel5" TabOrder="30" Top="358" Width="719">
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Cash" LabelWidth="80" Left="263" Name="CashV" ReadOnly="True" TabOrder="0" TabStop="True" Top="22" Width="200">
+      </TUserNumberEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Cheque" LabelWidth="80" Left="508" Name="ChequeV" ReadOnly="True" TabOrder="2" TabStop="True" Top="22" Width="200">
+      </TUserNumberEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Eftpos" LabelWidth="80" Left="19" Name="EftposV" ReadOnly="True" TabOrder="1" TabStop="True" Top="22" Width="200">
+      </TUserNumberEdit>
+    </TUserPanel>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" Decimals="2" Domain="Amount" Height="22" LabelCaption="Float" LabelWidth="80" Left="260" Name="Float" ReadOnly="True" TabOrder="31" TabStop="True" Text="150.00" Top="309" Width="200">
+    </TUserNumberEdit>
+    <TUserPanel BevelOuter="bvNone" Height="23" Left="319" Name="panPanel6" TabOrder="32" Top="349" Width="110">
+      <TUserLabel Alignment="taCenter" Caption="Variance" Color="clBtnFace" Height="22" Left="5" Name="lLabel13" ParentColor="False" Top="0" Width="100">
+      </TUserLabel>
+    </TUserPanel>
+    <TUserButton Caption="Print" Height="25" ImageIndex="2039" Left="355" Name="Print" OnClick="PRINTTIll" ShortCut="0" TabOrder="33" TabStop="True" Top="421" Width="75">
+    </TUserButton>
+  </Form>
+  <![CDATA[Dim TillTable as object
+TillTable = OPENCustomTable("TillTable")
+TillTable.indexname = "Date"
+Sub SQLUpdate
+MediaTable = Executesql( " SELECT Min(CBSMITEM.CreatedDate) " _
+     & " ,CBSMITEM.MediaCode as MediaCode " _
+     & " ,Sum(CBSMITEM.BankingAmount) as BankingAmount " _
+     & "  FROM   CBSMITEM " _
+     & " Where CBSMITEM.CreatedDate = :Dates" _
+     & " GROUP BY MediaCode" ,Date)
+
+
+MediaTable.addindex("MediaCode","MediaCode")
+MediaTable.indexname = "MediaCode"
+IF MediaTable.findexact("CHEQUE") then
+ACCheque.vALUE = MediaTable.BankingAmount
+Else
+ACCheque.vALUE = 0
+End if
+IF MediaTable.findexact("CASH") then
+ACCASH.vALUE = MediaTable.BankingAmount
+Else
+ACCASH.vALUE = 0
+End if
+IF MediaTable.findexact("EFTPOS") then
+ACEFTPOS.vALUE = MediaTable.BankingAmount
+Else
+ACEFTPOS.vALUE = 0
+End if
+End Sub
+
+Sub UpdateMedia
+ChequeV.Value = TotalCheque.Value - ACCheque.vALUE
+CashV.Value = TotalCash.Value - (ACCASH.vALUE + Float.Value)
+EftposV.Value = TotalEftpos.Value - ACEFTPOS.vALUE
+End SUb
+
+Sub UpdateTotal
+TotalCash.Value = Total100.Value + Total50.Value + Total20.Value + Total10.Value + Total5.Value + _
+Total2.Value + Total1.Value + Total50c.Value + Total20c.Value + Total10c.Value
+UpdateMedia
+End Sub
+
+
+
+
+
+Sub Update100
+Total100.Value = Count100.Value * 100
+UpdateTotal
+End SUB
+
+Sub Update50
+Total50.Value = Count50.Value * 50
+UpdateTotal
+End SUB
+
+Sub Update20
+Total20.Value = Count20.Value * 20
+UpdateTotal
+End SUB
+
+Sub Update10
+Total10.Value = Count10.Value * 10
+UpdateTotal
+End SUB
+
+Sub Update5
+Total5.Value = Count5.Value * 5
+UpdateTotal
+End SUB
+
+Sub Update2
+Total2.Value = Count2.Value * 2
+UpdateTotal
+End SUB
+
+Sub Update1
+Total1.Value = Count1.Value * 1
+UpdateTotal
+End SUB
+
+Sub Update50c
+Total50c.Value = Count50c.Value * 0.5
+UpdateTotal
+End SUB
+
+
+Sub Update20c
+Total20c.Value = Count20c.Value * 0.2
+UpdateTotal
+End SUB
+
+Sub Update10c
+Total10c.Value = Count10c.Value * 0.1
+UpdateTotal
+End SUB
+
+
+Sub Refresh
+SQLUpdate
+Update100
+Update50
+Update20
+Update10
+Update5
+Update2
+Update1
+Update50c
+Update20c
+Update10c
+UpdateTotal
+UpdateMedia
+End SUb
+
+Sub Save
+
+IF TillTable.Findexact(Date) then
+TillTable.Edit
+Else
+TillTable.append
+TillTable.DATE = DATE
+End IF
+TillTable.Count100 = Count100.Value
+TillTable.Count50 = Count50.Value
+TillTable.Count20 = Count20.Value
+TillTable.Count10 = Count10.Value
+TillTable.Count5 = Count5.Value
+TillTable.Count2 = Count2.Value
+TillTable.Count1 = Count1.Value
+TillTable.Count50c = Count50c.Value
+TillTable.Count20c = Count20c.Value
+TillTable.Count10c = Count10c.Value
+TillTable.Eftpos = TotalEftpos.Value
+TillTable.Cheque = TotalCheque.Value
+TillTable.Float = Float.Value
+TillTable.Save
+End SUb
+
+Sub Open
+  IF TillTable.Findexact(Date) then
+    Count100.Value = TillTable.Count100
+    Count50.Value = TillTable.Count50
+    Count20.Value = TillTable.Count20
+    Count10.Value = TillTable.Count10
+    Count5.Value = TillTable.Count5
+    Count2.Value = TillTable.Count2
+    Count1.Value = TillTable.Count1
+    Count50c.Value = TillTable.Count50c
+    Count20c.Value = TillTable.Count20c
+    Count10c.Value = TillTable.Count10c
+    TotalEftpos.Value = TillTable.Eftpos
+    TotalCheque.Value = TillTable.Cheque
+    Float.Value = TillTable.Float
+  End IF
+End Sub
+
+SUB PRINTTIll
+  SAVE
+  Refresh
+  IF ChequeV.Value <> 0 or CashV.Value <> 0 or EftposV.Value <> 0 then
+    IF inputquery("Variance in Till, Still Print?") then
+    Dim Form1 as Object
+    Form1 = CreateObject("Accredo.UTCustomReport")
+    Form1.ReportFileName = "Y:\AccredoSaturn\Reports\Custom\Till_Report_V2.pfd"
+    End IF
+  Else
+  Dim Form1 as Object
+  Form1 = CreateObject("Accredo.UTCustomReport")
+  Form1.ReportFileName = "Y:\AccredoSaturn\Reports\Custom\Till_Report_V2.pfd"
+  End IF
+End Sub
+Open
+Refresh]]>
+</Design>

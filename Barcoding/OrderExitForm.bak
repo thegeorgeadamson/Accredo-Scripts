@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="frmOrderExitForm" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="455" SaveSizeName="frmOrderExitForm" Visible="False" Width="692" WindowState="wsNormal">
+    <TUserLabel Caption="Freight No" Height="22" Left="311" Name="lLabel1" Top="238" Width="100">
+    </TUserLabel>
+    <TUserLabel Caption="Narrative" Height="22" Left="311" Name="lLabel2" Top="59" Width="100">
+    </TUserLabel>
+    <TUserButton Caption="Generate Invoice &amp;&amp; Packing Slip" Height="172" ImageIndex="2068" Left="65" Name="btnButton2" OnClick="GenerateAndPrint" ShortCut="0" TabOrder="1" TabStop="True" Top="59" Width="232">
+    </TUserButton>
+    <TUserButton Caption="Generate Invoice" Enabled="False" Height="50" ImageIndex="2080" Left="507" Name="btnButton1" OnClick="Generate" ShortCut="0" TabOrder="3" TabStop="True" Top="62" Visible="False" Width="232">
+    </TUserButton>
+    <TUserButton Caption="Packing Slip - Zero Freight" Enabled="False" Height="50" ImageIndex="2064" Left="477" Name="btnButton3" OnClick="GenerateAndPrintZero" ShortCut="0" TabOrder="2" TabStop="True" Top="18" Visible="False" Width="232">
+    </TUserButton>
+    <TUserButton Caption="Close WithOut Saving" Height="172" ImageIndex="2074" Left="65" Name="btnButton4" OnClick="Close" ShortCut="0" TabOrder="4" TabStop="True" Top="239" Width="232">
+    </TUserButton>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelCaption="Freight Ticket" LabelWidth="165" Left="20" Name="eBarcode" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Top="13" Width="350">
+    </TUserEdit>
+    <TUserMemo Color="clWindow" Enabled="False" Height="139" Left="313" LineLength="0" Name="eFreightNo" ReadOnly="False" ScrollBars="ssNone" TabOrder="5" TabStop="True" Top="264" Width="223">
+    </TUserMemo>
+    <TUserMemo Color="clWindow" Height="161" Left="313" LineLength="0" Name="eNarrative" ReadOnly="False" ScrollBars="ssNone" TabOrder="6" TabStop="True" Top="80" Width="345">
+    </TUserMemo>
+  </Form>
+  <![CDATA[Sub OnEnter
+  eBarcode.Text = ""
+End Sub
+
+Sub OnLeave
+  IF eBarcode.text = "000000000000" then
+    ExitStatus = "GenerateAndPrint"
+    Self.Close
+  ElseIF eBarcode.text = "" then
+  Else
+  IF eFreightNo.LineCount = 0 then
+    eFreightNo.Text = eFreightNo.text & Upper(eBarcode.text)
+  Else
+    eFreightNo.Text = eFreightNo.text & Chr(13) & Upper(eBarcode.text)
+  End IF
+    eBarcode.SetFocus
+  End IF
+End Sub
+
+Sub GenerateAndPrint
+  ExitStatus = "GenerateAndPrint"
+  Self.Close
+End Sub
+
+
+Sub GenerateAndPrintZero
+  ExitStatus = "GenerateAndPrintZero"
+  Self.Close
+End Sub
+
+
+
+Sub Generate
+  ExitStatus = "Generate"
+  Self.Close
+End Sub
+
+Sub OpenOrder
+  ExitStatus = "OpenOrder"
+  Self.Close
+End Sub
+
+Sub Close
+  ExitStatus = "Close"
+  Self.Close
+End Sub
+
+Dim ExitStatus as String
+ExitStatus = ""
+
+Property Get pExitStatus as String
+  pExitStatus = ExitStatus
+End Property
+
+Property Get pFreightNo as String
+  pFreightNo = eFreightNo.text
+End Property
+
+Property Get pNarrative as String
+  pNarrative = eNarrative.text
+End Property]]>
+</Design>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="frmPOExitForm" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="631" SaveSizeName="frmOrderExitForm2" Visible="False" Width="767" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" Name="tblOutstanding" Left="11" Top="196">
+      <TnUpperField DisplayLabel="Code" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="30" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty Order" DisplayWidth="10" FieldName="QuantityOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Outstanding" DisplayWidth="8" FieldName="QuantityOutstanding">
+      </TnQuantityField>
+    </TUserMemoryTable>
+    <TUserLabel Caption="Unpicked Items" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="fsBold" Height="22" Left="6" Name="lLabel1" ParentFont="False" Top="357" Width="100">
+    </TUserLabel>
+    <TUserButton Caption="Create Shipment &amp; Post Both" Enabled="False" Height="45" ImageIndex="2080" Left="7" Name="btnButton1" OnClick="Generate" ShortCut="0" TabOrder="1" TabStop="True" Top="15" Visible="False" Width="52">
+    </TUserButton>
+    <TUserButton Caption="Create Shipment &amp;&amp; Post " Height="172" ImageIndex="2082" Left="60" Name="btnButton2" OnClick="GenerateAndPrint" ShortCut="0" TabOrder="0" TabStop="True" Top="71" Width="300">
+    </TUserButton>
+    <TUserButton Caption="Close WithOut Saving" Height="172" ImageIndex="2074" Left="404" Name="btnButton4" OnClick="Close" ShortCut="0" TabOrder="2" TabStop="True" Top="71" Width="300">
+    </TUserButton>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelCaption="Barcode" Left="180" Name="eBarcode" TabOrder="3" TabStop="True" Top="18" Width="390">
+    </TUserEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="8" Decimals="2" Domain="Amount" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelCaption="Freight Amount" LabelWidth="180" Left="9" Name="eFreightAmount" TabOrder="4" TabStop="True" Top="266" Width="390">
+    </TUserNumberEdit>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="8" Decimals="2" Domain="Amount" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelCaption="Gross Amount" LabelWidth="180" Left="10" Name="eGrossAmount" TabOrder="5" TabStop="True" Top="314" Width="390">
+    </TUserNumberEdit>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="clInfoBk" Anchors="akLeft;akTop;akRight;akBottom" Height="224" Left="1" Name="gridEditGrid1" Table="tblOutstanding" TabOrder="6" Top="379" Width="758">
+    </TUserEditGrid>
+    <TUserGroupBox Caption="Receipt Date" Height="65" Left="404" Name="grpGroupBox1" TabOrder="7" Top="246" Width="301">
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelWidth="0" Left="4" Name="eReceiptDate" TabOrder="0" TabStop="True" Top="15" Width="165">
+      </TUserDateEdit>
+      <TUserButton Height="53" ImageIndex="2051" Left="182" Name="btnButton5" OnClick="Prev_ReceiptDate" ShortCut="0" TabOrder="1" TabStop="True" Top="9" Width="50">
+      </TUserButton>
+      <TUserButton Height="53" ImageIndex="2050" Left="238" Name="btnButton3" OnClick="Next_ReceiptDate" ShortCut="0" TabOrder="2" TabStop="True" Top="9" Width="50">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Invoice Date" Height="65" Left="406" Name="grpGroupBox2" TabOrder="8" Top="312" Width="301">
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="40" LabelWidth="0" Left="4" Name="eInvoiceDate" TabOrder="0" TabStop="True" Top="15" Width="165">
+      </TUserDateEdit>
+      <TUserButton Height="53" ImageIndex="2051" Left="182" Name="btnButton6" OnClick="Prev_InvoiceDate" ShortCut="0" TabOrder="1" TabStop="True" Top="9" Width="50">
+      </TUserButton>
+      <TUserButton Height="53" ImageIndex="2050" Left="238" Name="btnButton7" OnClick="Next_InvoiceDate" ShortCut="0" TabOrder="2" TabStop="True" Top="9" Width="50">
+      </TUserButton>
+    </TUserGroupBox>
+  </Form>
+  <![CDATA[Sub OnEnter
+  eBarcode.Text = ""
+End Sub
+
+Sub OnLeave
+  IF eBarcode.text = "000000000000" then
+    ExitStatus = "PostReceipt"
+    Self.Close
+  End IF
+End Sub
+
+Sub GenerateAndPrint
+  ExitStatus = "PostReceipt"
+  Self.Close
+End Sub
+
+Sub Generate
+  ExitStatus = "PostBoth"
+  Self.Close
+End Sub
+
+
+Sub Close
+  ExitStatus = "Close"
+  Self.Close
+End Sub
+
+Dim ExitStatus as String
+ExitStatus = ""
+
+Property Get pExitStatus as String
+  pExitStatus = ExitStatus
+End Property
+
+
+Property Get pFreightAmount as Number
+  pFreightAmount = eFreightAmount.Value
+End Property
+
+Property Get pTotalAmount as Number
+  pTotalAmount = eGrossAmount.Value
+End Property
+
+Property Let pDatatable(Table as Object)
+  Table.First
+  Do until Table.Eof
+    IF Table.ProductCode <> "" and Table.QuantityOutstanding > 0 then
+      tblOutstanding.Append
+      tblOutstanding.ProductCode = Table.ProductCode
+      tblOutstanding.Description = Table.Description
+      tblOutstanding.QuantityOrdered = Table.QuantityOrdered
+      tblOutstanding.QuantityOutstanding = Table.QuantityOutstanding
+      tblOutstanding.Save
+    End IF
+   Table.Next
+  Loop
+End Property
+
+'eShipDate.Value = Date
+'
+'
+'Property Get pShipDate as Number
+'  pShipDate = eShipDate.Value
+'End Property
+eInvoiceDate.Value = DATE
+eReceiptDate.Value = DATE
+
+
+Property Get pInvoiceDate as Date
+  pInvoiceDate = eInvoiceDate.Value
+End Property
+
+Property Get pReceiptDate as Date
+  pReceiptDate = eReceiptDate.Value
+End Property
+
+
+Sub Prev_ReceiptDate
+  eReceiptDate.value = eReceiptDate.value - 1
+End Sub
+
+Sub Next_ReceiptDate
+  eReceiptDate.value = eReceiptDate.value + 1
+End Sub
+
+Sub Prev_InvoiceDate
+  eInvoiceDate.Value = eInvoiceDate.Value - 1
+End Sub
+
+Sub Next_InvoiceDate
+  eInvoiceDate.Value = eInvoiceDate.Value + 1
+End Sub]]>
+</Design>

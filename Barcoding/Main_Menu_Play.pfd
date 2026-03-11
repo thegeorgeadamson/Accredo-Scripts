@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Main Menu" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="561" SaveSizeName="frmMain_Menu" Visible="True" Width="1087" WindowState="wsMaximized">
+    <TUserButton Caption="Order Picking" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="220" ImageIndex="-1" Left="6" Name="btnButton1" OnClick="Order" ParentFont="False" ShortCut="0" TabOrder="0" TabStop="True" Top="8" Width="532">
+    </TUserButton>
+    <TUserButton Caption="Transfers (Old)" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="220" ImageIndex="-1" Left="539" Name="btnButton2" OnClick="StockTransfers" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="8" Width="264">
+    </TUserButton>
+    <TUserButton Caption="Stock Receipting" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="220" ImageIndex="-1" Left="6" Name="btnButton3" OnClick="StockReceipting" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="230" Width="532">
+    </TUserButton>
+    <TUserButton Caption="Print Locations" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="80" ImageIndex="-1" Left="6" Name="btnButton4" OnClick="PrintStockLocations" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="451" Width="532">
+    </TUserButton>
+    <TUserButton Caption="Print Staff" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="80" ImageIndex="-1" Left="539" Name="btnButton5" OnClick="PrintStaff" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="451" Width="532">
+    </TUserButton>
+    <TUserButton Caption="Stocktake" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="220" ImageIndex="-1" Left="539" Name="btnButton6" OnClick="Stocktaking" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="230" Width="532">
+    </TUserButton>
+    <TUserButton Caption="Manual Transfer" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="109" ImageIndex="-1" Left="807" Name="btnManualTransfer" OnClick="StockTransfers_Manual" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="8" Width="265">
+    </TUserButton>
+    <TUserButton Caption="Transfer Request" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-29" Font.Name="Arial" Font.Style="fsBold" Height="107" ImageIndex="-1" Left="807" Name="btnTransferRequest" OnClick="StockTransfers_TransferRequest" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="121" Width="265">
+    </TUserButton>
+  </Form>
+  <![CDATA[Sub Order
+  CreateCustomForm("Barcoding\OrderPickingBarcode.pfd")
+End Sub
+Sub StockTransfers
+  IF Company.CompanyMenuCode = "LPS" or Company.CompanyMenuCode = "LPSPLAY" Then
+    CreateCustomForm("Barcoding\Stock_Transfers_Hamilton.pfd")
+  Else
+    CreateCustomForm("Barcoding\Stock_Transfers.pfd")
+  End If
+End Sub
+
+Sub StockTransfers_TransferRequest
+  CreateCustomForm("Barcoding\TransferList.pfd")
+End Sub
+
+Sub StockTransfers_Manual
+  CreateCustomForm("Barcoding\Stock_Transfers.pfd")
+End Sub
+
+
+Sub StockReceipting
+   IF Company.CompanyMenuName = "Play Company" Then
+   'IF User.LoginUserName = "ACCREDO" Then
+    MSGBOX("Play")
+    CreateCustomForm("Barcoding\PO_Scanning_Modify.pfd")
+  Else
+    CreateCustomForm("Barcoding\PO_Scanning.pfd")
+  END IF
+End Sub
+Sub Stocktaking
+'  IF Company.CompanyMenuName = "Play Company" or Company.CompanyMenuName = "Wellington Play Company" Then
+'   'IF User.LoginUserName = "ACCREDO" Then
+'    MSGBOX("Play")
+'    CreateCustomForm("Barcoding\IC_Stocktaking_modify.pfd")
+'  Else
+'    CreateCustomForm("Barcoding\IC_Stocktaking.pfd")
+'  End If
+  CreateCustomForm("Barcoding\ICSTOCKTAKE_OpenFORM_LIN.pfd")
+End Sub
+
+
+
+Sub PrintStockLocations
+  Dim Form1 as Object
+  Form1 = CreateObject("Accredo.UTCustomReport")
+  Form1.ReportFileName = "D:\Apps\AccredoSaturn\Reports\Custom\Barcoding\Location Barcode.pfd"
+End Sub
+Sub PrintStaff
+  Dim Form1 as Object
+  Form1 = CreateObject("Accredo.UTCustomReport")
+  Form1.ReportFileName = "D:\Apps\AccredoSaturn\Reports\Custom\Barcoding\Staff Barcode.pfd"
+End Sub]]>
+</Design>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Enter Picked Quantity" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="711" OnShow="OnShow" SaveSizeName="frmQTy_Entry" Visible="False" Width="836" WindowState="wsNormal">
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="24" Decimals="2" Domain="Quantity" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Arial" Font.Style="" Height="43" LabelCaption="Picked Qty" LabelWidth="200" Left="26" Name="eQuantity" TabOrder="0" TabStop="True" Top="179" Width="400">
+    </TUserNumberEdit>
+    <TUserButton Caption="1" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="40" Name="btnButton1" OnClick="btnButton1_Click" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="233" Width="120">
+    </TUserButton>
+    <TUserButton Caption="2" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="170" Name="btnButton2" OnClick="btnButton2_Click" ParentFont="False" ShortCut="0" TabOrder="2" TabStop="True" Top="233" Width="120">
+    </TUserButton>
+    <TUserButton Caption="3" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="302" Name="btnButton3" OnClick="btnButton3_Click" ParentFont="False" ShortCut="0" TabOrder="3" TabStop="True" Top="233" Width="120">
+    </TUserButton>
+    <TUserButton Caption="4" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="40" Name="btnButton4" OnClick="btnButton4_Click" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="343" Width="120">
+    </TUserButton>
+    <TUserButton Caption="5" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="170" Name="btnButton5" OnClick="btnButton5_Click" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="343" Width="120">
+    </TUserButton>
+    <TUserButton Caption="6" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="302" Name="btnButton6" OnClick="btnButton6_Click" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="343" Width="120">
+    </TUserButton>
+    <TUserButton Caption="7" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="40" Name="btnButton7" OnClick="btnButton7_Click" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="453" Width="120">
+    </TUserButton>
+    <TUserButton Caption="8" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="170" Name="btnButton8" OnClick="btnButton8_Click" ParentFont="False" ShortCut="0" TabOrder="8" TabStop="True" Top="453" Width="120">
+    </TUserButton>
+    <TUserButton Caption="9" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="302" Name="btnButton9" OnClick="btnButton9_Click" ParentFont="False" ShortCut="0" TabOrder="9" TabStop="True" Top="453" Width="120">
+    </TUserButton>
+    <TUserButton Caption="Back Space" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="430" Name="btnButtonBackSpace" OnClick="btnButtonBackSpace_Click" ParentFont="False" ShortCut="0" TabOrder="10" TabStop="True" Top="343" Width="381">
+    </TUserButton>
+    <TUserGroupBox Height="166" Left="6" TabOrder="11" Top="5" Width="437">
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="12" Decimals="2" Domain="Quantity" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Arial" Font.Style="" Height="43" LabelCaption="Order Qty" LabelWidth="200" Left="20" Name="eOrderQTY" TabOrder="0" TabStop="True" Top="118" Width="400">
+      </TUserNumberEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Arial" Font.Style="" Height="43" LabelWidth="0" Left="20" Name="eDescription" TabOrder="1" TabStop="True" Top="67" Width="400">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Arial" Font.Style="" Height="43" LabelWidth="0" Left="20" Name="eProductCode" TabOrder="2" TabStop="True" Top="17" Width="400">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserButton Caption="Done" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="430" Name="btnButton10" OnClick="Done" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="453" Width="381">
+    </TUserButton>
+    <TUserButton Caption="Clear" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="430" Name="btnClear" OnClick="btnButtonClear_Click" ParentFont="False" ShortCut="0" TabOrder="13" TabStop="True" Top="233" Width="381">
+    </TUserButton>
+    <TUserButton Caption="." Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="40" Name="btnButtondot" OnClick="btnButtondot_Click" ParentFont="False" ShortCut="0" TabOrder="14" TabStop="True" Top="563" Width="120">
+    </TUserButton>
+    <TUserButton Caption="0" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="100" ImageIndex="-1" Left="170" Name="btnButton0" OnClick="btnButton0_Click" ParentFont="False" ShortCut="0" TabOrder="15" TabStop="True" Top="563" Width="249">
+    </TUserButton>
+    <TUserButton Caption="Cancel" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-32" Font.Name="Arial" Font.Style="" Height="68" ImageIndex="-1" Left="564" Name="btnCancel" OnClick="Cancel" ParentFont="False" ShortCut="0" TabOrder="16" TabStop="True" Top="7" Width="253">
+    </TUserButton>
+    <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" Height="22" LabelCaption="Exit Status" Left="566" Name="eExitStatus" ReadOnly="False" TabOrder="17" TabStop="True" Top="86" Visible="False" Width="250">
+    </TUserCheckBox>
+  </Form>
+  <![CDATA[I = 0
+dim Dot as boolean
+FirstClick = True
+Sub Numberadd(ByVal Numb as number)
+  IF FirstClick then
+    eQuantity.Value = Numb
+    FirstClick = False
+  ElseIF not dot then
+    eQuantity.Value = (eQuantity.Value * 10) + Numb
+  Else
+    eQuantity.Value = (eQuantity.Value) + ratio(Numb,I)
+    I = I * 10
+  End If
+'    eQuantity.Value = Val(eQuantity.text & Numb)
+End Sub
+Sub btnButton0_Click
+ Numberadd(0)
+End Sub
+Sub btnButton1_Click
+ Numberadd(1)
+End Sub
+Sub btnButton2_Click
+ Numberadd(2)
+End Sub
+Sub btnButton3_Click
+ Numberadd(3)
+End Sub
+Sub btnButton4_Click
+ Numberadd(4)
+End Sub
+Sub btnButton5_Click
+ Numberadd(5)
+End Sub
+Sub btnButton6_Click
+ Numberadd(6)
+End Sub
+Sub btnButton7_Click
+ Numberadd(7)
+End Sub
+Sub btnButton8_Click
+ Numberadd(8)
+End Sub
+Sub btnButton9_Click
+ Numberadd(9)
+End Sub
+
+
+Sub btnButtondot_Click
+  Dot = True
+  I = 10
+End Sub
+
+
+Sub btnButtonClear_Click
+ eQuantity.Value = 0
+ Dot = False
+End Sub
+
+Sub btnButtonBackSpace_Click
+ if not Dot then
+   eQuantity.Value = Ratio(eQuantity.Value - Val(right(eQuantity.Value,1)),10)
+ Else
+   I = ratio(I,10)
+   eQuantity.Value = eQuantity.Value - Ratio(Val(Right(str(eQuantity.Value * I),1)),I) 'ratio(eQuantity.Value - Val(right(eQuantity.Value,1)),10)
+'msgbox(I)
+   IF I = 10 then dot = false
+ End IF
+End Sub
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Property Let pProductCode(fProductCode as String)
+  eProductCode.Text = fProductCode
+  IF ICPROD.Findexact(fProductCode) then
+    eDescription.Text = ICPROD.Description
+  Else
+    eDescription.Text = ""
+  End IF
+End Property
+
+Property Let pOrderedQTY(fOrderQTY as Number)
+  eOrderQty.Value = fOrderQTY
+End Property
+
+Property Let pLPickedQty(fQTY as Number)
+  eQuantity.Value = Fqty
+End Property
+
+
+Property Get pPickedQty as Number
+  pPickedQty = eQuantity.Value
+End Property
+
+Order = True
+
+Property Let pOrder( fOrder as Boolean)
+  Order = fOrder
+End Property
+
+Property Let pQuantityName( fQuantityName as String)
+  eQuantity.LabelCaption = fQuantityName
+End Property
+
+Sub Cancel
+  eExitStatus.Checked = True
+  self.Close
+End Sub
+
+Sub Done
+  self.Close
+End Sub
+
+Sub OnShow
+  IF not Order then
+    eOrderQTY.Visible = False
+  Else
+      eOrderQTY.Visible = True
+  End If
+End Sub]]>
+</Design>

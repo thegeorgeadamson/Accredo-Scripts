@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Barcoding - Add Product To Order" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="386" SaveSizeName="frmOrderPicking_AddProductToOrder" Visible="False" Width="443" WindowState="wsNormal">
+    <TUserLabel Caption="Scan Product To Add" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="36" Left="75" Name="lLabel1" ParentFont="False" Top="12" Width="274">
+    </TUserLabel>
+    <TUserLabel Caption="Select Product &amp;&amp; Accept" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="36" Left="75" Name="lLabel2" ParentFont="False" Top="96" Width="274">
+    </TUserLabel>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelCaption="Barcode" Left="87" Name="eBarcode" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Top="61" Width="250">
+    </TUserEdit>
+    <TUserButton Anchors="akTop;akRight" Caption="Cancel" Height="48" ImageIndex="2074" Left="128" Name="btnExit" OnClick="Cancel" ShortCut="0" TabOrder="1" TabStop="True" Top="280" Width="168">
+    </TUserButton>
+    <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbWordLookup" Enabled="True" Height="22" LabelCaption="Product" Left="87" LookupFilter="Inactive = False" LookupSource="ICPROD" LookupType="ltNormal" Name="eProductCode" OnAfterChange="ProductChange" ShowAlternateLookup="False" TabOrder="2" TabStop="True" Top="145" Width="250">
+    </TUserDataCombo>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="87" Name="eProductName" ReadOnly="True" TabOrder="3" TabStop="True" Top="180" Width="250">
+    </TUserEdit>
+    <TUserButton Anchors="akTop;akRight" Caption="Accept" Height="48" ImageIndex="2073" Left="128" Name="btnAccept" OnClick="Accept" ShortCut="0" TabOrder="4" TabStop="True" Top="215" Width="168">
+    </TUserButton>
+  </Form>
+  <![CDATA[Dim Product as String
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Dim ICBAR as OBJECT
+ICBAR = Opentable("ICBAR")
+ICBAR.indexname = "Barcode"
+
+Barcode = ""
+Product = ""
+
+Sub OnLeave
+  If eBarcode.Text <> "" then
+    ICBAR.indexname = "Barcode"
+    MSGBOX(eBarcode.Text)
+    IF ICBAR.Findexact(eBarcode.text) then
+      IF ICPROD.FIndexact(ICBAR.ProductCode) then
+        IF not ICPROD.inactive = True then
+          Product = ICPROD.ProductCode
+          Barcode = eBarcode.text
+          MSGBOX("Prod = " & Product)
+          Self.close
+        Else
+          eBarcode.Showerrorhint("Product Is Inactive")
+        End IF
+      Else
+        eBarcode.Showerrorhint("Product Not Found")
+      End If
+    Else
+      eBarcode.Showerrorhint("Barcode Not Found")
+    End IF
+   eBarcode.SetFocus
+  End IF
+End Sub
+
+Sub Cancel
+  Product = ""
+  Barcode =""
+  Self.Close
+End Sub
+
+Property Get pNewProduct as String
+  pNewProduct = Product
+End Property
+
+Property Get pNewBarcode as String
+  pNewBarcode = Barcode
+End Property
+
+
+Sub ProductChange
+  IF ICPROD.Findexact(eProductCode.Text) then
+    eProductName.Text = ICPROD.Description
+  Else
+    eProductName.Text = ""
+  End IF
+End SUb
+
+Sub Accept
+  IF ICPROD.Findexact(eProductCode.Text) then
+    IF not ICPROD.inactive = True then
+      Product = ICPROD.ProductCode
+      Barcode = ""
+      Self.close
+    Else
+      eProductCode.Showerrorhint("Product Is Inactive")
+    End IF
+  Else
+    eProductCode.ShowErrorHint("Product Not Found")
+  End IF
+End Sub]]>
+</Design>

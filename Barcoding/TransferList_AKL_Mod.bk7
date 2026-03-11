@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1" DPI="120">
+  <Form Caption="Transfer List" Color="clBtnFace" Constraints.MaxHeight="65535" Constraints.MaxWidth="65535" Constraints.MinHeight="125" Constraints.MinWidth="250" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Segoe UI" Font.Style="" Height="763" OnShow="OnLoad" SaveSizeName="frmTransferList" Visible="True" Width="1216" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" Name="tblTransfers" Left="762" Top="19">
+      <TnBooleanField DisplayWidth="3" FieldName="Selected">
+      </TnBooleanField>
+      <TnDateField DisplayLabel="Created Date" DisplayWidth="12" FieldName="CreatedDate">
+      </TnDateField>
+      <TnIntegerField DisplayWidth="12" FieldName="DocumentID">
+      </TnIntegerField>
+      <TnReferenceField DisplayWidth="20" DomainName="Reference" FieldName="Reference">
+      </TnReferenceField>
+      <TnStringField DisplayWidth="30" DomainName="Comment" FieldName="Comment">
+      </TnStringField>
+      <TnUpperField DisplayLabel="Source" DisplayWidth="12" DomainName="IC Location Code" FieldName="SourceLocationCode">
+      </TnUpperField>
+      <TnUpperField DisplayLabel="Destination" DisplayWidth="12" DomainName="IC Location Code" FieldName="DestinationLocationCode">
+      </TnUpperField>
+      <TnUpperField DisplayLabel="Transit Code" DisplayWidth="12" DomainName="IC Location Code" FieldName="TransitLocationCode">
+      </TnUpperField>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" Name="tblImport" Left="814" Top="20">
+      <TnUpperField DisplayLabel="Location" DisplayWidth="8" DomainName="IC Location Code" FieldName="Locn">
+      </TnUpperField>
+      <TnUpperField DisplayLabel="ProductCode" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProdCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="60" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Quantity" DisplayWidth="10" FieldName="Qty">
+      </TnQuantityField>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" IndexName="TRFID" Name="tblVanTable" Left="1024" Top="330">
+      <TnIntegerField DisplayLabel="Transfer Id" DomainName="IC Transfer ID" FieldName="TRFID">
+      </TnIntegerField>
+      <TIndexDef Fields="TRFID" Name="TRFID" Options="ixUnique">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserListGrid ActiveRowColor="16744448" Align="alClient" Height="579" Left="33" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="gridListGrid1" OnClick="CheckStatus" OnDblClick="OnGrid_DoubleClick" Table="tblTransfers" TabOrder="0" Top="69" Width="1165">
+    </TUserListGrid>
+    <TUserPanel Align="alBottom" AlternateColour="False" BevelOuter="bvNone" Height="68" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="panPanel1" TabOrder="1" Top="648" Width="1198">
+      <TUserSpeedButton Height="27" ImageIndex="2098" Left="541" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnLight" OnClick="btnLight_Click" ShortCut="0" Top="13" Width="29">
+      </TUserSpeedButton>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akBottom" Height="27" LabelCaption="Scan Transfer Slip" LabelWidth="125" Left="226" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eBarcode" OnEnter="eBarcode_Enter" OnExit="eBarcode_Leave" TabOrder="0" TabStop="True" Top="13" Width="313">
+      </TUserEdit>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Print Selected" Height="31" ImageIndex="2039" Left="31" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnPrint" OnClick="btnPrint_Click" ShortCut="0" TabOrder="1" TabStop="True" Top="13" Width="142">
+      </TUserButton>
+      <TUserButton Anchors="akRight;akBottom" Caption="Edit Transfer" Height="31" ImageIndex="2033" Left="799" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnEdit" OnClick="btnEdit_Click" ShortCut="0" TabOrder="2" TabStop="True" Top="13" Width="127">
+      </TUserButton>
+      <TUserButton Anchors="akRight;akBottom" Caption="Load Pallet" Enabled="False" Height="31" ImageIndex="2127" Left="929" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnLoadPallet" OnClick="btnLoadPallet_Click" ShortCut="0" TabOrder="3" TabStop="True" Top="13" Visible="False" Width="127">
+      </TUserButton>
+      <TUserButton Anchors="akRight;akBottom" Caption="Receipt Goods" Enabled="False" Height="31" ImageIndex="2232" Left="1053" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnReceipt" OnClick="btnReceipt_Click" ShortCut="0" TabOrder="4" TabStop="True" Top="13" Visible="False" Width="130">
+      </TUserButton>
+    </TUserPanel>
+    <TUserGridNavigator Align="alLeft" AlternateColour="False" Height="579" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="navGridNavigator1" OnBtnClick="navGrid_ButtonClick" Table="tblTransfers" Top="69" VisibleButtons="ebInsert;ebRefresh" Width="33">
+      <TUserSpeedButton Height="30" Hint="Drill Down - Open Transfer in Accredo Form" ImageIndex="2077" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnDrillDown" OnClick="spdBtnClick" ShortCut="0" Top="91" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="Select Line" ImageIndex="2190" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnSelect" OnClick="spdBtnClick" ShortCut="0" Top="121" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="UnSelect Line" ImageIndex="2191" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnUnselect" OnClick="spdBtnClick" ShortCut="0" Top="151" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="Select All" ImageIndex="2083" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnSelectAll" OnClick="spdBtnClick" ShortCut="0" Top="181" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="UnSelect All" ImageIndex="2084" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnUnselectAll" OnClick="spdBtnClick" ShortCut="0" Top="211" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="Import from Restock Report" ImageIndex="2095" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnImport" OnClick="spdBtnClick" ShortCut="0" Top="241" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="Delete Transfer" ImageIndex="2035" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnDeleteTransfer" OnClick="spdBtnClick" ShortCut="114" Top="271" Width="30">
+      </TUserSpeedButton>
+      <TUserSpeedButton Height="30" Hint="Auto Generate Transfer" ImageIndex="2216" Left="1" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnAutoTrf" OnClick="Location_Transfer" ShortCut="0" Top="301" Width="30">
+      </TUserSpeedButton>
+    </TUserGridNavigator>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Height="69" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="panPanel2" TabOrder="2" Top="0" Width="1198">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="28" LabelCaption="Location" LabelWidth="125" Left="36" LookupSource="ICLOCN" LookupType="ltNormal" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eLocation" OnAfterChange="eLocation_AfterChange" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Top="35" Width="313">
+      </TUserDataCombo>
+    </TUserPanel>
+    <TUserTimer Name="StartTimer" OnExecute="CheckForImports" Left="663" Top="16">
+    </TUserTimer>
+    <TUserFileOpen InitialDir="RestockReports" Name="ofd1" Options="" Left="854" Top="20">
+    </TUserFileOpen>
+  </Form>
+  <![CDATA['Public _TransferList as Object
+'_TransferList = Self
+
+Dim ICTFER as Object
+ICTFER = createobject("Accredo.ICTransferData")
+ICTFER.IndexName = "Document"
+
+Dim VANTFER as Object
+VANTFER = createobject("Accredo.ICTransferData")
+VANTFER.IndexName = "TypeSourceDestinationPeriodDocument"
+
+Dim ICProd as Object
+ICProd = opentable("ICPROD")
+ICProd.IndexName = "ActiveProduct"
+
+Dim ICQTY as Object
+ICQTY = opentable("ICQTY")
+ICQTY.IndexName = "ProductLocation"
+
+DiM TrfId as Number
+TrfId = 0
+Dim PRINTERNAME as String
+
+'Dim Builder as Object
+'Builder = CreateObject("Accredo.MemoryTableBuilder")
+'Dim NewField as Object
+'NewField = Builder.AddField("TRFID","IC Transfer ID")
+'VanTable = Builder.CreateTable
+'NewField = Nothing
+'Builder = Nothing
+''VanTable.AddIndex("TrfId")
+
+
+Dim Dir as Object
+Dir = createobject("Accredo.Directory")
+
+AbortAll = False
+
+OffLight = 2098
+OnLight = 2111
+
+Function ISAccredoUser
+
+  Return User.LoginUserName = "ACCREDO"
+
+End Function
+
+Sub CheckStatus
+
+ btnReceipt.Enabled = (tblTransfers.PostStatus = "P" AND tblTransfers.ReceiptStatus = "U")
+ btnLoadPallet.Enabled = (tblTransfers.PostStatus = "U")
+ btnEdit.Enabled = (tblTransfers.PostStatus = "U")
+
+End Sub
+
+Public Sub RefreshGrid
+  IF eLocation.Text = "" then
+    msgbox("You User Settings do not have a Default Location set.  Please select a location")
+    eLocation.SetFocus
+    Exit Sub
+  End IF
+
+  'SQL = " Select * From ICTFER WHERE ICTFER.PostStatus = 'U' " & IIF(eLocation.Value <> ""," AND ICTFER.SourceLocationCode = :ULC ","")
+  SQL = " Select * From ICTFER " & _
+        " WHERE (ICTFER.PostStatus = 'U' AND ICTFER.SourceLocationCode = :ULC ) " & _
+        " OR (ICTFER.ReceiptStatus = 'U' AND ICTFER.PostStatus = 'P' AND ICTFER.DestinationLocationCode = :ULC ) "
+  ExecuteSQL(SQL,eLocation.Text,tblTransfers)
+
+  CheckStatus
+
+End Sub
+
+Sub DoRefresh
+  RefreshGrid
+  eBarcode.SetFocus
+
+End Sub
+
+Sub MarkFileAsImported(fName as String)
+  Dim RFO as Object 'RENAME FILE OBJECT
+  RFO = createobject("Scripting.FileSystemObject")
+  FolderPath = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\"
+
+  IF fName <> "" then
+
+    FFrom = FolderPath & fName
+    FTo = replace(FFrom,".xls",".bk")
+
+    IF RFO.FileExists(FFrom) then
+      RFO.MoveFile(FFROM, FTO)
+    Else
+      msgbox("Error Marking Import File " & fname & " as completed!")
+    End IF
+  Else
+    msgbox("No file set to mark as completed")
+  End IF
+
+End Sub
+
+Function HAMorCHCH(Byref fileName as String)
+'F User.LoginUserName = "ACCREDO" Then MSGBOX("Ham or " & fileName)
+
+ IF mid(filename,instrrev(filename,".xls")-3,2) = "HV" Then
+   Return "HAM"
+ ElseIF mid(filename,instrrev(filename,".xls")-3,2) = "AV" Then
+   Return "AKL"
+'  ElseIF mid(filename,instrrev(filename,".xls")-3,2) = "AK" Then
+'   Return "0000"
+ Else
+   Abort("Location " & mid(filename,instrrev(filename,".xls")-3,2) & " not found in HamorCHCH - Line 110")
+ End IF
+
+End Function
+
+
+Sub CreateTransfer(fName as String)
+'  Msgbox(fname)
+  Try
+  BeginTransaction
+    tblImport.First
+'    BrowseDataset(tblImport)
+    Dim trfDate as Date
+    TRFDate = DateValue(MID(fName,17,6))
+    SocLoc = HAMorCHCH(fName)
+    TrfId = 0
+    CurPer = PeriodForDate(TRFDate)
+'    MSGBOX(tblImport.Locn)
+    VANTFER.SetRange("N",SocLoc,tblImport.Locn,CurPer)
+
+    VANTFER.First
+    Do Until VANTFER.EOF
+'      MSGBOX("Van Id = " & Vantfer.DocumentId & " - " & VANTFER.DocumentDate )
+    If VANTFER.DocumentDate = TrfDate Then
+ '     MSGBOX("Date Found = " & Vantfer.DocumentId & " - " & VANTFER.DocumentDate )
+      If tblVanTable.Findexact(VanTfer.DocumentID) Then
+'        MSGBOX("Found")
+      Else
+'       MSGBOX("append")
+        tblVanTable.Append
+        tblVanTable.Trfid = VanTfer.DocumentID
+        tblVanTable.Save
+'        MSGBOX("Save")
+      End If
+      TrfId =  VanTfer.DocumentID
+      Exit Do
+    End If
+'.    MSGBOX("Next")
+    VANTFER.Next
+    Loop
+'    Browsedataset(tblImport)
+'    MSGBOX("Trf Id = " & trfId)
+    IF NOT tblImport.EOF then
+'
+      IF TrfId = 0 Then
+        ICTFER.InsertTransfer
+        ICTFER.DestinationLocationCode = tblImport.Locn
+        ICTFER.SourceLocationCode = HAMorCHCH(fName)
+        ICTFER.Comment = "Auto-VanRestock " & tblImport.Locn
+        IF Left(fName,16) = "VanRestockReport" then
+          ICTFER.PeriodID = periodfordate(DateValue(MID(fName,17,6)))
+          ICTFER.DocumentDate = DateValue(MID(fName,17,6))
+        Else
+          Abort("Logic Error: FileName structure not valid for filename: " & fname)
+        End IF
+      Else
+        If ICTFER.Findexact(TrfId) Then
+'          MSGBOX("Trf Found")
+          ICTFER.Edit
+        Else
+          MSgBOX("Transfer: " & TrfId & " Not Found")
+        End If
+      End If
+      Cnt = 0
+      LN = ICTFER.Line
+      Do Until tblImport.EOF
+        Cnt = Cnt + 1
+        IF ICProd.FindExact(False,tblImport.ProdCode) then
+          If ICProd.NonDiminishing = False Then
+            LN.First
+            LNFound = False
+            do until LN.EOF
+              If LN.ProductCode = tblImport.ProdCode Then
+                 LN.Edit
+                 LN.Dispatch = LN.Dispatch + tblImport.Qty
+                 LN.Save
+                 LNFound = true
+                 Exit do
+              End if
+            LN.Next
+            Loop
+            If LNFound = False Then
+              LN.Append
+              LN.ProductCode = tblImport.ProdCode
+'              MSgbox("Append = " & LN.ProductCode)
+              LN.Dispatch = tblImport.Qty
+            End If
+          End If
+        Else
+          IF InputQuery("No Such Active Product Found in System: " & tblImport.ProdCode & " cnt " & Cnt & chr(13) & chr(13) & "Continue or Abort?","Product Not Found",True,"Continue","Abort",False) Then
+            ';;Continue On
+          Else
+            Abort("",True)
+          End IF
+        End IF
+       tblImport.Next
+      Loop
+
+      ICTFER.Save
+      TRFID = ICTFER.DocumentID
+      CommitTransaction
+
+      MarkFileAsImported(fName)
+
+    Else
+      Abort("Logic Error: Import Table is empty!")
+    End IF
+  Catch e
+    If Ictfer.editing then ICTFER.Cancel
+    msgbox("Import Failed: " & e.message)
+    RollBackTransaction
+    AbortAll = True
+  End Try
+
+
+  RefreshGrid
+
+End Sub
+
+Sub RunImport(fName as String)
+  tblImport.Empty
+
+  ImportFilePath = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\" & fName
+
+  tblImport.LoadFromExcel(ImportFilePath,"Sheet1","A",5)
+
+'  browsedataset(tblImport)
+
+  CreateTransfer(fName)
+
+  ';;POPULATE MEMORY TABLE FROM CSV FILE
+  ';;AUTO POPULATE TGA AS SOURCE AND GET VAN FROM CSV FILE AND POPULATE DESTINATION AS SELECTED VAN
+  ';;POPUP FOR SCANNING INTERNAL REFERENCE
+  ';;POPULATE MAIN GRID FROM MEMORY TABLE
+
+  ';;SAVE AND PRINT IN WAREHOUSE
+
+End Sub
+
+Sub DeleteOldFiles
+
+  ';CHECK VANREPORT DIRECTORY FOR ANY XLS FILES
+  Dim File, Folder, DFO as Object
+  File = createobject("Accredo.TextFile")
+  Dim InitDir as String
+  InitDir = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\*.bk"
+  DFO = createobject("Scripting.FileSystemObject")
+  FolderPath = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\"
+  folder = DFO.GetFolder(FolderPath)
+  foundfiles = folder.files
+
+  FileCount = 0
+  FileList = ""
+  For each file in foundfiles
+    IF right(file.Name,3) = ".bk" then
+      'msgbox(file.name)
+      FileCount = FileCount + 1
+      FileList = FileList & File.Name & chr(13)
+    End IF
+  Next
+
+  IF FileCount > 0 then
+    For each file in foundfiles
+      IF right(file.Name,3) = ".bk" then
+        Dim dt as Date
+        Dim dc as String
+        dc = formatdatetime(file.datecreated,"dd/mm/yyyy")
+
+        dt = datevalue(dc,"dd/mm/yyyy")
+'        MSGBOX("Date created = " & DT)
+        IF dt < (date - 30) then
+          Try
+            FileToDelete = dfo.GetFile(file.path)
+            IF InSTR(FileToDelete,"RestockReports\Auckland\AKL Test\") <> 0 then
+'              FileToDelete.Delete
+            Else
+              Abort("Error deleting file! Not in correct folder")
+            End IF
+          Catch e
+            msgbox("Error deleting file " & e.message)
+          End Try
+        End IF
+      End IF
+    Next
+  End IF
+
+End Sub
+
+Sub CheckForImports
+'IF User.LoginUserName = "ACCREDO" Then MSGBOX("Check " & Company.CompanyMenuName)
+IF Company.CompanyMenuName = "Linkup Play (Auckland) Ltd" Then
+  AbortAll = False
+IF User.LoginUserName = "ACCREDO" Then MSGBOX("Check")
+  StartTimer.Enabled = False
+
+'  IF User.LoginUserName = "ACCREDO" Then
+'    IF InputQuery("***Accredo User Only***   Do you want to select the file to import manually?") Then
+'      ofd1.Execute
+'      ftr = mid(ofd1.filename,instrrev(ofd1.filename,"\") + 1,len(ofd1.filename))
+'      RunImport(ftr)
+'      Exit Sub
+'    End IF
+'  End IF
+  Dim Builder as Object
+  Builder = CreateObject("Accredo.MemoryTableBuilder")
+  Dim NewField as Object
+  NewField = Builder.AddField("FileName","Description")  ',"String","20"
+  NewField = Builder.AddField("Import","","Boolean")
+  NewField.DisplayWidth = 12
+  KitTable = Builder.CreateTable
+  NewField = Nothing
+  Builder = Nothing
+
+  ';CHECK VANREPORT DIRECTORY FOR ANY XLS FILES
+  Dim File, Folder, FSO as Object
+  File = createobject("Accredo.TextFile")
+  Dim InitDir as String
+  InitDir = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\*.xls"
+  IF User.LoginUserName = "ACCREDO" Then MSGBOX("Check")
+  FSO = createobject("Scripting.FileSystemObject")
+  FolderPath = Dir.SystemDirectory & "RestockReports\Auckland\AKL Test\"
+  folder = fso.GetFolder(FolderPath)
+  foundfiles = folder.files
+
+  FileCount = 0
+  FileList = ""
+  For each file in foundfiles
+    IF User.LoginUserName = "ACCREDO" Then MSGBOX("Check " & file.name)
+    IF right(file.Name,4) = ".xls" then
+'      msgbox(file.name)
+      FileBrn = HAMorCHCH(File.Name)
+'IF User.LoginUserName = "ACCREDO" Then MSGBOX("File " & FileBrn & " ++ " & User.DefaultBranchCode )
+      if FileBrn = User.DefaultBranchCode Then
+        FileCount = FileCount + 1
+        FileList = FileList & File.Name & chr(13)
+        KitTable.Append
+        KitTable.Filename = File.Name
+        KitTable.Save
+      End If
+    End IF
+  Next
+  FCount = 1
+
+  IF FileCount > 0 then
+    IF InputQuery("Found " & FileCount & " Van Restock Reports, would you like to automatically create the transfers for these?" & chr(13) ) then
+      UpdKitTable = False
+      Dim SForm as Object
+      SForm = CreateObject("Accredo.ScriptedForm")
+      SForm.Caption = "Select Van Restock Reports to Import"
+      Dim Grid as Object
+      Grid = SForm.InputGrid("Grid", "", KitTable,900,870)
+      Grid.InputBoolean("Import","Refresh",False)
+      IF SForm.Execute then
+       'Contine Processing
+        UpdKitTable = True
+      Else
+        UpdKitTable = False
+  '        Abort("",True)
+      End IF
+      IF UpdKitTable = True Then
+        KitTable.First
+        Do Until KitTable.EOF
+          If KitTable.Import = True Then
+            For each file in foundfiles
+              IF file.Name = KitTable.filename then
+
+                RunImport(file.Name)
+
+'                MSGBOX("File Found" & KitTable.filename)
+'                FCount = FCount + 1
+'                If FCount > 200 then Abort("Avort",True)
+              End IF
+            Next
+          End If
+        KitTable.Next
+        Loop
+        btnImport.ShowStatusHint("Import of Van Restock Reports Complete!")
+      End If
+'      MSGBOX("Imported = " & FCOunt)
+
+      tblVanTable.First
+      Do Until tblVantable.Eof
+        ICTFER.Findexact(tblVantable.TrfId)
+        TFerPrint = ICTFER.Print
+        TFerPrint.Destination = "Printer"
+        IF ISAccredoUser Then TferPrint.Destination = "Screen"
+        TFerPrint.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+        TFerPrint.Run
+      tblVantable.Next
+      Loop
+    End IF
+
+
+  Else
+    btnImport.ShowStatusHint("No Van Restock Reports to Import!")
+  End IF
+
+  DeleteOldFiles
+End If
+End Sub
+Sub OnLoad
+
+  tblTransfers.Active = False
+  tblTransfers.AddField("PostStatus","ICTransferPostStatus")
+  tblTransfers.AddField("ReceiptStatus","ICTransferPostStatus")
+  tblTransfers.Fields.Item("PostStatus").DisplayLabel = "Dispatch Status"
+  tblTransfers.Fields.Item("ReceiptStatus").DisplayLabel = "Receipt Status"
+  tblTransfers.Fields.Item("PostStatus").DisplayWidth = 15
+  tblTransfers.Fields.Item("ReceiptStatus").DisplayWidth = 15
+  tblTransfers.Active = True
+
+  IF User.DefaultLocationCode <> "" then
+    eLocation.Value = User.DefaultLocationCode
+    RefreshGrid
+    CheckStatus
+  End IF
+
+  eBarcode.SetFocus
+  Company.MinimiseNavigator
+
+End Sub
+
+Sub FormClose
+  Company.ExpandNavigator
+End Sub
+
+Sub eLocation_AfterChange
+
+  RefreshGrid
+  IF eLocation.Text <> "" then
+    btnSelectAll.Hint = "Select All With Source Location: " & eLocation.Text
+  Else
+    btnSelectAll.hint = "Select All"
+  End IF
+
+End Sub
+
+Sub OpenTransfer(DocID,Mode as String)
+'Sub OpenTransfer(DocID as Number)
+
+    STForm = createcustomform("Barcoding\Stock_Transfers_v3_AKL.pfd",DocID,Mode,"")
+    STForm.P_TransferList = self
+    'OpenForm("ICTFER",DocID)
+    'STForm.SetOtherForm = self
+End Sub
+
+Sub btnEdit_Click
+
+  OpenTransfer(tblTransfers.DocumentID,"EDIT")
+
+End Sub
+
+Sub OnGrid_DoubleClick
+
+  IF ICTFER.FindExact(tblTransfers.DocumentID) then
+
+    IF ICTFER.PostStatus = "U" then
+      OpenTransfer(tblTransfers.DocumentID,"LOADPALLET")
+      'OpenTransfer(tblTransfers.DocumentID)
+    ElseIF ICTFER.ReceiptStatus = "U" and ICTFER.PostStatus = "P" then
+      'OpenTransfer(tblTransfers.DocumentID)
+      OpenTransfer(tblTransfers.DocumentID,"RECEIPT")
+    Else
+      Abort("Transfer has PostStatus " & getenumtext("ICTransferPostStatus",ICTFER.PostStatus) & " and Receipt Status " & getenumtext("ICTransferPostStatus",ICTFER.ReceiptStatus))
+    End IF
+
+  Else
+    msgbox("Logic Error: Failed to find DocumentID: " & tblTransfers.DocumentID)
+  End IF
+
+End Sub
+
+Sub navGrid_ButtonClick(Sender as Object, Button as Number, Handled as Boolean)
+
+  IF Button = ebInsert then
+    STForm = createcustomform("Barcoding\Stock_Transfers_v3.pfd")
+    STForm.P_TransferList = self
+    'STForm.SetOtherForm = Self
+    Abort("",True) 'Aborts Table's normal Insert Method
+    RefreshGrid
+  End IF
+
+  IF Button = ebRefresh then
+    RefreshGrid
+  End IF
+
+End Sub
+
+
+Sub btnLight_Click
+  eBarcode.SetFocus
+End Sub
+
+Sub eBarcode_Enter
+  btnLight.ImageIndex = OnLight
+End Sub
+
+
+Sub eBarcode_Leave
+  btnLight.ImageIndex = OffLight
+
+  Try
+    IF eBarcode.Text <> "" then
+      IF ICTFER.FindExact(val(eBarcode.Text)) then
+
+        IF ICTFER.PostStatus = "U" then
+          IF eLocation.Text <> ICTFER.SourceLocationCode then
+            eBarcode.Text = ""
+            Abort("Wrong Location Code Selected for this Document")
+          End IF
+          OpenTransfer(val(eBarcode.Text),"LOADPALLET")
+          'OpenTransfer(val(eBarcode.Text))
+        ElseIF ICTFER.PostStatus = "P" AND ICTFER.ReceiptStatus = "U" then
+          IF eLocation.Text <> ICTFER.DestinationLocationCode then
+            eBarcode.Text = ""
+            Abort("Wrong Location Code Selected for this Document")
+          End IF
+          OpenTransfer(val(eBarcode.Text),"RECEIPT")
+        Else
+          Abort("Transfer has PostStatus " & getenumtext("ICTransferPostStatus",ICTFER.PostStatus) & " and Receipt Status " & getenumtext("ICTransferPostStatus",ICTFER.ReceiptStatus))
+        End IF
+
+        eBarcode.Text = ""
+      Else
+        eBarcode.ShowErrorHint("Unable to find Transfer ID: " & eBarcode.Text)
+      End IF
+    End IF
+  Catch e
+    eBarcode.ShowErrorHint("Error: " & e.message)
+  End Try
+
+End Sub
+
+Sub btnLoadPallet_Click
+  Try
+    OpenTransfer(tblTransfers.DocumentID,"LOADPALLET")
+    'OpenTransfer(tblTransfers.DocumentID)
+  Catch e
+    btnLoadPallet.showerrorhint(e.message)
+  End Try
+End Sub
+
+Sub btnReceipt_Click
+
+  IF ICTFER.FindExact(tblTransfers.DocumentID) then
+    IF User.DefaultLocationCode <> "" then
+      IF ICTFER.DestinationLocationCode <> User.DefaultLocationCode then
+        btnReceipt.ShowErrorHint("Cannot Receipt Transfer!" & chr(13) & "Destination Locaion Code on the Transfer (" & ICTFER.DestinationLocationCode & ") is different to the User's Default Location Code (" & User.DefaultLocationCode & ")")
+        Exit Sub
+      End IF
+    Else
+      btnReceipt.ShowErrorHint("User Does not have a Default Location Code. Permission Denied")
+      Exit Sub
+    End IF
+  End IF
+
+  Try
+    OpenTransfer(tblTransfers.DocumentID,"RECEIPT")
+    'OpenTransfer(tblTransfers.DocumentID)
+  Catch e
+    btnLoadPallet.showerrorhint(e.message)
+  End Try
+End Sub
+
+'------ SELECT BUTTONS
+
+Dim sysDate as Date
+
+
+Sub spdBtnClick(Sender as Object)
+
+  Try
+      tblTransfers.Edit
+    Select Case Sender.Name
+      Case "btnDrillDown"
+'        MSGBOX("Drill Down")
+        IF tblTransfers.DocumentID <> 0 then OpenForm("ICTFER",tblTransfers.DocumentID)
+      Case "btnSelect"
+        IF tblTransfers.SourceLocationCode <> "" AND tblTransfers.DestinationLocationCode <> "" then tblTransfers.Selected = True
+      Case "btnUnselect"
+        tblTransfers.Selected = False
+      Case "btnSelectAll"
+        tblTransfers.First
+        Do Until tblTransfers.EOF
+          IF not tblTransfers.Editing then tblTransfers.Edit
+          IF tblTransfers.SourceLocationCode = eLocation.Text AND tblTransfers.DestinationLocationCode <> "" then tblTransfers.Selected = True
+         tblTransfers.Next
+        Loop
+      Case "btnUnselectAll"
+        tblTransfers.First
+        Do Until tblTransfers.EOF
+          IF not tblTransfers.Editing then tblTransfers.Edit
+          tblTransfers.Selected = False
+         tblTransfers.Next
+        Loop
+      Case "btnImport"
+        CheckForImports
+      Case "btnDeleteTransfer"
+        IF tblTransfers.DocumentID <> 0 then
+          IF InputQuery("Are you sure you want to delete the Transfer ID " & tblTransfers.DocumentID) Then
+            IF ICTFER.FindExact(tblTransfers.DocumentID) then
+              ICTFER.Delete
+              btnDeleteTransfer.ShowErrorHint(tblTransfers.DocumentID & " Deleted!")
+            Else
+              msgbox("Can't Delete - Transfer Not Found")
+            End IF
+          End IF
+        End IF
+        RefreshGrid
+
+    End Select
+  Catch e
+    self.showerrorhint(e.message)
+    tblTransfers.Cancel
+    Exit Sub
+  End Try
+
+  IF tblTransfers.Editing then tblTransfers.Save
+
+End Sub
+
+Sub btnPrint_Click
+  FirstRun = True
+  FoundSelected = False
+  Dest = ""
+  Dim SCForm,ICP as Object
+  SelectedLine = tblTransfers.RecNo
+
+  tblTransfers.First
+  Do Until tblTransfers.EOF
+    IF FirstRun = True and tblTransfers.Selected = True then
+      SCForm = createobject("Accredo.ScriptedForm")
+      SCForm.InputList("Destination","Destination","Screen","Printer")
+      SCForm.SetValue("Destination","Printer")
+      Do
+        IF SCForm.Execute then
+          Dest = SCForm.getValue("Destination")
+          IF Dest = "" then
+            scForm.showerrorhint("Please Select Destination")
+          Else
+            Exit Do
+          End IF
+        Else
+          Exit Sub
+        End IF
+      Loop
+      FirstRun = False
+    End IF
+    IF tblTransfers.Selected = True then
+      IF ICTFER.FindExact(tblTransfers.DocumentID) then
+        FoundSelected = True
+        ICP = ICTFER.Print
+        ICP.Destination = Dest
+
+        ICP.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+        IF ICP.Destination = "Printer" Then
+           IF left(eLocation.text,1) = "C" Then
+             PRINTERNAME = "CHCH_HP M570"
+           ElseIF left(eLocation.text,1) = "W" Then
+             PRINTERNAME = "HP Wellington B&W"
+           Else
+'             PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+             PRINTERNAME = "TOSHIBA e-S2802A"
+           End If
+        ICP.Printer.PrinterName = PRINTERNAME
+        End If
+        ICP.Run
+      Else
+        tblTransfers.Selected = False
+      End IF
+    End IF
+   tblTransfers.Next
+  Loop
+
+  IF FoundSelected = False then
+    tblTransfers.RecNo = SelectedLine
+    IF ICTFER.FindExact(tblTransfers.DocumentID) then
+      SCForm = createobject("Accredo.ScriptedForm")
+      SCForm.InputList("Destination","Destination","Screen","Printer")
+      SCForm.SetValue("Destination","Printer")
+      Do
+        IF SCForm.Execute then
+          Dest = SCForm.getValue("Destination")
+          IF Dest = "" then
+            scForm.showerrorhint("Please Select Destination")
+          Else
+            Exit Do
+          End IF
+        Else
+          Exit Sub
+        End IF
+      Loop
+
+      ICP = ICTFER.Print
+      ICP.Destination = Dest
+
+      ICP.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+      ICP.Run
+    Else
+      btnPrint.ShowErrorHint("Nothing Selected to Print")
+    End IF
+  End IF
+
+End Sub
+
+Sub Location_Transfer
+  If eLocation.Text <> "CHC" and eLocation.Text <> "WGTN" Then
+    MSGBOX("Location not available for Auto Transfer Create")
+  Else
+    STForm = createcustomform("Barcoding\Stock_Transfers_v3.pfd",0,"LOADPALLET",eLocation.Text)
+    STForm.P_TransferList = self
+'    Dim TransfData as Object
+'    TransfData = CreateObject("Accredo.ICTransferData")
+'    ProdTable = ExecuteSQl("SELECT ICPROD.ProductCode " & _
+'                            "      ,ICPROD.Description " & _
+'                            "      ,ICPROD.Discontinued " & _
+'                            "      ,ICPROD.Inactive " & _
+'                            "      ,ICPROD.HasParts " & _
+'                            "      ,ICQTY.BranchCode " & _
+'                            "      ,ICQTY.DepartmentCode " & _
+'                            "      ,ICQTY.LocationCode " & _
+'                            "      ,ICQTY.QuantityInStock " & _
+'                            "      ,ICQTY.QuantityOnBackOrder " & _
+'                            "      ,ICQTY.QuantityAvailable " & _
+'                            "      ,ICQTY.MinimumQuantity " & _
+'                            "      ,ICQTY.QuantityInTransit " & _
+'                            "      ,ICQTY.QuantityOnOrder " & _
+'                            "FROM   ICPROD " & _
+'                            "       INNER JOIN ICQTY  ON ICPROD.ProductCode=ICQTY.ProductCode " & _
+'                            "WHERE (ICQTY.LocationCode = :Locn " & _
+'                            "   AND ICQTY.MinimumQuantity > 0) " & _
+'                            "   and ICPROD.CreditorCode <> 'DBA' " & _
+'                            "   and (ICQTY.QuantityInStock + ICQTY.QuantityOnOrder + ICQTY.QuantityInTransit < ICQTY.MinimumQuantity )  " & _
+'                            "   and ICPROD.Discontinued = False " & _
+'                            "   and ICPROD.Inactive = False " & _
+'                            "   and ICPROD.NonDiminishing = False " & _
+'                            " Order By ICPROD.ProductCode " , eLocation.Text)
+'
+''    IF User.LoginUserName = "ACCREDO" Then Browsedataset(Prodtable)
+'    TransfData.InsertTransfer
+'
+'    TransfData.DocumentDate = Date
+'    TransfData.ReceiptDate = Date
+'    TransfData.PeriodID = PeriodforDate(TransfData.DocumentDate)
+'    TransfData.ReceiptPeriodID = PeriodforDate(TransfData.ReceiptDate)
+'    TransfData.SourceLocationCode = "HAM"
+'    TransfData.DestinationLocationCode = eLocation.Text
+'    TransfData.TransitLocationCode = "TRANSIT"
+'    TransfData.Reference = User.LoginUserName '"Auto Transfer"
+'    TransfData.Comment = "Auto Transfer for " & eLocation.Text
+'    ProdTable.First
+'    TransfData.Line.Empty
+'    Do until ProdTable.Eof
+'      IF ICQTY.FindExact(ProdTable.ProductCode,"HAM") Then
+''        IF ICQTY.QuantityAvailable > 0 Then
+''
+'          QTYREQD = (Prodtable.MinimumQuantity + ICQTY.QuantityOnBackOrder ) - Prodtable.QuantityAvailable - Prodtable.QuantityonOrder - Prodtable.QuantityInTransit
+''          If QtyReqd > 0 Then
+''            IF ICQTY.QuantityAvailable > QTYREQD then
+'              TransfData.Line.Append
+'              TransfData.Line.ProductCode = ProdTable.ProductCode
+'              TransfData.Line.QuantityDispatched = QtyReqd
+'              TransfData.Line.Save
+''            Else
+''              TransfData.Line.Append
+''              TransfData.Line.ProductCode = ProdTable.ProductCode
+''              TransfData.Line.QuantityDispatched = ICQTY.QuantityAvailable
+''              TransfData.Line.Save
+''            End IF
+''          End If
+''        '      MSGBOX("trf = " & TransfData.Line.QuantityReceipted & " Ad= " & TransfData.Line.QuantityAdjusted  & " Dis= " & TransfData.Line.QuantityDispatched)
+''        End If
+'      End If
+'    ProdTable.Next
+'    Loop
+'    TransfData.Save
+'    MSGBOX("Auto Transfer from Hamilton to " & eLocation.Text & " Completed")
+'    TransfData.OpenForm
+'''    TrfID = TransfData.DocumentId
+'
+''    If Inputquery("Auto Transfer from Hamilton to " & eLocation.Text & " Completed - Do you wish to Print") Then
+''      Dest = ""
+''      Dim SCForm,ICP , ICP2 as Object
+''
+''      SCForm = createobject("Accredo.ScriptedForm")
+''      SCForm.InputList("Destination","Destination","Screen","Printer")
+''      SCForm.SetValue("Destination","Printer")
+''      Do
+''        IF SCForm.Execute then
+''          Dest = SCForm.getValue("Destination")
+''          IF Dest = "" then
+''            scForm.showerrorhint("Please Select Destination")
+''          Else
+''            Exit Do
+''          End IF
+''        Else
+''          Exit Sub
+''        End IF
+''      Loop
+'
+''      If Dest = "Screen" Then
+''        ICP = TransfData.Print
+''        ICP.Destination = Dest
+''        ICP.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+''        ICP.Run
+''      Else
+''        ICP = TransfData.Print
+''        ICP.Destination = Dest
+''        ICP.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+''        IF left(eLocation.text,1) = "C" Then
+''           PRINTERNAME = "CHCH_HP M570"
+''        ElseIF left(eLocation.text,1) = "W" Then
+''           PRINTERNAME = "HP Wellington"
+''        Else
+''           PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+''        End If
+''        ICP.Printer.PrinterName = PRINTERNAME
+''        IF User.LoginUserName = "ACCREDO" Then  ICP.Destination = "Screen"
+''        ICP.Run
+''        IF User.LoginUserName = "ACCREDO" Then Msgbox("1 " & PRINTERNAME )
+''        ICP2 = TransfData.Print
+''        ICP2.Destination = "Printer" 'Dest
+''        IF User.LoginUserName = "ACCREDO" Then  ICP2.Destination = "Screen"
+''        ICP2.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+''
+''        PRINTERNAME = "HP LaserJet Pro MFP M127-M128 PCLmS"
+''
+''        ICP2.Printer.PrinterName = PRINTERNAME
+''        ICP2.Run
+''        IF User.LoginUserName = "ACCREDO" Then Msgbox("1 " & PRINTERNAME )
+'''      End If
+'''    Else
+'''    End if
+''    eLocation.Text = "HAM"
+''    eLocation_AfterChange
+''    OpenForm("ICTFER",TrfId)
+  End If
+
+End Sub]]>
+</Design>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="2" DPI="120">
+  <Form Caption="Barcoding - Add Product To Order" Color="clBtnFace" Constraints.MaxHeight="102399" Constraints.MaxWidth="102399" Constraints.MinHeight="125" Constraints.MinWidth="250" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Arial" Font.Style="" Height="471" SaveSizeName="frmOrderPicking_AddProductToOrder" Visible="False" Width="549" WindowState="wsNormal">
+    <TUserLabel Caption="Scan Product To Add" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-30" Font.Name="Arial" Font.Style="" Height="45" Left="94" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="lLabel1" ParentFont="False" Top="15" Width="342">
+    </TUserLabel>
+    <TUserLabel Caption="Select Product &amp;&amp; Accept" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-30" Font.Name="Arial" Font.Style="" Height="45" Left="94" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="lLabel2" ParentFont="False" Top="120" Width="342">
+    </TUserLabel>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="28" LabelCaption="Barcode" LabelWidth="125" Left="109" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eBarcode" OnChange="" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Text="" Top="76" Width="312">
+    </TUserEdit>
+    <TUserButton Anchors="akTop;akRight" Caption="Cancel" Height="60" ImageIndex="2074" Left="160" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnExit" OnClick="Cancel" ShortCut="0" TabOrder="1" TabStop="True" Top="350" Width="210">
+    </TUserButton>
+    <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbWordLookup" Enabled="True" Height="28" IndexName="" LabelCaption="Product" LabelWidth="125" Left="109" LookupFilter="Inactive = False" LookupSource="ICPROD" LookupType="ltNormal" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eProductCode" OnAfterChange="ProductChange" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="2" TabStop="True" Text="" Top="181" Width="312">
+    </TUserDataCombo>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="28" LabelWidth="0" Left="109" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eProductName" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="225" Width="312">
+    </TUserEdit>
+    <TUserButton Anchors="akTop;akRight" Caption="Accept" Height="60" ImageIndex="2073" Left="160" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnAccept" OnClick="Accept" ShortCut="0" TabOrder="4" TabStop="True" Top="269" Width="210">
+    </TUserButton>
+  </Form>
+  <![CDATA[Dim Product as String
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Dim ICBAR as OBJECT
+ICBAR = Opentable("ICBAR")
+ICBAR.indexname = "Barcode"
+
+Barcode = ""
+Product = ""
+
+Sub OnLeave
+  If eBarcode.Text <> "" then
+    ICBAR.indexname = "Barcode"
+    IF ICBAR.Findexact(eBarcode.text) then
+      IF ICPROD.FIndexact(ICBAR.ProductCode) then
+        IF not ICPROD.inactive = True then
+          Product = ICPROD.ProductCode
+          Barcode = eBarcode.text
+          Self.close
+        Else
+          eBarcode.Showerrorhint("Product Is Inactive")
+        End IF
+      Else
+        eBarcode.Showerrorhint("Product Not Found")
+      End If
+    Else
+      eBarcode.Showerrorhint("Barcode Not Found")
+    End IF
+   eBarcode.SetFocus
+  End IF
+End Sub
+
+Sub Cancel
+  Product = ""
+  Barcode =""
+  Self.Close
+End Sub
+
+Property Get pNewProduct as String
+  pNewProduct = Product
+End Property
+
+Property Get pNewBarcode as String
+  pNewBarcode = Barcode
+End Property
+
+
+Sub ProductChange
+  IF ICPROD.Findexact(eProductCode.Text) then
+    eProductName.Text = ICPROD.Description
+  Else
+    eProductName.Text = ""
+  End IF
+End SUb
+
+Sub Accept
+  IF ICPROD.Findexact(eProductCode.Text) then
+    IF not ICPROD.inactive = True then
+      Product = ICPROD.ProductCode
+      Barcode = ""
+      Self.close
+    Else
+      eProductCode.Showerrorhint("Product Is Inactive")
+    End IF
+  Else
+    eProductCode.ShowErrorHint("Product Not Found")
+  End IF
+End Sub]]>
+</Design>

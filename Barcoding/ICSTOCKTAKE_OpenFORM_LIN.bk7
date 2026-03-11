@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="2" DPI="96">
+  <Form Caption="Select Existing or New Stocktake" Color="clBtnFace" Constraints.MaxHeight="52428" Constraints.MaxWidth="52428" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Segoe UI" Font.Style="" Height="846" Interactive="True" OnShow="formload" SaveSizeName="frmICSTOCKTAKE_Open" Visible="True" Width="1138" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblICSTKHD" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="658" Top="148">
+      <TnIntegerField DisplayLabel="ID" DisplayWidth="10" DomainName="IC Stocktake ID" FieldName="DocumentID">
+      </TnIntegerField>
+      <TnStringField DisplayWidth="40" DomainName="Description" FieldName="Details">
+      </TnStringField>
+      <TnDateField DisplayLabel="Created Date" DisplayWidth="15" FieldName="Createddate">
+      </TnDateField>
+      <TnUpperField DisplayLabel="Location" DisplayWidth="10" DomainName="IC Location Code" FieldName="LocationCode">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Status" DisplayWidth="10" DomainName="Custom" FieldName="PostStatus" Size="1">
+      </TnStringField>
+      <TnIntegerField DisplayLabel="CntID" DisplayWidth="10" DomainName="IC Count ID" FieldName="CountID" Visible="False">
+      </TnIntegerField>
+      <TIndexDef Fields="DocumentID" Name="DocumentID" Options="ixPrimary">
+      </TIndexDef>
+      <TIndexDef Fields="Createddate;LocationCode" Name="DateLocation">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblCountnum" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="518" Top="287">
+      <TnIntegerField DisplayWidth="10" DomainName="IC Count ID" FieldName="CountID">
+      </TnIntegerField>
+      <TnStringField DisplayWidth="30" DomainName="Description" FieldName="Details">
+      </TnStringField>
+      <TnDateField DisplayLabel="Created Date" DisplayWidth="15" FieldName="Createddate">
+      </TnDateField>
+      <TnUpperField DisplayLabel="Location" DisplayWidth="10" DomainName="IC Location Code" FieldName="LocationCode">
+      </TnUpperField>
+      <TnIntegerField DisplayLabel="DocID" DomainName="IC Stocktake ID" FieldName="DocumentID">
+      </TnIntegerField>
+      <TIndexDef Fields="CountID" Name="CountID" Options="ixPrimary">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblCounts" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="451" Top="611">
+      <TnIntegerField DisplayLabel="StocktakeID" DisplayWidth="10" DomainName="IC Stocktake ID" FieldName="DocumentID" Visible="False">
+      </TnIntegerField>
+      <TnIntegerField DisplayWidth="10" DomainName="IC Count ID" FieldName="CountID" Visible="False">
+      </TnIntegerField>
+      <TnStringField DisplayWidth="140" DomainName="Description" FieldName="Details">
+      </TnStringField>
+      <TnStringField DisplayLabel="Counted" DisplayWidth="30" DomainName="Custom" FieldName="CountStatus" Size="12">
+      </TnStringField>
+      <TIndexDef Fields="CountID" Name="Count" Options="ixUnique">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Color="15259083" Height="269" Left="0" Name="panNew" TabOrder="0" Top="430" Width="1122">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelCaption="Reference" Left="24" Name="eDetail" OnChange="" OnEnter="" OnExit="" TabOrder="0" TabStop="True" Text="" Top="4" Width="250">
+      </TUserEdit>
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="22" IndexName="" LabelCaption="Location" Left="25" LookupSource="ICLOCN" LookupType="ltNormal" Name="eLocation" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="2" TabStop="True" Text="" Top="55" Width="250">
+      </TUserDataCombo>
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelCaption="Date" Left="25" Name="eDate" OnChange="" OnEnter="" OnExit="" TabOrder="3" TabStop="True" Text="" Top="80" Width="250">
+      </TUserDateEdit>
+      <TUserButton Caption="Create Stocktake &amp;&amp; Enter First Count" Height="40" ImageIndex="2013" Left="15" Name="btnCreateStocktake" OnClick="Okay_Click" ShortCut="0" TabOrder="4" TabStop="True" Top="104" Width="272">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="38" Left="2" LineLength="0" Name="eMemo5" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="5" TabStop="True" Top="148" Width="309">
+        <TUserStringItem Value="Create Stocktake. Create Count and marks as counted">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelCaption="Bin" Left="24" Name="eBinloc" OnChange="" OnEnter="" OnExit="" TabOrder="1" TabStop="True" Text="" Top="29" Width="250">
+      </TUserEdit>
+    </TUserPanel>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Color="15259083" Height="389" Left="0" Name="panExisting" TabOrder="1" Top="41" Width="1122">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-21" Font.Name="Segoe UI" Font.Style="" Height="31" IndexName="DocumentID" LabelCaption="Stocktake Number" LabelWidth="175" Left="13" LookupSource="tblICSTKHD" LookupType="ltMemory" Name="StktakeNo" OnAfterChange="Count_List" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="7" Width="322">
+      </TUserDataCombo>
+      <TUserButton Caption="Enter Additional Count" Height="40" ImageIndex="2013" Left="888" Name="btnAdditionalCount" OnClick="Okay_Click" ShortCut="0" TabOrder="1" TabStop="True" Top="301" Visible="False" Width="157">
+      </TUserButton>
+      <TUserButton Caption="Print Variance" Height="40" ImageIndex="2226" Left="377" Name="btnPrintVariance" OnClick="PrintVariance" ShortCut="0" TabOrder="2" TabStop="True" Top="190" Width="157">
+      </TUserButton>
+      <TUserButton Caption="Complete Stocktake" Height="40" ImageIndex="2076" Left="701" Name="btnPendingVariance" OnClick="CreatePendingVariance" ShortCut="0" TabOrder="3" TabStop="True" Top="190" Width="203">
+      </TUserButton>
+      <TUserButton Caption="Post Stocktake" Height="40" ImageIndex="2156" Left="725" Name="btnPostStocktake" OnClick="PostStockTake" ShortCut="0" TabOrder="4" TabStop="True" Top="300" Visible="False" Width="157">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="55" Left="895" LineLength="0" Name="eMemo1" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="5" TabStop="True" Top="342" Visible="False" Width="142">
+        <TUserStringItem Value="Create Count ">
+        </TUserStringItem>
+        <TUserStringItem Value="and mark as counted">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="55" Left="377" LineLength="0" Name="eMemo2" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="6" TabStop="True" Top="239" Width="157">
+        <TUserStringItem Value="Print Variance">
+        </TUserStringItem>
+        <TUserStringItem Value="From Stocktake">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="55" Left="701" LineLength="0" Name="eMemo3" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="7" TabStop="True" Top="239" Width="203">
+        <TUserStringItem Value="Confirm and Post Stocktake.">
+        </TUserStringItem>
+        <TUserStringItem Value="This will show variance ">
+        </TUserStringItem>
+        <TUserStringItem Value="against products">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="38" Left="736" LineLength="0" Name="eMemo4" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="8" TabStop="True" Top="344" Visible="False" Width="142">
+        <TUserStringItem Value="Post &amp; Lock Stocktake">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="View Stocktake" Height="31" ImageIndex="2032" Left="368" Name="btnViewStocktake" OnClick="BtnOpenStocktake_Click" ShortCut="0" TabOrder="9" TabStop="True" Top="7" Width="123">
+      </TUserButton>
+      <TUserButton Height="31" Hint="Refresh Stocktake List" ImageIndex="2311" Left="335" Name="btnRefresh" OnClick="RefreshStocktakeList" ShortCut="0" TabOrder="10" TabStop="True" Top="7" Width="30">
+      </TUserButton>
+      <TUserButton Caption="Print Single Count Sheet" Height="40" ImageIndex="2218" Left="20" Name="btnButton1" OnClick="Print_Single_Count" ShortCut="0" TabOrder="11" TabStop="True" Top="190" Width="157">
+      </TUserButton>
+      <TUserButton Caption="Print All Count Sheets" Height="40" ImageIndex="2160" Left="20" Name="btnButton2" OnClick="Print_Count_Multi" ShortCut="0" TabOrder="12" TabStop="True" Top="241" Width="157">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="38" Left="25" LineLength="0" Name="eMemo6" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="13" TabStop="True" Top="297" Width="142">
+        <TUserStringItem Value="Print Count Sheets">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="Edit Existing Count" Height="40" Hint="Edit Existing Count" ImageIndex="2272" Left="558" Name="btnEditCount" OnClick="btnEditCount_Click" ShortCut="0" TabOrder="14" TabStop="True" Top="300" Visible="False" Width="157">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="55" Left="565" LineLength="0" Name="eMemo7" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="15" TabStop="True" Top="342" Visible="False" Width="142">
+        <TUserStringItem Value="Scan Existing Count">
+        </TUserStringItem>
+        <TUserStringItem Value="Number To Update">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="Open Stocktake List" Height="31" ImageIndex="2145" Left="494" Name="btnOpenList" OnClick="BtnOpenStocktakeList_Click" ShortCut="0" TabOrder="16" TabStop="True" Top="7" Width="157">
+      </TUserButton>
+      <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" ButtonSize="0" Height="22" LabelVisible="False" LabelWidth="305" Left="1022" Name="OpenNextForm" OnChange="OpenNextForm" OnEnter="" OnExit="" ReadOnly="False" TabOrder="17" TabStop="True" Top="4" Visible="False" Width="30">
+      </TUserCheckBox>
+      <TUserButton Caption="Create Variance Count" Height="40" ImageIndex="2013" Left="541" Name="btnButton3" OnClick="Variance_Count" ShortCut="0" TabOrder="18" TabStop="True" Top="192" Width="157">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="55" Left="541" LineLength="0" Name="eMemo8" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="19" TabStop="True" Top="239" Width="157">
+        <TUserStringItem Value="Create Variance">
+        </TUserStringItem>
+        <TUserStringItem Value="     Count ">
+        </TUserStringItem>
+        <TUserStringItem>
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="Print Inventory Levels" Height="41" ImageIndex="2321" Left="375" Name="btnButton4" OnClick="PrintInvLevels" ShortCut="0" TabOrder="20" TabStop="True" Top="294" Visible="False" Width="158">
+      </TUserButton>
+      <TUserListGrid ActiveRowColor="clInfoBk" Height="131" Left="27" Name="gridListGrid2" OnCalcCellColors="" OnClick="" OnDblClick="CountSelect" Table="tblCounts" TabOrder="21" Top="50" Width="1046">
+      </TUserListGrid>
+      <TUserButton Caption="Refresh Expected Quantities" Height="40" ImageIndex="2156" Left="184" Name="btnButton5" OnClick="Reload_Expected_Qty" ShortCut="0" TabOrder="22" TabStop="True" Top="190" Width="185">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="38" Height="42" Left="196" LineLength="0" Name="eMemo9" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ReadOnlyColor="clSilver" ScrollBars="ssNone" TabOrder="23" TabStop="True" Top="239" Width="142">
+        <TUserStringItem Value="Refresh Expected">
+        </TUserStringItem>
+        <TUserStringItem Value=" Quantities">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="Refresh Table" Height="25" ImageIndex="-1" Left="994" Name="btnRefreshTab" OnClick="Table_Refresh" ShortCut="0" TabOrder="24" TabStop="True" Top="24" Width="80">
+      </TUserButton>
+    </TUserPanel>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Height="41" Left="0" Name="panPanel2" TabOrder="2" Top="0" Width="1122">
+      <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" ButtonSize="0" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Segoe UI" Font.Style="fsBold" Height="22" LabelCaption="Existing Stocktake" LabelWidth="305" Left="10" Name="eExisting" OnChange="eExisting_Clicked" OnEnter="" OnExit="" ReadOnly="False" TabOrder="0" TabStop="True" Top="11" Width="128">
+      </TUserCheckBox>
+      <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" ButtonSize="0" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Segoe UI" Font.Style="fsBold" Height="22" LabelCaption="New Stocktake" LabelWidth="305" Left="157" Name="eNew" OnChange="eNew_Clicked" OnEnter="" OnExit="" ReadOnly="False" TabOrder="1" TabStop="True" Top="11" Width="126">
+      </TUserCheckBox>
+      <TUserButton Caption="Help" Height="31" ImageIndex="2298" Left="564" Name="btnButton6" OnClick="OpenHelpFile" ShortCut="0" TabOrder="2" TabStop="True" Top="7" Width="75">
+      </TUserButton>
+    </TUserPanel>
+    <TUserPanel AlternateColour="False" BevelInner="bvRaised" BevelOuter="bvNone" BorderStyle="bsSingle" Height="311" Left="338" Name="pnlEditCount" TabOrder="3" Top="465" Visible="False" Width="660">
+      <TUserSpeedButton Anchors="akTop;akRight" Height="22" ImageIndex="2074" Left="624" Name="btnCloseScanCount" OnClick="btnCloseScanCount_Click" ShortCut="0" Top="7" Width="23">
+      </TUserSpeedButton>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelVisible="False" Left="282" Name="eOnlyHereToKeepThePeace" OnChange="" OnEnter="" OnExit="" TabOrder="0" TabStop="True" Text="" Top="46" Width="50">
+      </TUserEdit>
+      <TUserListGrid ActiveRowColor="clInfoBk" Anchors="akLeft;akTop;akRight" Height="226" Left="28" Name="gridListGrid1" OnCalcCellColors="" OnClick="" OnDblClick="CountSelect" Table="tblCounts" TabOrder="1" Top="41" Width="602">
+      </TUserListGrid>
+      <TUserButton Anchors="akRight;akBottom" Caption="OK" Height="25" ImageIndex="2073" Left="562" Name="btnOK" OnClick="CountSelect" ShortCut="0" TabOrder="2" TabStop="True" Top="274" Width="75">
+      </TUserButton>
+    </TUserPanel>
+  </Form>
+  <![CDATA[self.Name = "IC_OPENST_FORM"
+
+Dim ICStocktakeData as Object
+ICStocktakeData = CreateObject("Accredo.ICStocktakeData")
+ICStocktakeData.indexname = "Document"
+
+DIM Locn as String
+
+Dim ICSttable as object
+ICSttable = opentable("ICSTKHD")
+
+Dim ICCnttable as object
+ICCnttable = opentable("ICCNTHD")
+ICCnttable.IndexName = "Count"
+
+AutoOpenCount = True
+
+panNew.Align = alClient
+panExisting.Align = alClient
+
+Sub Count_List
+  CTable = ExecuteSQL("Select DocumentID, CountID, Details, CountStatus FROM ICCNTHD WHERE DocumentID = :STKID Order By DocumentID,CountID ", val(StktakeNo.Text))
+
+    tblCounts.Empty
+    CTable.First
+    Do Until CTable.EOF
+      tblCounts.Append
+      tblCounts.DocumentID = CTable.DocumentID
+      tblCounts.CountID = CTable.CountID
+      tblCounts.Details = CTable.Details
+      tblCounts.CountStatus = getEnumText("IC Count Status",CTable.CountStatus)
+      tblCounts.Save
+     CTable.Next
+    Loop
+
+End Sub
+
+Sub RefreshStocktakeList
+  StktakeNo.Text = 0
+  tblICSTKHD.Empty
+  ICSttable.first
+  DO until ICSttable.eof
+    If ICSttable.PostStatus <> "P" and ICSttable.PostStatus <> "D" Then
+      tblICSTKHD.insert
+      copyfieldsbyname(ICSttable,tblICSTKHD)
+      tblICSTKHD.save
+    End IF
+    ICSttable.next
+  loop
+
+  IF User.DefaultLocationCode <> "" then
+    tblICSTKHD.IndexName = "DateLocation"
+    Try
+      tblICSTKHD.Last
+      Do Until tblICSTKHD.BOF
+'        IF tblICSTKHD.LocationCode = User.DefaultLocationCode then
+        If left(tblICSTKHD.LocationCode,1)  = left(User.DefaultLocationCode,1) Then
+          StktakeNo.Text = tblICSTKHD.DocumentID
+          Count_List
+          Exit Do
+        End IF
+       tblICSTKHD.Prev
+      Loop
+    Catch
+
+    End Try
+
+    ';;Reset Index
+    tblICSTKHD.IndexName = "DocumentID"
+  End IF
+
+End Sub
+
+sub formload
+'  MSGBOX("Load")
+  RefreshStocktakeList
+  If StktakeNo.text <> "" then Count_List
+end sub
+
+
+sub S_Shell(URL as String)
+  Shells = CreateObject("Shell.Application")
+  Shells.ShellExecute(URL)
+End Sub
+
+Sub BtnOpenStocktake_Click
+'  IF User.LoginUserName = "ACCREDO" then msgbox(StktakeNo.Text)
+  IF ICStocktakeData.findexact(StktakeNo.Text) Then
+    ICStocktakeData.Openform
+  End IF
+End Sub
+
+Sub Table_Refresh
+  Count_list
+End Sub
+
+
+Sub PrintVariance
+
+  '## METHOD 1 ##
+  IF ICStocktakeData.FindExact(StktakeNo.Text) Then
+
+    VarRep = CreateObject("Accredo.ICStocktakeStatusReport")
+    VarRep.Layout = "Stocktake Status"
+    VarRep.ReportFilterSort.Filter = "DocumentID = " & StktakeNo.Text & " AND QuantityVariance <> 0"
+    VarRep.Location = ICStocktakeData.LocationCode
+    VarRep.Period = ICStocktakeData.PeriodID
+    VarRep.Run
+'    documentobject(VarRep)
+  End IF
+
+
+  '## METHOD 2 ##
+
+
+'  IF ICStocktakeData.findexact(StktakeNo.Text) Then
+'      ICStocktakeData.openform
+'  End IF
+'
+'  ICStocktakeData.Product.FilterSort.Filter = "(QuantityVariance<>0.000)"
+'
+'  Form1 = ICStocktakeData.openform
+'  Form1.Product.Print
+'  Form1.Close
+
+End Sub
+
+
+Sub OpenHelpFile
+  Dim DIR as object
+  DIR = Createobject("Accredo.Directory")
+  S_Shell(DIR.SystemDirectory & "Images\V4 Stocktaking.jpg")
+End Sub
+
+Sub DoNothing
+End Sub
+
+
+Sub Events_Clear
+  eNew.OnChange = GetREf("DoNothing")
+  eExisting.OnChange = GetREf("DoNothing")
+End Sub
+
+
+Sub Events_Set
+  eNew.OnChange = GetREf("eNew_Clicked")
+  eExisting.OnChange = GetREf("eExisting_Clicked")
+End Sub
+
+
+Sub eNew_Clicked
+  Events_Clear
+  panNew.Visible = True
+  panExisting.Visible = False
+  StktakeNo.Visible = False
+  eNew.checked = True
+  eExisting.checked = False
+  Events_Set
+  IF User.DefaultLocationCode <> "" then
+    eLocation.Text = User.DefaultLocationCode
+  End IF
+  'eERNewRep_Change
+End Sub
+
+Sub eExisting_Clicked
+  Events_Clear
+  panNew.Visible = False
+  panExisting.Visible = True
+  StktakeNo.Visible = True
+  eExisting.checked = True
+  eNew.checked = False
+  Events_Set
+  'eERNewRep_Change
+End Sub
+
+eNew_Clicked
+
+Sub OpenICStocktakeForm(byref STKHDID as Number, byref Location as string, byref Bin as string)
+
+  Formstktake = Createcustomform("Barcoding\IC_Stocktaking_Lin.pfd",Location,Bin)
+  Formstktake.eStocktakeID.Value = STKHDID
+  Formstktake.eLocationCode.text = Location
+  Formstktake.eBinloc.text = Bin
+'  MSGBOX("Count List")
+  Count_List
+
+End Sub
+
+Sub BtnOpenStocktakeList_Click
+
+  CreateObject("Accredo.ICStocktakeListForm")
+
+End Sub
+
+Sub OpenNextForm
+  CTable = ExecuteSQL("Select ICSTKHD.LocationCode " & _
+                      ", ICCNTHD.DocumentID " & _
+                      ", ICCNTHD.CountID " & _
+                      ", ICCNTHD.Details " & _
+                      ",ICCNTHD.CountStatus " & _
+                      "FROM ICCNTHD " & _
+                      "Left Join ICSTKHD ON ICCNTHD.DocumentID=ICSTKHD.DocumentID " & _
+                      "WHERE ICCNTHD.DocumentID = :STKID " & _
+                      "Order By CountID ", val(StktakeNo.Text))
+  CTable.Last
+  cs = instrRev(CTable.Details,"Bin Location 2")
+  IF cs <> 0 Then
+
+    Createcustomform("Barcoding\IC_Stocktaking_Lin.pfd",CTable.LocationCode, "", CTable.CountID, False)
+  Else
+'    msgbox("Error: Couldn't Automatically Open Bin Location 2 Stocktake")
+  End IF
+End Sub
+
+Sub EditCount(byref STKHDID as Number, byref Location as string, byref Bin as string, ByVal Count as Number, ByVal AutoOpen as Boolean)
+'abort(location)
+'  Formstktake =
+'  MSGBOX("Edit Count")
+  Createcustomform("Barcoding\IC_Stocktaking_Lin.pfd",Location, Bin, Count, AutoOpen)
+
+'  pnlEditCount.Visible = False
+'  IF User.LoginUserName = "ACCREDO" Then MSGBOX("Return")
+'  StktakeNo.text = ""
+'  tblcounts.empty
+'  Count_list
+End Sub
+
+Sub btnEditCount_Click
+
+  IF pnlEditCount.Visible = False Then
+    pnlEditCount.Top = 89
+    pnlEditCount.Left = 169
+    CTable = ExecuteSQL("Select DocumentID, CountID, Details, CountStatus FROM ICCNTHD WHERE DocumentID = :STKID Order By DocumentID,CountID ", val(StktakeNo.Text))
+
+    tblCounts.Empty
+    CTable.First
+    Do Until CTable.EOF
+      tblCounts.Append
+      tblCounts.DocumentID = CTable.DocumentID
+      tblCounts.CountID = CTable.CountID
+      tblCounts.Details = CTable.Details
+      tblCounts.CountStatus = getEnumText("IC Count Status",CTable.CountStatus)
+      tblCounts.Save
+     CTable.Next
+    Loop
+    CTable.First
+    pnlEditCount.Visible = Not pnlEditCount.Visible
+  Else
+    pnlEditCount.Visible = Not pnlEditCount.Visible
+  End IF
+
+End Sub
+
+'Sub eScanCount_OnExit
+'  IF pnlEditCount.Visible = True Then
+'    IF eScanCount.Text <> "" Then
+'      IF ICCntTable.FindExact(val(eScanCount.Text)) Then
+'        eScanCount.Text = ""
+'        pnlEditCount.Visible = False
+'        EditCount(ICCntTable.DocumentID,ICCntTable.CountID)
+'      Else
+'        eScanCount.ShowErrorHint("Error: Count " & eScanCount.Text & " Not Found")
+'      End IF
+'    End IF
+'  End IF
+'
+'End Sub
+
+Sub CountSelect
+  If tblCounts.CountID <> 0 Then
+    IF Upper(tblCounts.CountStatus) <> "UNCONFIRMED" Then
+      IF InputQuery("Count is marked as " & getEnumText("IC Count Status",tblCounts.CountStatus) & ", Do you want to continue?") Then
+        IF Upper(tblCounts.Countstatus) = "CONFIRMED" Then
+          IF InputQuery("Mark as UNCONFIRMED?") Then
+            Dim ICCountData as Object
+            ICCountdata = CreateObject("Accredo.ICStocktakeCountData")
+            ICCountData.Indexname= "Count"
+            IF ICCountData.FindExact(tblCounts.CountID) Then
+              ICCountData.Unconfirmed
+            End IF
+
+            ICCountData = Nothing
+          End IF
+        End IF
+      Else
+        Abort("",True)
+      End IF
+    End IF
+    pnlEditCount.Visible = False
+    IF ICStocktakeData.Editing then ICStocktakeData.save
+    IF ICStocktakeData.FindExact(tblCounts.DocumentID) Then
+'      MSGBOX(tblCounts.Details & " - " & ICStocktakeData.Z_Binlocation)
+      cs = instrRev(tblCounts.Details,"Bin = ")
+'      MSGBOX("CS = " & CS)
+      BL = ICStocktakeData.Z_Binlocation
+      IF cs <> 0 Then
+        BL = mid(tblCounts.Details,cs + 6,len(tblCounts.Details))
+      End IF
+
+      IF Left(tblCounts.Details,8) = "Variance" Then
+        cs = instrRev(tblCounts.Details,"Bin ")
+        IF cs <> 0 Then
+          BL = mid(tblCounts.Details,cs + 4,len(tblCounts.Details))
+        End IF
+      End IF
+ '     MSGBOX(CS & " - " & BL)
+      EditCount(tblCounts.DocumentID,ICStocktakeData.LocationCode,BL,tblCounts.CountID,False)
+    End IF
+  End IF
+'  MSGBOX("Count Select")
+End Sub
+
+Sub btnCloseScanCount_Click
+
+'  eScanCount.Text = ""
+  btnEditCount_Click
+
+End Sub
+
+
+'eDate.value = PeriodEndDate(CurrentPeriod("IC"))
+eDate.value = systemdate
+
+Sub PrintInvLevels
+  IF ICStocktakeData.Findexact(StktakeNo.text) Then
+    Dim MyPrinter as String
+    Dim InvLevelsReport as Object
+    InvLevelsReport = CreateObject("Accredo.ICProductReport")
+    InvLevelsReport.Layout = "Inventory Levels"
+'    msgbox(StktakeNo.text & " - " & ICStocktakeData.LocationCode)
+    InvLevelsReport.Location = ICStocktakeData.LocationCode '"HAM"
+    BL = ICStocktakeData.Z_BinLocation
+    InvLevelsReport.ReportFilterSort.Filter = "(BinLocation=""" & BL & """) AND (ClosingPeriodToDate<>0.00)"
+    Locn = User.DefaultLocationCode
+    If Left(Locn,1) = "D" then
+'      MyPrinter = "HP LaserJet Pro MFP M127-M128 PCLmS"
+      MyPrinter = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+'    ElseIf Left(Locn,1) = "C" then
+'      MyPrinter = "CHCH_HP M570"
+    ElseIf Left(Locn,1) = "W" then
+      MyPrinter = "Toshiba Wellington" '"HP Wellington B&W"
+    ElseIf Left(Locn,1) = "T" then
+      MyPrinter = "OUTTGA"
+'    ElseIf Company.CompanyName = "DBNZ Coatings Ltd" Then
+'      MyPrinter = "DBA_HP_M201"
+    Else
+      MyPrinter = ""
+    End If
+    IF User.LoginUserName = "ACCREDO" then
+      InvLevelsReport.Destination = "SCREEN"
+'      MSGBOX("Location = " & LOCN & " Printer= " & MYPrinter)
+    Else
+      InvLevelsReport.Printer.PrinterName = MyPrinter
+    End If
+
+    InvLevelsReport.Run
+  End IF
+End Sub
+
+Sub PostStocktake
+
+  IF StktakeNo.text = "" Then
+    StktakeNo.ShowErrorHint("Select a StockTake")
+    Exit Sub
+  End IF
+
+  IF ICStocktakeData.Findexact(StktakeNo.text) Then
+    Try
+      ICStocktakeData.Post
+      btnPostStocktake.ShowStatusHint("Stockatke Posted Successfully")
+      PrintInvLevels
+'      RefreshStocktakeList
+      eNew.checked = True
+    Catch e
+      btnPostStocktake.ShowErrorHint("ERROR: " & e.message)
+    End Try
+
+     '()
+
+  End IF
+End Sub
+
+Sub CreatePendingVariance
+
+
+  IF ICStocktakeData.FindExact(StktakeNo.Text) then
+    If ICStocktakeData.PostStatus = "C" Then
+      btnPendingVariance.ShowStatusHint("Stcktake already Counted - Ready to Post")
+    Else
+      Try
+        ICStocktakeData.Counted
+        btnPendingVariance.ShowStatusHint("Pending Variance Counted - Stocktake Marked as Counted")
+      Catch e
+'        btnPendingVariance.ShowErrorHint("ERROR: " & e.message) 'JH 1/10/2021 - change to make it easier for end user to see erorr.
+        msgbox("ERROR: " & e.message) 'JH 1/10/2021 - change to make it easier for end user to see erorr.
+      End Try
+    End If
+    PostStockTake
+  End IF
+
+End Sub
+
+Sub Okay_Click
+  Dim Bin as string
+  DIM Filter as String
+  Dim StkDetails as String
+  Dim VanCount as Boolean
+  VanCount = False
+
+  Dim ICCountdata as object
+  ICCountdata = CreateObject("Accredo.ICStocktakeCountData")
+
+  If eExisting.value = True Then
+
+  '####################   EXISTING   ###################
+
+
+      Bin = ""
+    IF StktakeNo.text = "" Then
+      StktakeNo.ShowErrorHint("Select a StockTake")
+      Exit Sub
+    End IF
+'      Dim Form as Object
+'      Form = CreateObject("Accredo.ScriptedForm")
+'      Form.Caption = "Select Bin Location"
+'      Form.inputbox("Bin","Bin Location (Can be Blank)")
+'      If Form.Execute Then
+'        Bin = Form.GetValue("Bin")
+'      end if
+'    ICStocktakeData.DocumentID = StktakeNo 'Stocktake Dropdown"
+'    MSGBOX(eExisting.value&" "&StktakeNo.value)
+    IF ICStocktakeData.Findexact(StktakeNo.text) Then
+      OpenICStocktakeForm(StktakeNo.text, ICStocktakeData.LocationCode, ebinloc.text)
+    Else
+      Throw "Logic Error Unable to Find Stocktake"
+    End IF
+  Else
+
+  '#######################   NEW   #####################
+
+    IF eDetail.text = "" Then
+      eDetail.ShowErrorHint("Reference Cannot be Blank")
+      Exit Sub
+    End IF
+    IF eLocation.text = "" Then
+      eLocation.ShowErrorHint("Location Cannot be Blank")
+      Exit Sub
+    End IF
+    StkPeriod = CurrentPeriod("IC")
+    BIN = eBinLoc.text
+
+'    If left(eLocation.text,2) = "HV" or left(eLocation.text,2) = "CV" or left(eLocation.text,2) = "WV" or left(eLocation.text,2) = "TA"  Then
+'      Filter = ""
+'      VanCount = True
+'      StkDetails = "Location " & eLocation.text & " For Period " & StkPeriod
+'    Else
+      '//Only require bin location if not a van location - VC 7/09/21
+      If NOT (eLocation.Text = "WV1" OR eLocation.Text = "WV2" OR eLocation.Text = "WV3") then
+        IF eBinLoc.Text = "" Then
+          eBinLoc.ShowErrorHint("Bin Location Required")
+          Abort("",True)
+        Else
+          Filter = "(BinLocation = """ & Bin & """)"
+        End IF
+      End If
+      StkDetails = "Location " & eLocation.text & " For Period " & StkPeriod & " Bin " & eBinloc.text
+'    End If
+
+
+'    MSGBOX(Filter)
+'       Abort
+    Dim Form1 as Object
+    Form1 = CreateObject("Accredo.ICGenerateStocktakeForm")
+    Form1.Location = eLocation.text
+
+    Form1.Details = StkDetails
+    If VanCount = True Then
+      Form1.CountType = "Additive"
+      Form1.GenerateCounts = True
+      Form1.IncludeNilQuantity = False
+    Else
+      Form1.StocktakeFilterSort.Filter = Filter
+      Form1.CountType = "Additive"
+      Form1.GenerateCounts = False
+      Form1.IncludeNilQuantity = True
+    End If
+    Form1.Reference = eDetail.text
+
+ '   Form1.GenerateCounts = False
+    Form1.Date = eDate.Value
+    Form1.Period = periodfordate(eDate.Value)
+    Try
+      Form1.Run
+
+      '[CAN'T CATCH IF THERE'S NOTHING TO GENERATE]
+    Catch e
+      msgbox("ERROR: " & e.message)
+    End Try
+
+    Env = createobject("Accredo.Environment")
+    FormAct = Env.GetActiveObject
+
+    IF FormAct.ClassName = "ICStocktakeEditForm" Then
+      FormAct.Close
+    End IF
+
+    Env = nothing
+
+    Dim StkData as Object
+    StkData = CreateObject("Accredo.ICStocktakeData")
+    StkData.indexname = "Document"
+'    IF User.LoginUserName = "ACCREDO" Then MSGBOX("Stk = " & StkDetails)
+    Found = False
+
+      StkData.Last
+      Do Until StkData.BOF
+  '      IF User.LoginUserName = "ACCREDO" Then MSGBOX("StkF = " & StkDetails & " - " & StkData.Details)
+        IF StkData.Details = StkDetails Then
+  '        IF User.LoginUserName = "ACCREDO" Then MSGBOX("StkFound = " & StkDetails & " - " & StkData.Details)
+          Found = True
+          Exit Do
+        End If
+      StkData.Prev
+      Loop
+    IF VanCount = True Then
+      Found = False
+      RefreshStocktakeList
+      StktakeNo.text = StkData.DocumentID
+      eExisting.checked = True
+    End If
+    IF Found = TRUE Then
+
+      StkData.Edit
+      StkData.Z_BinLocation = Bin
+      StkData.Save
+
+      Dim StkProd as Object
+      StkProd = StkData.Product
+      Dim StkCount as Object
+      StkCount = CreateObject("Accredo.ICStocktakeCountData")
+      StkCount.indexname = "COUNT"
+
+      Dim CountLine as Object
+      CountLine = StkCount.Line
+
+      Dim ICQty as object
+      ICQty = opentable("ICQty")
+      ICQty.Indexname = "LocationProduct"
+
+      NewCount = True
+      Cnt = 0
+      StkProd.First
+'      iF User.LoginUserName = "ACCREDO" Then MSGBOX("Van Flag = " & Vancount & " - " & eLocation.text)
+      Do Until StkProd.EOF
+
+        IF ICQTY.Findexact(eLocation.text,StkProd.ProductCode) Then
+'          iF User.LoginUserName = "ACCREDO" and cnt < 5 Then MSGBOX("Van Flag = " & Vancount & " - " & eLocation.text & " - " & StkProd.ProductCode & " - " & ICQTY.BinLocation)
+          cnt = cnt + 1
+           If ICQTY.BinLocation <> "" or VanCount = True Then
+            If NewCount = True Then
+              NewCount = False
+              StkCount.Insertcount(StkData.DocumentId)
+              StkCount.Custom1 = "Location " & eLocation.text & " Bin = " & ICQty.Binlocation
+ '             Countmsg = countmsg & StkCount.Custom1 & CRLF
+              StkCount.BranchCode = ICQTY.BranchCode
+              StkCount.DepartmentCode = ICQTY.DepartmentCode
+'              StkCount.DocumentType = "N"
+              StkCount.Details = StkData.Details & " Bin = " & ICQty.BinLocation
+'              StkCount.Z_BinCode = ICQty.BinLocation
+              StkCount.CountType = "A"
+              StkCount.SAVE
+            End If
+            IF not StkCount.Editing then StkCount.Edit
+            Countline.Append
+            Countline.ProductCode = StkProd.ProductCode
+ '           CountLine.BinLocation = ICQty.BinLocation
+            CountLine.Z_BinCode = ICQty.BinLocation
+'            CountLine.Z_BinCode2 = ICQty.Z_Binlocation2
+
+           End If
+        End If
+
+      StkProd.Next
+      Loop
+      IF StkCount.Editing then StkCount.Save
+'      If VanCount = False Then
+'      NewCount = True
+'      StkProd.First
+''      MSGBOX(eLocation.text& " - " & StkProd.ProductCode )
+'      BLen = len(Bin)
+''      Msgbox(Bin & " - " & Blen & " - " & eLocation.text)
+'      Do Until StkProd.EOF
+'
+'        IF ICQTY.Findexact(eLocation.text,StkProd.ProductCode) Then
+''          IF StkProd.ProductCode = "AROTAILHOSE10MM" Then MSGBOX(eLocation.text& " - " & StkProd.ProductCode & " Bin2 = "  & ICQTY.Z_Binlocation2 )
+''           If (eLocation.text = "HAM" and ICQTY.Z_Binlocation2 <> "" and (ICQTY.Z_Binlocation2 <> Bin or ICQTY.Binlocation <> Bin )) _
+''           or (eLocation.text <> "HAM" and ICQTY.Z_Binlocation2 <> "" and Left(ICQTY.Z_Binlocation2,Blen) <> Left(Bin,Blen) ) Then
+''            MSGBOX(eLocation.text& " - " & StkProd.ProductCode )
+'            If NewCount = True Then
+'              NewCount = False
+'              StkCount.Insertcount(StkData.DocumentId)
+'              StkCount.Custom1 = "Location " & eLocation.text
+'              StkCount.BranchCode = ICQTY.BranchCode
+'              StkCount.DepartmentCode = ICQTY.DepartmentCode
+'              StkCount.Details = StkData.Details
+'              StkCount.CountType = "A"
+'              StkCount.Save
+'
+'            End If
+'            IF not StkCount.Editing then StkCount.Edit
+'            Countline.Append
+'            Countline.ProductCode = StkProd.ProductCode
+'            CountLine.BinLocation = ICQty.BinLocation
+''            CountLine.BinLocation = ICQty.Z_BinLocation2
+''            CountLine.Z_BinCode = ICQty.Z_BinLocation2
+'  '          MSGBOX(eLocation.text & " - " & StkProd.ProductCode & " - " & CountLine.BinLocation & " - " & CountLine.Z_BinCode)
+'
+'
+'
+'           End If
+''        End If
+'
+'      StkProd.Next
+'      Loop
+
+
+'      IF StkCount.Editing then StkCount.Save
+'      End If
+   End If
+'   Dim Form1 as Object
+'   Form1 = CreateObject("Accredo.ICProductReport")
+'   Form1.Layout = "Inventory Levels"
+'   Form1.Destination = "Screen"
+'   Form1.Location = eLocation.text
+'   Form1.ReportFilterSort.Filter = "(BinLocation=""" & eBinLoc.text & """) Or (Z_BinLocation2=""" & eBinLoc.text & """) And (ClosingPeriodToDate<>0.00)"
+' ' MSGBOX(
+'   Form1.Run
+'   Form1 = Nothing
+      Try
+        eExisting_Clicked
+        RefreshStocktakeList
+'        msgbox(StkData.DocumentId)
+
+        '[AUTOOPEN FIRST COUNT]
+          IF AutoOpenCount = True then
+            CTable = ExecuteSQL("Select DocumentID, CountID, Details, CountStatus FROM ICCNTHD WHERE DocumentID = :STKID ", val(StkData.DocumentId))
+            CTable.First
+'            IF User.LoginUserName = "ACCREDO" Then Browsedataset(CTable)
+            IF ICStocktakeData.FindExact(CTable.DocumentID) Then
+              cs = instrRev(CTable.Details,"Bin = ")
+              BL = ""
+'              IF User.LoginUserName = "ACCREDO" Then msgbox(CS & " - " & CTable.Details)
+              IF cs <> 0 Then
+                BL = mid(CTable.Details,cs + 6,len(CTable.Details))
+              End IF
+              Try
+                EditCount(CTable.DocumentID,ICStocktakeData.LocationCode,BL,CTable.CountID,True)
+              Catch e
+                msgbox("AutoOpen Error: " & e.message & "|" & e.sourcepos)
+              End Try
+            End IF
+          End IF
+        '[--------------------]
+
+
+      Catch e
+        IF User.LoginUserName = "ACCREDO" then msgbox("Accredo User Only Message: " & e.message)
+      End Try
+
+
+'    End If
+  End if
+  Dim Form1 as Object
+   Form1 = CreateObject("Accredo.ICProductReport")
+   Form1.Layout = "Inventory Levels"
+   Form1.Destination = "Screen"
+   Form1.Location = eLocation.text
+   Form1.ReportFilterSort.Filter = iif(eBinLoc.Text <> "","(BinLocation=""" & eBinLoc.text & """) And","") & "(ClosingPeriodToDate<>0.00)"
+ ' MSGBOX(
+   Form1.Run
+   Form1 = Nothing
+
+'  RefreshStocktakeList
+
+End Sub
+
+
+Sub Print_Single_Count
+'  MSGBOX("Stk No = " & StktakeNo.Text & " Table Value = " & tblICSTKHD.DocumentID)
+  Dim ICStocktakeData as Object
+  ICStocktakeData = CreateObject("Accredo.ICStocktakeData")
+  ICStocktakeData.indexname = "Document"
+  IF ICStocktakeData.FindExact(StktakeNo.Text) Then
+    WCntId = Val(StktakeNo.Text)
+'    MSGBOX("Start Sql")
+    TblCount = ExecuteSQl("SELECT ICCNTHD.CountID " & _
+           " FROM   ICCNTHD " & _
+           " WHERE (ICCNTHD.DocumentID = :CntId) " , WCntId )
+'    Msgbox("Finish SQL")
+    Dim CountString as String
+    Dim CountFirst as String
+    TblCount.First
+    CountFirst = FormatNumber(TblCount.CountId)
+
+    TblCount.First
+    CountFirst = FormatNumber(TblCount.CountId)
+    Do Until TblCount.EOF
+      IF CountString = "" Then
+        CountString = FormatNumber(TblCount.CountId)
+      Else
+        CountString = CountString & "," & FormatNumber(TblCount.CountId)
+      End If
+    TblCount.Next
+    Loop
+
+    Dim FormPS as Object
+    FormPS = CreateObject("Accredo.ScriptedForm")
+    Dim SelCount as String
+    FormPS.Caption = "Select Count"
+    FormPS.Inputlist("CountId", "CountID", CountFirst,CountString)
+    FormPS.SetValue("CountId",CountFirst)
+    Do
+      IF FormPS.Execute Then
+         SelCount = FormPS.GetValue("CountId")
+         If SelCount <> "" Then Exit Do
+      Else
+        Abort("Cancelled by User")
+      End If
+    Loop
+    Dim MyPrinter as String
+    Dim SReport as Object
+    SReport = CreateObject("Accredo.UTCustomReport")
+    SReport.ReportFileName = "Barcoding\LIN_Count_Sheets_One_SingleBin.pfd"
+    If Left(Locn,1) = "D" then
+'      MyPrinter = "HP LaserJet Pro MFP M127-M128 PCLmS"
+      MyPrinter = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+'    ElseIf Left(Locn,1) = "C" then
+'      MyPrinter = "CHCH_HP M570"
+    ElseIf Left(Locn,1) = "W" then
+      MyPrinter = "Toshiba Wellington" '"HP Wellington B&W"
+    ElseIf Left(Locn,1) = "T" then
+      MyPrinter = "OUTTGA"
+'    ElseIf Company.CompanyName = "DBNZ Coatings Ltd" Then
+'      MyPrinter = "DBA_HP_M201"
+    Else
+      MyPrinter = ""
+    End If
+    IF User.LoginUserName = "ACCREDO" then
+      SReport.Destination = "SCREEN"
+'      MSGBOX("Location = " & LOCN & " Printer= " & MYPrinter)
+    Else
+      SReport.Printer.PrinterName = MyPrinter
+    End If
+'    SReport.Destination = "SCREEN"
+    SReport.Run(val(StktakeNo.text),val(SelCount))
+  End If
+End Sub
+
+Sub Print_Count_Multi
+  IF ICStocktakeData.FindExact(StktakeNo.Text) Then
+    Dim MyPrinter as String
+    Dim SReport as Object
+    SReport = CreateObject("Accredo.UTCustomReport")
+    SReport.ReportFileName = "Barcoding\LIN_Count_Sheets_AllBins.pfd"
+    If Left(Locn,1) = "D" then
+'      MyPrinter = "HP LaserJet Pro MFP M127-M128 PCLmS"
+      MyPrinter = "DBNZ_Bunker" '"TOSHIBA e-S2802A"
+'    ElseIf Left(Locn,1) = "C" then
+'      MyPrinter = "CHCH_HP M570"
+    ElseIf Left(Locn,1) = "W" then
+      MyPrinter = "Toshiba Wellington" '"HP Wellington B&W"
+    ElseIf Left(Locn,1) = "T" then
+      MyPrinter = "OUTTGA"
+'    ElseIf Company.CompanyName = "DBNZ Coatings Ltd" Then
+'      MyPrinter = "DBA_HP_M201"
+    Else
+      MyPrinter = ""
+    End If
+    IF User.LoginUserName = "ACCREDO" then
+      SReport.Destination = "SCREEN"
+'      MSGBOX("Location = " & LOCN & " Printer= " & MYPrinter)
+    Else
+      SReport.Printer.PrinterName = MyPrinter
+    End If
+'    SReport.Destination = "SCREEN"
+    SReport.Run(val(StktakeNo.text))
+  End If
+End Sub
+
+Sub Variance_Count
+
+  Dim StkData as Object
+  StkData = CreateObject("Accredo.ICStocktakeData")
+  StkData.indexname = "Document"
+
+  Dim ICStkLn as object
+  ICStkLn = opentable("ICSTKLN")
+  ICStkLn.Indexname = "DocumentProduct"
+
+  Dim ICCnttable as object
+  ICCnttable = opentable("ICCNTHD")
+
+  Dim StkProd as Object
+  StkProd = StkData.Product
+
+  Dim StkCount as Object
+  StkCount = CreateObject("Accredo.ICStocktakeCountData")
+  StkCount.indexname = "COUNT"
+
+  Dim CountLine as Object
+  CountLine = StkCount.Line
+
+  NewCount = True
+  StkData.Findexact(StktakeNo.Text)
+  'MSGBOX(StktakeNo.Text)
+  ICStkLn.SetRange(StktakeNo.Text)
+
+  ICStkLn.First
+
+  Do Until ICStkLn.EOF
+    If ICStkLn.QuantityVariance <> 0 Then
+      If NewCount = True Then
+        NewCount = False
+        StkCount.Insertcount(ICStkLn.DocumentId)
+        StkCount.Details = "Variance for - " & StkData.Details
+
+        StkCount.CountType = "A"
+        StkCount.SAVE
+      End If
+      IF not StkCount.Editing then StkCount.Edit
+        Countline.Append
+        Countline.ProductCode = ICStkLn.ProductCode
+  '      CountLine.Z_BinCode = ICStkln.Z_BinCode
+
+    End If
+  ICStkLn.Next
+  Loop
+  StkCount.Save
+
+  If NewCount = False Then
+    '[VARIANCE HAS BEEN CREATED]
+    '(byref STKHDID as Number, byref Location as string, byref Bin as string, ByVal Count as Number, ByVal AutoOpen as Boolean)
+    cs = 0
+    cs = instrRev(StkData.Details,"Bin ")
+    BL = ""
+
+    IF cs <> 0 Then
+      BL = mid(StkData.Details,cs + 4,len(StkData.Details))
+    End IF
+
+
+    EditCount(StkData.DocumentID,StkData.LocationCode,BL,StkCount.CountID,True)
+  End IF
+  Count_List
+  MSGBOX("Variance Count created for Stocktake Count : " & StktakeNo.Text)
+End Sub
+
+Sub Reload_Expected_Qty
+
+  IF ICStocktakeData.findexact(StktakeNo.Text) Then
+    ICStocktakeData.Edit
+    ICStocktakeData.ReloadQuantities
+    ICStocktakeData.Save
+    StktakeNo.ShowStatushint("Expected Quantities Re-Loaded")
+  End IF
+'  StktakeNo.ShowStatushint("All Expected Quantities Re-Loaded")
+End Sub]]>
+</Design>

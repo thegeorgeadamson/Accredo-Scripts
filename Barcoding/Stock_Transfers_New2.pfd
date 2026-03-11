@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Barcoding - Transfers" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="428" OnClose="ConfirmClose" OnShow="OnLoad" SaveSizeName="frmPO" Visible="True" Width="946" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" Name="tblTransfers" Left="570" Top="240">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="60" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+      <TnIntegerField FieldName="LineID">
+      </TnIntegerField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akBottom" Height="22" LabelCaption="Barcode" Left="433" Name="eBarcode" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Top="356" Width="250">
+    </TUserEdit>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Last Product Scanned" Color="16435269" Height="63" Left="2" Name="grpGroupBox1" TabOrder="1" Top="64" Width="735">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbOpen;dcbWordLookup" Enabled="True" Height="22" LabelVisible="False" Left="17" LookupSource="ICPROD" LookupType="ltNormal" Name="eProductCode" ReadOnly="True" TabOrder="0" TabStop="True" Top="21" Width="219">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop;akRight" Height="22" LabelVisible="False" Left="242" Name="eProductName" ReadOnly="True" TabOrder="1" TabStop="True" Top="21" Width="179">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akTop;akRight" Height="22" LabelCaption="Cost" LabelWidth="55" Left="422" Name="eCostPrice" ReadOnly="True" TabOrder="2" TabStop="True" Top="21" Width="150">
+      </TUserEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akTop;akRight" CalculatorFontSize="8" Decimals="0" Height="22" LabelCaption="Picked" LabelWidth="70" Left="574" Name="ePicked" ReadOnly="True" TabOrder="3" TabStop="True" Top="21" Width="147">
+      </TUserNumberEdit>
+    </TUserGroupBox>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16758122" Anchors="akLeft;akTop;akRight;akBottom" Height="177" Left="5" Name="gridEditGrid1" Table="tblTransfers" TabOrder="2" Top="155" Width="931">
+    </TUserEditGrid>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="8" Decimals="0" Height="22" Left="131" Name="eDocID" TabOrder="3" TabStop="True" Top="239" Visible="False" Width="212">
+    </TUserNumberEdit>
+    <TUserGroupBox Caption="Source Location" Height="54" Left="3" Name="grpGroupBox2" TabOrder="4" Top="6" Width="150">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="22" LabelVisible="False" Left="8" LookupFilter="inactive = False" LookupSource="ICLOCN" LookupType="ltNormal" Name="eSourceLocation" TabOrder="0" TabStop="True" Top="20" Width="135">
+      </TUserDataCombo>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Destination Location" Height="54" Left="157" Name="grpGroupBox3" TabOrder="5" Top="7" Width="150">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="22" LabelVisible="False" Left="8" LookupFilter="inactive = False" LookupSource="ICLOCN" LookupType="ltNormal" Name="eDestinationLocation" TabOrder="0" TabStop="True" Top="20" Width="135">
+      </TUserDataCombo>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akTop;akRight" Height="109" Left="749" Name="grpGroupBox4" TabOrder="6" Top="44" Width="185">
+      <TUserButton Anchors="akTop;akRight" Caption="Change Quantity" Height="48" ImageIndex="2019" Left="7" Name="btnButton2" OnClick="ChangeQuantity" ShortCut="0" TabOrder="0" TabStop="True" Top="10" Width="168">
+      </TUserButton>
+      <TUserButton Anchors="akTop;akRight" Caption="Add Item" Height="48" ImageIndex="2034" Left="7" Name="btnAdditem" OnClick="AddNewItem" ShortCut="0" TabOrder="1" TabStop="True" Top="58" Width="98">
+      </TUserButton>
+      <TUserButton Anchors="akTop;akRight" Caption="Delete" Height="48" Hint="Delete Line" ImageIndex="2035" Left="107" Name="btnDeleteLine" OnClick="btnDeleteLine_Click" ShortCut="0" TabOrder="2" TabStop="False" Top="58" Width="68">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserGroupBox Caption="Reference" Height="54" Left="573" Name="grpGroupBox5" TabOrder="7" Top="7" Width="164">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="10" Name="eReference" OnExit="Ref_Leave" TabOrder="0" TabStop="True" Top="20" Width="149">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserButton Anchors="akLeft;akBottom" Height="53" ImageIndex="2053" Left="36" Name="btnButton1" OnClick="Move_Prev" ShortCut="0" TabOrder="8" TabStop="True" Top="335" Width="90">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Height="53" ImageIndex="2054" Left="129" Name="btnButton3" OnClick="Move_Next" ShortCut="0" TabOrder="9" TabStop="True" Top="334" Width="90">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Complete" Height="53" ImageIndex="2026" Left="765" Name="btnComplete" OnClick="CompleteTransfer" ShortCut="0" TabOrder="10" TabStop="True" Top="339" Width="170">
+    </TUserButton>
+    <TUserGroupBox Caption="Transfer Date" Height="54" Left="311" Name="grpGroupBox6" TabOrder="11" Top="6" Width="150">
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelWidth="0" Left="8" Name="eTransferDate" TabOrder="0" TabStop="True" Top="20" Width="135">
+      </TUserDateEdit>
+    </TUserGroupBox>
+    <TUserButton Height="53" ImageIndex="2050" Left="519" Name="btnButton4" OnClick="Next_Date" ShortCut="0" TabOrder="12" TabStop="True" Top="7" Width="50">
+    </TUserButton>
+    <TUserButton Height="53" ImageIndex="2051" Left="465" Name="btnButton5" OnClick="Prev_Date" ShortCut="0" TabOrder="13" TabStop="True" Top="7" Width="50">
+    </TUserButton>
+    <TUserButton Anchors="akTop;akRight" Caption="Exit" Height="42" ImageIndex="2074" Left="764" Name="btnExit" OnClick="Close" ShortCut="0" TabOrder="14" TabStop="True" Top="3" Width="153">
+    </TUserButton>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="22" LabelVisible="False" Left="2" Name="eStatus" ReadOnly="True" TabOrder="15" TabStop="True" Top="130" Width="735">
+    </TUserEdit>
+    <TUserButton Anchors="akLeft;akBottom" Caption="AutoScan" Enabled="False" Height="25" ImageIndex="-1" Left="291" Name="btnAutoScanAll" OnClick="AutoScanAll" ShortCut="0" TabOrder="16" TabStop="True" Top="349" Visible="False" Width="75">
+    </TUserButton>
+  </Form>
+  <![CDATA[Public _TransferList as Object
+
+
+SourceLocation = false
+DestinationLocation = False
+StaffScan = False
+ForceClose = False
+
+
+
+WarningColor = 240
+DefaultColor = -16777201
+
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Dim ICProdData as Object
+ICProdData = createobject("Accredo.ICProductData")
+ICProdData.Indexname = "Product"
+
+Dim ICBAR as OBJECT
+ICBAR = Opentable("ICBAR")
+ICBAR.indexname = "Barcode"
+
+Dim ICLOCN as OBJECT
+ICLOCN = Opentable("ICLOCN")
+ICLOCN.indexname = "ActiveLocation"
+
+Dim ICTFER as Object
+ICTFER = createobject("ACCREDO.ICTransferData")
+ICTFER.IndexName = "Document"
+
+Dim TransfData as Object
+TransfData = CreateObject("Accredo.ICTransferData")
+TransfData.IndexName = "Document"
+
+DocID = 0
+
+Sub Status
+  IF not SourceLocation then
+    eStatus.Text = "Scan Source Location"
+  ElseIF Not DestinationLocation then
+    eStatus.Text = "Scan Destination Location"
+  ElseIF Not StaffScan then
+    eStatus.Text = "Scan Staff Reference"
+  Else
+    eStatus.Text = "Scan Product"
+  End IF
+End Sub
+
+Sub btnDeleteLine_Click
+  FoundLine = False
+
+  IF tblTransfers.ProductCode <> "" and tblTransfers.Description <> "" Then
+    IF InputQuery("Are you sure you want to delete the following line from the transfer?" & chr(13) & tblTransfers.ProductCode & "   " & tblTransfers.Description) Then
+      IF DocID <> 0 AND ICTFER.FindExact(DocID) Then
+        LN = ICTFER.Line
+        LN.First
+        Do Until LN.EOF
+          IF tblTransfers.LineID <> 0 then
+            IF LN.LineID = tblTransfers.LineID Then
+              ICTFER.Edit
+              LN.Delete
+              ICTFER.Save
+              tblTransfers.Delete
+              btnDeleteLine.ShowStatusHint("Line Deleted")
+              Exit Do
+            End IF
+          Else
+            ';;LINEID = 0 SO DOESN'T EXIST ON TRANSFER
+            tblTransfers.Delete
+          End IF
+         LN.Next
+        Loop
+      End IF
+    End IF
+  Else
+    btnDeleteLine.ShowErrorHint("No Line Selected")
+  End IF
+End Sub
+
+Sub AutoScanAll
+
+tblTransfers.First
+Do Until tblTransfers.EOF
+  tblTransfers.StopFormUpdates
+  tblTransfers.Edit
+  tblTransfers.Quantity = tblTransfers.QuantityExpected
+  tblTransfers.Save
+  tblTransfers.StartFormUpdates
+ tblTransfers.Next
+Loop
+
+End Sub
+
+Sub OnLoad
+
+  IF ScriptArgs.Count < 2 then
+    ';;LOAD AS NEW / INSERT
+  Else
+
+  DocID = ScriptArgs[1]
+
+  IF ICTFER.FindExact(DocID) then
+      OpenExisting = True
+      tblTransfers.AllowInsertDelete = True
+'      IF NOT EditMode then
+        tblTransfers.Active = False
+        tblTransfers.AddField("QuantityExpected","Quantity")
+        tblTransfers.Active = True
+'      End IF
+      eSourceLocation.Text = ICTFER.SourceLocationCode
+      eDestinationLocation.Text = ICTFER.DestinationLocationCode
+
+      SourceLocation = True
+      DestinationLocation = True
+      eReference.Text = ICTFER.Reference
+      Status
+
+      LN = ICTFER.Line
+
+      Ln.First
+
+
+      tblTransfers.IndexName = "Product"
+      Do Until LN.EOF
+        tblTransfers.Append
+        tblTransfers.ProductCode = LN.ProductCode
+        tblTransfers.Description = LN.Description
+'        IF EditMode then
+          tblTransfers.QuantityExpected = LN.Dispatch
+'        Else
+'          tblTransfers.QuantityExpected = LN.QuantityDispatched
+'        End IF
+        tblTransfers.LineID = LN.LineID
+        tblTransfers.Save
+        tblTransfers.Refresh
+       LN.Next
+      Loop
+      tblTransfers.First
+'      ProductDetails
+    End IF
+'    tblTransfers.Fields.Item("ProductCode").Readonly = True
+'    tblTransfers.Fields.Item("Quantity").Readonly = True
+  End IF
+
+End Sub
+
+
+Sub Reset
+SourceLocation = false
+DestinationLocation = False
+StaffScan = False
+  eDocID.Value = 0
+  tblTransfers.Empty
+  eSourceLocation.Text = ""
+  eDestinationLocation.Text = ""
+  btnComplete.Enabled = True
+  eSourceLocation.Enabled = SourceLocation
+  eDestinationLocation.Enabled = DestinationLocation
+  Status
+End Sub
+'Reset
+
+Sub Close
+  Self.Close
+End Sub
+sub ConfirmClose
+  IF ForceClose = False then
+    If Not inputquery("Confirm Close") then
+      abort("",True)
+    End IF
+  End IF
+
+
+  Try
+    IF NOT ISNULL(_TransferList) and NOT Isempty(_TransferList) then
+      _TransferList.RunRefresh.Checked = NOT _TransferList.RunRefresh.Checked
+    End IF
+  Catch
+  End Try
+
+End SUb
+
+tblTransfers.AllowInsertDelete = False
+eTransferDate.Value = Systemdate
+
+Sub ProductDetails
+  IF ICPROD.FIndexact(tblTransfers.ProductCode) then
+    eProductCode.Text = ICPROD.ProductCode
+    eProductName.Text = ICPROD.Description
+    if ApplicationSetting( "IC\ValuationBasis") = "L" Then
+      eCostPrice.Text = formatNumber(ICPROD.LatestCost,"Amount")
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "A" Then
+      eCostPrice.Value = ICPROD.AverageCost
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "S" Then
+      eCostPrice.Value = ICPROD.StandardCost
+    End IF
+  End IF
+  ePicked.Value = tblTransfers.Quantity
+End Sub
+
+
+Sub Prev_Date
+  eTransferDate.Value = eTransferDate.Value - 1
+eBarcode.SetFocus
+End Sub
+
+Sub Next_Date
+  eTransferDate.Value = eTransferDate.Value + 1
+eBarcode.SetFocus
+End Sub
+
+Sub ProductScanCheck
+
+  PreStatus = tblTransfers.AllowInsertDelete
+  tblTransfers.AllowInsertDelete = True
+    ICBAR.indexname = "Barcode"
+    tblTransfers.indexname = "Product"
+    IF ICBAR.Findexact(eBarcode.text) then
+      eProductCode.Text = ICBAR.ProductCode
+      IF ICPROD.FIndexact(ICBAR.ProductCode) then
+        eProductName.Text = ICPROD.Description
+        IF ICPROD.NonDiminishing <> True then
+          IF Not ICPROD.Inactive then
+            IF tblTransfers.Findexact(ICBAR.ProductCode) then
+              tblTransfers.Edit
+              tblTransfers.Fields.Item("Quantity").Readonly = False
+              tblTransfers.Quantity = tblTransfers.Quantity + 1
+              tblTransfers.Save
+              ProductDetails
+            Else
+              IF ScriptArgs.Count < 2 then
+                tblTransfers.AllowInsertDelete = True
+                tblTransfers.Append
+                tblTransfers.ProductCode = ICBAR.ProductCode
+                tblTransfers.Description = ICPROD.Description
+                tblTransfers.Quantity = tblTransfers.Quantity + 1
+                tblTransfers.Save
+                tblTransfers.AllowInsertDelete = False
+                ProductDetails
+              Else
+                ';; TRANSFER ALREADY EXISTS, NEW ITEMS ARE NOT ALLOWED
+                self.Color = WarningColor
+                'If InputQuery("Product " & ICProd.ProductCode & " - " & ICProd.Description & " Not Found on Transfer" & chr(13) & chr(13) & _
+                 '             "Would you like to add the product to the transfer?","Add Product to Transfer?",False) then
+
+                Dim SCForm as Object
+                SCForm = createobject("Accredo.ScriptedForm")
+
+                SCForm.ShowText("Product " & ICProd.ProductCode & " - " & ICProd.Description & " Not Found on Transfer")
+                SCForm.ShowText("")
+                SCForm.ShowText("Would you like to add the product to the transfer?")
+
+                IF SCForm.Execute then
+                  tblTransfers.AllowInsertDelete = True
+                  tblTransfers.Append
+                  tblTransfers.ProductCode = ICProd.ProductCode
+                  tblTransfers.Description = ICProd.Description
+                  tblTransfers.Quantity = 1
+                  tblTransfers.Save
+                  ProductDetails
+                  eBarcode.ShowStatusHint("New Product Added!")
+                Else
+                  eBarcode.ShowErrorHint("New Product Not Added!")
+                End IF
+
+                self.Color = DefaultColor
+              End IF
+            End IF
+          Else
+            eBarcode.Showerrorhint("Product is Inactive")
+          End IF
+        Else
+          eBarcode.Showerrorhint("Product is No Diminishing")
+        End IF
+      Else
+      eBarcode.Showerrorhint("Product Not Found")
+'        eBarcode.Showerrorhint("eProductName.Text = ""
+      End If
+    Else
+      eBarcode.Showerrorhint("Barcode Not Found")
+    End IF
+    Status
+  tblTransfers.AllowInsertDelete = PreStatus
+eBarcode.SetFocus
+End Sub
+
+Sub Move_Next
+  tblTransfers.Next
+  ProductDetails
+ eBarcode.SetFocus
+End Sub
+Sub Move_Prev
+  tblTransfers.Prev
+  ProductDetails
+ eBarcode.SetFocus
+End Sub
+
+'Sub Load(Byref OrderID as number)
+'tblTransfers.AllowInsertDelete = True
+'eDocID.value = OrderID
+'
+'  IF POHEAD.Findexact(eDocID.value) then
+'    eCreditorCode.Text = POHEAD.CreditorCode
+'    IF APCRED.Findexact(POHEAD.CreditorCode) then
+'      eCreditorName.Text = APCRED.CreditorName
+'    Else
+'      eCreditorName.Text = ""
+'    End IF
+'  Else
+'    Error("Order not Found")
+'  End IF
+'  Dim POLINE as OBJECT
+'  POLINE = Opentable("POLINE")
+'  POLINE.indexname = "DocumentLine"
+'  POLINE.Setrange(POHEAD.DocumentID)
+'  POLINE.First
+'  Do until POLINE.Eof
+'    IF POLINE.LineType <> "N" or POLINE.LineType <> "S" then
+'      tblTransfers.Append
+'       Copyfieldsbyname(POLINE,tblTransfers)
+'       tblTransfers.QuantityOutstanding = tblTransfers.QuantityOrdered - tblTransfers.QuantityScanned
+''       IF ICPROD.findexact(tblTransfers.ProductCode) then
+''        tblTransfers.QuantityInstock = ICPROD.QuantityInstock
+''       End If
+'      tblTransfers.Save
+'    End iF
+'   POLINE.Next
+'  Loop
+'  tblTransfers.AllowInsertDelete = False
+'          eBarcode.SetFocus
+'End Sub
+
+Sub SaveTransfer'(Byref Post as Boolean)
+   IF DocID <> 0 then
+    IF TransfData.FindExact(DocID) then
+      TransfData.Edit
+
+      TransfData.Reference = eReference.Text
+      tblTransfers.First
+      TransfData.Line.Empty
+      Do until tblTransfers.Eof
+        IF tblTransfers.Quantity <> 0 then
+          TransfData.Line.Append
+          TransfData.Line.ProductCode = tblTransfers.ProductCode
+          TransfData.Line.Dispatch = tblTransfers.Quantity
+          TransfData.Line.Receipt = tblTransfers.Quantity
+          TransfData.Line.Save
+        End IF
+       tblTransfers.Next
+      Loop
+      TransfData.Save
+      TransfData.Transfer
+      'TransfData.openform
+    Else
+      msgbox("Can't Find DocumentID to Save to")
+    End IF
+  End IF
+
+  Status
+  ForceClose = True
+  Self.close
+End Sub
+
+
+
+'Reset
+
+
+Sub CompleteTransfer
+
+  IF eReference.Text = "" then
+    eBarcode.SetFocus
+    eBarcode.ShowErrorHint("Scan Staff Reference")
+    Exit Sub
+  End IF
+
+  IF NOT InputQuery("Are you Sure you want to Complete the Transfer?","Really Complete Transfer?",False) then
+    btnComplete.ShowErrorHint("Cancelled")
+    Exit Sub
+  End IF
+
+
+  BeginTransaction
+  Try
+
+
+    IF ScriptArgs.Count >= 2 then
+
+      UnScannedString = ""
+
+      tblTransfers.First
+      Do Until tblTransfers.EOF
+        IF tblTransfers.Quantity < tblTransfers.QuantityExpected then
+          UnScannedString = UnScannedString & tblTransfers.ProductCode & " - (" & tblTransfers.Description & ") UnderScanned: " & tblTransfers.QuantityExpected - tblTransfers.Quantity & chr(13)
+        End IF
+       tblTransfers.Next
+      Loop
+          Dim BackOrderData as Object
+      IF UnScannedString <> "" then
+        IF InputQuery("The Following Products Were Not Scanned or Don't Meet the Expected Quantity. Do you want to continue and a create backorder transfer for the remaining?" & chr(13) & chr(13) & UnScannedString) then
+          ';;CONTINUE
+
+          ';;CREATE BACKORDER
+
+
+          BackOrderData = CreateObject("Accredo.ICTransferData")
+          BackOrderData.InsertTransfer
+          BackOrderData.DocumentDate = eTransferDate.value
+          BackOrderData.ReceiptDate = eTransferDate.value
+          BackOrderData.PeriodID = PeriodforDate(BackOrderData.DocumentDate)
+          BackOrderData.ReceiptPeriodID = PeriodforDate(BackOrderData.ReceiptDate)
+          BackOrderData.SourceLocationCode = eSourceLocation.Text
+          BackOrderData.DestinationLocationCode = eDestinationLocation.Text
+          BackOrderData.Comment = "Auto-BackOrder"
+          BackOrderData.Reference = eReference.Text
+          tblTransfers.First
+          BackOrderData.Line.Empty
+          Do until tblTransfers.Eof
+            IF tblTransfers.Quantity < tblTransfers.QuantityExpected then
+              BackOrderData.Line.Append
+              BackOrderData.Line.ProductCode = tblTransfers.ProductCode
+              BackOrderData.Line.Dispatch = tblTransfers.QuantityExpected - tblTransfers.Quantity
+              BackOrderData.Line.Save
+            End IF
+           tblTransfers.Next
+          Loop
+          BackOrderData.Save
+          btnComplete.ShowStatusHint("BackOrder Transfer Created")
+
+
+        Else
+          btnComplete.ShowErrorHint("Cancelled")
+          Exit Sub
+        End If
+      End IF
+
+      SaveTransfer
+      CommitTransaction
+
+      Try
+        IF NOT ISNULL(_TransferList) and NOT Isempty(_TransferList) then
+          _TransferList.RunRefresh.Checked = NOT _TransferList.RunRefresh.Checked
+        End IF
+      Catch
+
+      End Try
+
+      TFerPrint = TransfData.Print
+      TFerPrint.Destination = "PRINTER"
+      TFerPrint.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+      TFerPrint.Run
+
+      IF UnScannedString <> "" then
+        TFerPrint = BackOrderData.Print
+        TFerPrint.Destination = "PRINTER"
+        TFerPrint.ReportFileName = "ICTransfer1_BarCodeEAN.pfd"
+        TFerPrint.Run
+      End IF
+
+      eBarcode.SetFocus
+    End IF
+
+  Catch e
+    msgbox("Error in Complete Transfer: " & e.message)
+    RollBackTransaction
+  End Try
+
+
+'  TransferExitForm = Createcustomform("Barcoding\TransferExitForm.pfd")
+'  TransferExitForm.ShowModal
+'  Dim ExitStatus as String
+'  ExitStatus = TransferExitForm.pExitStatus
+'  If ExitStatus = "TransferAndPost" then
+'    SaveTransfer(True)
+'    Reset
+'  ElseIf ExitStatus = "Transfer" then
+'    SaveTransfer(False)
+'    Reset
+'  ElseIf ExitStatus = "Close" then
+'  Else
+'  Error("Exit Status Unkown")
+'  End IF
+
+  BOOrderData = Nothing
+End Sub
+
+Sub OnEnter
+  eBarcode.Text = ""
+End Sub
+
+Sub OnLeave
+  IF SourceLocation and DestinationLocation and eBarcode.text = "000000000000" then
+'    GenerateInvoice
+    CompleteTransfer
+  ElseIF eBarcode.text <> "" then
+    If Not SourceLocation then
+'    msgbox(val(left(eDocID.value,len(eBarcode.Text)-1)))
+      IF ICLOCN.Findexact(False, eBarcode.value) then
+        If ICLOCN.LocationCode <> eDestinationLocation.Text Then
+          eSourceLocation.Text = ICLOCN.LocationCode
+          SourceLocation = True
+          eSourceLocation.Enabled = SourceLocation
+
+        Else
+          eBarcode.Showerrorhint("Source Location Cannot be Same as Destination")
+        End IF
+      Else
+        eBarcode.Showerrorhint("Location Not Found")
+      End IF
+    ElseIf Not DestinationLocation then
+      IF ICLOCN.Findexact(False, eBarcode.value) then
+        If ICLOCN.LocationCode <> eSourceLocation.Text Then
+          eDestinationLocation.Text = ICLOCN.LocationCode
+          DestinationLocation = True
+          eDestinationLocation.Enabled = DestinationLocation
+        Else
+          eBarcode.Showerrorhint("Destination Location Cannot be Same as Source")
+        End IF
+      Else
+        eBarcode.Showerrorhint("Location Not Found")
+      End IF
+    ElseIF Not StaffScan then
+      if Upper(LEFT(eBarcode.value,5)) = "STAFF" Then
+        eReference.Text = Upper(Mid(eBarcode.value,6,20))
+        StaffScan = True
+      Else
+        eBarcode.Showerrorhint("Scan Staff")
+      End IF
+    Else
+      ProductScanCheck
+    End IF
+  End IF
+  Status
+IF eBarcode.Text <> "" then eBarcode.SetFocus
+End Sub
+
+
+Sub ChangeQuantity
+If eproductCode.text <> "" then
+    tblTransfers.indexname = "Product"
+    IF tblTransfers.Findexact(eproductCode.text) then
+      CalcForm = Createcustomform("Barcoding\Qty_Entry.pfd")
+      CalcForm.pProductCode = eproductCode.text
+      CalcForm.pOrder = False
+'      CalcForm.pOrderedQTY = tblTransfers.QuantityOrdered
+'      CalcForm.pLPickedQty = tblTransfers.QuantityOutstanding
+      CalcForm.ShowModal
+      tblTransfers.Edit
+     tblTransfers.Quantity = CalcForm.pPickedQty
+'      tblTransfers.QuantityOutstanding = tblTransfers.QuantityOrdered - tblTransfers.QuantityScanned
+      tblTransfers.Save
+      ProductDetails
+    Else
+      eBarcode.Showerrorhint("Item Not Found On Order")
+    End IF
+Else
+  eproductCode.Showerrorhint("Scan Product First")
+End IF
+  eBarcode.SetFocus
+End SUb
+
+Sub Ref_Leave
+  eBarcode.SetFocus
+End Sub
+
+
+
+Sub AddNewItem
+IF not SourceLocation Then
+  eBarcode.Showerrorhint("Scan Source Location")
+ElseIF not DestinationLocation Then
+  eBarcode.Showerrorhint("Scan Destination Location")
+ElseIf not StaffScan Then
+  eBarcode.Showerrorhint("Scan Staff Reference")
+Else
+  AddNewItemForm = Createcustomform("Barcoding\OrderPicking_AddProductToOrder.pfd")
+  AddNewItemForm.ShowModal
+  Dim NewProduct as String
+  NewProduct = AddNewItemForm.pNewProduct
+  NewBarcode = AddNewItemForm.pNewBarcode
+  If NewProduct <> "" then
+    tblTransfers.AllowInsertDelete = True
+    tblTransfers.Append
+    'tblTransfers.NewRow = True
+    tblTransfers.ProductCode = NewProduct
+    eproductCode.text = NewProduct
+    IF ICPROD.Findexact(NewProduct) then
+      tblTransfers.Description = ICPROD.DEscription
+    End IF
+    tblTransfers.Quantity = 1
+'    tblTransfers.QuantityPicked = 1
+'    tblTransfers.QuantityOrdered = 1
+    tblTransfers.Save
+    tblTransfers.AllowInsertDelete = False
+  End IF
+  Call ProductDetails
+'  tblTransfers.indexname = "Order"
+  eBarcode.SetFocus
+End IF
+End SUb]]>
+</Design>

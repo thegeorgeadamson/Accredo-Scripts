@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="2" DPI="120">
+  <Form Caption="Barcoding - Stocktake - Stock on Hand (Incl. Future)" Color="clBtnFace" Constraints.MaxHeight="102399" Constraints.MaxWidth="102399" Constraints.MinHeight="125" Constraints.MinWidth="250" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Arial" Font.Style="" Height="738" OnClose="ConfirmClose" OnShow="Load_Form" SaveSizeName="frmPO" Visible="True" Width="1228" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblStocktake" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="478" Top="198">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="55" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="In Stock" DisplayWidth="10" FieldName="QuantityInStock">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="Variance">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="QuantityAllocated" Visible="False">
+      </TnQuantityField>
+      <TnStringField DisplayLabel="Bin" DisplayWidth="7" DomainName="IC Bin Location" FieldName="BinLocation">
+      </TnStringField>
+      <TnStringField DisplayLabel="Bin2" DisplayWidth="5" DomainName="IC Bin Location" FieldName="BinLocation2">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty Allo Inv" DisplayWidth="8" FieldName="AlloIN">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Qty Allo OE" DisplayWidth="9" FieldName="AlloOE">
+      </TnQuantityField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" CloneTable="tblStocktake" IndexName="" Name="tblStocktake_Clone" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="596" Top="241">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnStringField DisplayWidth="55" DomainName="Description" FieldName="Description">
+      </TnStringField>
+      <TnQuantityField DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="QuantityAllocated" Visible="False">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="QuantityInStock">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="Variance">
+      </TnQuantityField>
+      <TnStringField DisplayLabel="Bin" DisplayWidth="7" DomainName="IC Bin Location" FieldName="BinLocation">
+      </TnStringField>
+      <TnStringField DisplayLabel="Bin2" DisplayWidth="5" DomainName="IC Bin Location" FieldName="BinLocation2">
+      </TnStringField>
+      <TnQuantityField DisplayWidth="10" FieldName="AlloIN">
+      </TnQuantityField>
+      <TnQuantityField DisplayWidth="10" FieldName="AlloOE">
+      </TnQuantityField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" CloneTable="tblStocktake" IndexName="" Name="tblExport" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="469" Top="453">
+      <TnUpperField DisplayLabel="Product" DisplayWidth="28" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnQuantityField DisplayWidth="10" FieldName="Quantity">
+      </TnQuantityField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblMemoryTable1" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="698" Top="199">
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblvariance" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="379" Top="496">
+      <TnUpperField DisplayLabel="Product Code" DisplayWidth="20" DomainName="IC Product Code" FieldName="ProductCode">
+      </TnUpperField>
+      <TnQuantityField DisplayLabel="Quantity" DisplayWidth="10" FieldName="QTY">
+      </TnQuantityField>
+      <TnUpperField DisplayLabel="Location" DisplayWidth="8" DomainName="IC Location Code" FieldName="LocationCode">
+      </TnUpperField>
+      <TnUpperField DisplayLabel="Mod Code" DisplayWidth="2" DomainName="Module Code" FieldName="SourceModule">
+      </TnUpperField>
+      <TIndexDef Fields="ProductCode" Name="Product">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akBottom" Height="28" LabelCaption="Barcode" LabelWidth="125" Left="541" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eBarcode" OnChange="" OnEnter="OnEnter" OnExit="OnLeave" TabOrder="0" TabStop="True" Text="" Top="660" Width="313">
+    </TUserEdit>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Last Product Scanned" Color="16435269" Height="108" Left="30" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="grpGroupBox1" TabOrder="1" Top="3" Width="931">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup;dcbOpen;dcbWordLookup" Enabled="True" Height="27" IndexName="" LabelVisible="False" LabelWidth="125" Left="31" LookupSource="ICPROD" LookupType="ltNormal" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eProductCode" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="43" Width="274">
+      </TUserDataCombo>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop;akRight" Height="27" LabelVisible="False" LabelWidth="125" Left="313" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eProductName" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="True" Text="" Top="43" Width="236">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akTop;akRight" Height="27" LabelCaption="Cost" LabelWidth="69" Left="550" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eCostPrice" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="True" Text="" Top="43" Width="188">
+      </TUserEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akTop;akRight" CalculatorFontSize="10" CurrencyCode="" Decimals="0" Domain="" Height="27" LabelCaption="Quantity" LabelWidth="88" Left="743" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="ePicked" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="3" TabStop="True" Text="" Top="53" Width="183">
+      </TUserNumberEdit>
+      <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akTop;akRight" CalculatorFontSize="10" CurrencyCode="" Decimals="0" Domain="" Height="27" LabelCaption="In Stock" LabelWidth="88" Left="743" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eInStock" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="4" TabStop="True" Text="" Top="23" Width="183">
+      </TUserNumberEdit>
+    </TUserGroupBox>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16758122" Anchors="akLeft;akTop;akRight;akBottom" Height="508" Left="31" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="gridEditGrid1" OnCalcCellColors="OnCalcCellColors" OnDblClick="" Table="tblStocktake" TabOrder="2" Top="115" Width="1179">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbOpen" Enabled="True" Height="19" IndexName="" LabelCaption="eDataCombo1" LabelVisible="False" LabelWidth="125" Left="0" LookupSource="ICPROD" LookupType="ltNormal" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eDataCombo1" OnChange="" OnEnter="ProductCode_OnEnter" OnExit="" ReadOnly="True" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Top="21" Visible="False" Width="229" DataField="ProductCode">
+      </TUserDataCombo>
+    </TUserEditGrid>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Anchors="akLeft;akTop" CalculatorFontSize="10" CurrencyCode="" Decimals="0" Domain="" Height="27" LabelWidth="125" Left="164" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eDocID" OnChange="" OnEnter="" OnExit="" TabOrder="3" TabStop="True" Text="" Top="299" Visible="False" Width="265">
+    </TUserNumberEdit>
+    <TUserGroupBox Anchors="akTop;akRight" Height="88" Left="963" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="grpGroupBox4" TabOrder="4" Top="26" Width="231">
+      <TUserButton Anchors="akTop;akRight" Caption="Change Quantity" Height="60" ImageIndex="2019" Left="11" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnButton2" OnClick="ChangeQuantity" ShortCut="0" TabOrder="0" TabStop="True" Top="15" Width="210">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserButton Anchors="akLeft;akBottom" Height="66" ImageIndex="2053" Left="45" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnButton1" OnClick="Move_Prev" ShortCut="0" TabOrder="5" TabStop="True" Top="634" Width="113">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Height="66" ImageIndex="2054" Left="161" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnButton3" OnClick="Move_Next" ShortCut="0" TabOrder="6" TabStop="True" Top="634" Width="113">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Complete" Height="66" ImageIndex="2026" Left="998" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnComplete" OnClick="CompleteStockTake" ShortCut="0" TabOrder="7" TabStop="True" Top="634" Width="212">
+    </TUserButton>
+    <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akBottom" Height="35" Left="289" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="navGridNavigator1" Table="tblStocktake" Top="650" VisibleButtons="ebCustomise" Width="32">
+    </TUserGridNavigator>
+    <TUserButton Anchors="akLeft;akBottom" Caption="Load Prev" Height="32" ImageIndex="-1" Left="411" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnLoadPrev" OnClick="" ShortCut="0" TabOrder="8" TabStop="True" Top="656" Width="94">
+    </TUserButton>
+  </Form>
+  <![CDATA[CreditorSet = False
+ForceClose = False
+
+IF User.LoginUserName = "ACCREDO" then
+  navGridNavigator1.Visible = True
+Else
+  navGridNavigator1.Visible = False
+End IF
+
+
+Bin = ""
+Location = ""
+Dim ICPROD as OBJECT
+ICPROD = Opentable("ICPROD")
+ICPROD.indexname = "Product"
+
+Dim ICBAR as OBJECT
+ICBAR = Opentable("ICBAR")
+ICBAR.indexname = "Barcode"
+
+Dim ICQTY as OBJECT
+ICQTY = Opentable("ICQTY")
+ICQTY.indexname = "ProductLocation"
+
+
+'Sub J
+''var.first
+''do until var.eof
+''tblvariance.edit
+''CopyFieldsByName(var,tblvariance)
+''tblvariance.save
+''tblvariance.next
+''var.next
+''loop
+'
+'browsedataset(Var)
+'end sub
+
+sub ConfirmClose
+  IF ForceClose = False then
+    If Not inputquery("Confirm Close") then
+      abort("",True)
+    End IF
+  End IF
+End SUb
+
+'Dim APCRED as OBJECT
+'APCRED = Opentable("APCRED")
+'APCRED.indexname = "Creditor"
+
+'Sub CreditorChange
+'  APCRED.Indexname = "Creditor"
+'  IF APCRED.Findexact(eCreditorCode.Text) Then
+'    eCreditorName.Text = APCRED.CreditorName
+'    CreditorSet = True
+'  Else
+'    eCreditorName.Text = ""
+'  End IF
+'
+'End Sub
+'Sub CreditorExit
+'
+'    eBarcode.SetFocus
+'End SUb
+
+Private Sub PopulateGrids(byref table as Object, byref memTable as Object, byref cloneTable as Object)
+  'BrowseDataSet(memTable)
+  'table.ReadOnly = False
+'  ReadAllow
+'  Msgbox(table.Name)
+  cloneTable.empty
+  memTable.First
+  Do Until memTable.EOF
+    CloneTable.Append
+    IF ICPROD.Findexact(memTable.ProductCode) then
+      cloneTable.Description = ICPROD.Description
+    End IF
+    CopyFieldsByName(memTable, cloneTable)
+
+    CloneTable.Save
+   memTable.Next
+  Loop
+  table.refresh
+  table.First
+End Sub
+
+
+Sub Load_Form
+Dim Form as Object
+Form = CreateObject("Accredo.ScriptedForm")
+Form.Caption = "New Stocktake Form"
+Form.InputCode("Location","ICLOCN", "Location")
+Form.inputbox("Bin","Bin")
+Do
+  If Form.Execute Then
+    Location = Form.GetValue("Location")
+    Bin = Form.GetValue("Bin")
+    If Location <> "" Then
+      Exit Do
+    Else
+      MsgBox("Please select a Location code")
+    End If
+  Else
+    Abort("Cancelled by User")
+  End If
+Loop
+
+Self.Caption = Self.Caption & " - " & Location
+'                     "       ,(ICQTY.QuantityInstock + ICQTY.StocktakeVariance) as Quantity " & chr(13) & _
+'IF Bin <> "" then
+  DIM ICQTY as Object
+  ICQTY = Executesql(" Select ICQTY.ProductCode " & chr(13) & _
+                     "       ,ICQTY.Binlocation " & chr(13) & _
+                     "       ,ICQTY.QuantityInstock " & chr(13) & _
+                     "       ,(ICQTY.StocktakeVariance - ICQTY.QuantityInstock) as Variance " & chr(13) & _
+                     "       ,ICQTY.QuantityAllocated " & chr(13) & _
+                     "       ,ICQTY.Z_BinLocation2 as BinLocation2 " & chr(13) & _
+                     " FROM   ICPROD " & chr(13) & _
+                     "        INNER JOIN ICQTY  ON ICPROD.ProductCode=ICQTY.ProductCode " & chr(13) & _
+                     " WHERE (ICPROD.Inactive = False) " & chr(13) & _
+      IIF(Bin=""," ","   AND (ICQTY.Binlocation = '" & Bin & "' or ICQTY.Z_BinLocation2 = '" & Bin & "') ") &_
+                     "   And ICQTY.LocationCode = :Loc ", Location)
+  PopulateGrids(tblStocktake, ICQTY, tblStocktake_Clone)
+'End IF
+'if User.LoginUserName = "ACCREDO" Then Browsedataset(tblStocktake)
+tblStocktake.Fields.Item("ProductCode").ReadOnly = True
+
+  Executesql("SELECT   ICPROD.ProductCode " & _
+                    "        ,Sum(ICPEND.Quantity) As Qty" & _
+                    "        ,ICPEND.LocationCode " & _
+                    "        ,ICPEND.SourceModule " & _
+                    "FROM   ICPROD " & _
+                    "       INNER JOIN ICPEND  ON ICPROD.ProductCode=ICPEND.ProductCode " & _
+                    "WHERE  ICPEND.SourceModule IN('IN','OE') " & _
+                    "   And (ICPEND.LocationCode = :Loc) " &_
+                    "GROUP BY ICPROD.ProductCode " & _
+                    "        ,ICPEND.LocationCode " & _
+                    "        ,ICPEND.SourceModule ", Location,tblvariance)
+
+'if User.LoginUserName = "ACCREDO" Then Browsedataset(tblvariance)
+
+tblStocktake.indexname = "Product"
+  tblvariance.First
+  Do Until tblvariance.EOF
+
+    IF tblStocktake.Findexact(tblvariance.Productcode) then
+        tblStocktake.Edit
+      If tblvariance.SourceModule = "OE" Then tblStocktake.AlloOE = tblvariance.QTY * -1
+      If tblvariance.SourceModule = "IN" Then tblStocktake.AlloIN = tblvariance.QTY * -1
+      tblStocktake.Save
+    End IF
+
+
+   tblvariance.Next
+  Loop
+
+
+
+'MSGbox("DOne")
+
+'browsedataset(tblvariance)
+
+
+End Sub
+
+
+
+Sub Reset
+  StaffScan = False
+  eDocID.Value = 0
+  tblStocktake.Empty
+  btnComplete.Enabled = True
+'  eCreditorCode.Text = ""
+'  eCreditorName.Text = ""
+'  eTransferDate.Value = Date
+End Sub
+Reset
+
+tblStocktake.AllowInsertDelete = False
+'eTransferDate.Value = Systemdate
+
+Sub ProductDetails
+  IF ICPROD.FIndexact(tblStocktake.ProductCode) then
+    eProductCode.Text = ICPROD.ProductCode
+    eProductName.Text = ICPROD.Description
+    'eInStock.Value = ICPROD.QuantityInStock
+    IF ICQTY.Findexact(tblStocktake.ProductCode, Location) THen
+      eInStock.Value = ICQTY.Quantityinstock
+    Else
+      eInStock.Value = 0
+    End IF
+    if ApplicationSetting( "IC\ValuationBasis") = "L" Then
+      eCostPrice.Text = formatNumber(ICPROD.LatestCost,"Amount")
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "A" Then
+      eCostPrice.Value = ICPROD.AverageCost
+    Elseif ApplicationSetting( "IC\ValuationBasis") = "S" Then
+      eCostPrice.Value = ICPROD.StandardCost
+    End IF
+  End IF
+  ePicked.Value = tblStocktake.Quantity
+End Sub
+
+
+'Sub Prev_Date
+'  eTransferDate.Value = eTransferDate.Value - 1
+'eBarcode.SetFocus
+'End Sub
+'
+'Sub Next_Date
+'  eTransferDate.Value = eTransferDate.Value + 1
+'eBarcode.SetFocus
+'End Sub
+
+
+
+Sub ChangeQuantity
+If eproductCode.text <> "" then
+    tblStocktake.indexname = "Product"
+    IF tblStocktake.Findexact(eproductCode.text) then
+      CalcForm = Createcustomform("Barcoding\Qty_Entry.pfd")
+      CalcForm.pProductCode = eproductCode.text
+      CalcForm.pOrder = False
+'      CalcForm.pOrderedQTY = tblStocktake.QuantityOrdered
+'      CalcForm.pLPickedQty = tblStocktake.QuantityOutstanding
+      CalcForm.ShowModal
+      tblStocktake.Edit
+     tblStocktake.Quantity = CalcForm.pPickedQty
+'      tblStocktake.QuantityOutstanding = tblStocktake.QuantityOrdered - tblStocktake.QuantityScanned
+      tblStocktake.Save
+      ProductDetails
+    Else
+      eBarcode.Showerrorhint("Item: " & eProductCode.Text & " Not Found in This Location")
+    End IF
+Else
+  eproductCode.Showerrorhint("Scan Product First")
+End IF
+  eBarcode.SetFocus
+End SUb
+
+Sub ProductScanCheck
+    ICBAR.indexname = "Barcode"
+    tblStocktake.indexname = "Product"
+    IF ICBAR.Findexact(eBarcode.text) then
+      eProductCode.Text = ICBAR.ProductCode
+      IF ICPROD.FIndexact(ICBAR.ProductCode) then
+        eProductName.Text = ICPROD.Description
+       ' IF ICPROD.NonDiminishing <> True then
+          IF Not ICPROD.Inactive then
+            IF tblStocktake.Findexact(ICBAR.ProductCode) then
+              IF tblStocktake.Quantity <> 0 then
+                tblStocktake.Edit
+                tblStocktake.Quantity = tblStocktake.Quantity + 1
+                tblStocktake.Save
+                ProductDetails
+              Else
+                tblStocktake.Edit
+                tblStocktake.Quantity = tblStocktake.Quantity + 1
+                tblStocktake.Save
+                ProductDetails
+                'ChangeQuantity
+              End IF
+            Else'IF tblStocktake.Findexact(ICBAR.ProductCode) then
+              IF Bin <> "" then'IF Bin <> "" then
+                QueryForm = Createcustomform("Barcoding\IC_StockTakeQuery.pfd")
+                QueryForm.pCode = ICBAR.ProductCode
+                QueryForm.PLocation = Location
+                QueryForm.ShowModal
+                IF QueryForm.pExitStatus = True Then
+                  tblStocktake.AllowInsertDelete = True
+                  tblStocktake.Append
+                  tblStocktake.Fields.Item("ProductCode").ReadOnly = FALSE
+                  tblStocktake.ProductCode = ICBAR.ProductCode
+                  tblStocktake.Fields.Item("ProductCode").ReadOnly = True
+                  tblStocktake.Description = ICPROD.Description
+                  tblStocktake.Quantity = tblStocktake.Quantity + 1
+                  IF ICQTY.Findexact(ICBAR.ProductCode, Location) Then
+                    tblStocktake.Binlocation = ICQTY.Binlocation
+                    tblStocktake.BinLocation2 = ICQTY.Z_BinLocation2
+                  End IF
+                  tblStocktake.Save
+                  tblStocktake.AllowInsertDelete = False
+                  ProductDetails
+'                  ChangeQuantity
+                End IF
+              Else'IF Bin <> "" then
+                tblStocktake.AllowInsertDelete = True
+                tblStocktake.Append
+                tblStocktake.Fields.Item("ProductCode").ReadOnly = False
+                tblStocktake.ProductCode = ICBAR.ProductCode
+                tblStocktake.Fields.Item("ProductCode").ReadOnly = True
+                tblStocktake.Description = ICPROD.Description
+                tblStocktake.Quantity = tblStocktake.Quantity + 1
+                IF ICQTY.Findexact(ICBAR.ProductCode, Location) Then
+                  tblStocktake.Binlocation = ICQTY.Binlocation
+                  tblStocktake.BinLocation2 = ICQTY.Z_BinLocation2
+                End IF
+                tblStocktake.Save
+                tblStocktake.AllowInsertDelete = False
+                ProductDetails
+'                ChangeQuantity
+              End IF'IF Bin <> "" then
+            End IF'IF tblStocktake.Findexact(ICBAR.ProductCode) then
+          Else'IF Not ICPROD.Inactive then
+            eBarcode.Showerrorhint("Product is Inactive")
+          End IF
+'        Else
+'          eBarcode.Showerrorhint("Product is No Diminishing")
+'        End IF
+      Else
+      eBarcode.Showerrorhint("Product Not Found")
+      Createcustomform("Barcoding/BarcodeNotFound.pfd")
+'        eBarcode.Showerrorhint("eProductName.Text = ""
+      End If
+    Else
+      eBarcode.Showerrorhint("Barcode Not Found")
+      Createcustomform("Barcoding/BarcodeError.pfd")
+    End IF
+    eBarcode.Text = ""
+  eBarcode.SetFocus
+End Sub
+
+Sub Move_Next
+  tblStocktake.Next
+'  tblStocktake.Refresh
+  ProductDetails
+  tblStocktake.Refresh
+ eBarcode.SetFocus
+End Sub
+Sub Move_Prev
+  tblStocktake.Prev
+'  tblStocktake.Refresh
+  ProductDetails
+    tblStocktake.Refresh
+ eBarcode.SetFocus
+End Sub
+
+'Sub Load(Byref OrderID as number)
+'tblStocktake.AllowInsertDelete = True
+'eDocID.value = OrderID
+'
+'  IF POHEAD.Findexact(eDocID.value) then
+'    eCreditorCode.Text = POHEAD.CreditorCode
+'    IF APCRED.Findexact(POHEAD.CreditorCode) then
+'      eCreditorName.Text = APCRED.CreditorName
+'    Else
+'      eCreditorName.Text = ""
+'    End IF
+'  Else
+'    Error("Order not Found")
+'  End IF
+'  Dim POLINE as OBJECT
+'  POLINE = Opentable("POLINE")
+'  POLINE.indexname = "DocumentLine"
+'  POLINE.Setrange(POHEAD.DocumentID)
+'  POLINE.First
+'  Do until POLINE.Eof
+'    IF POLINE.LineType <> "N" or POLINE.LineType <> "S" then
+'      tblStocktake.Append
+'       Copyfieldsbyname(POLINE,tblStocktake)
+'       tblStocktake.QuantityOutstanding = tblTransfers.QuantityOrdered - tblTransfers.QuantityScanned
+''       IF ICPROD.findexact(tblTransfers.ProductCode) then
+''        tblTransfers.QuantityInstock = ICPROD.QuantityInstock
+''       End If
+'      tblTransfers.Save
+'    End iF
+'   POLINE.Next
+'  Loop
+'  tblTransfers.AllowInsertDelete = False
+'          eBarcode.SetFocus
+'End Sub
+
+
+Reset
+
+Sub CompleteStockTake
+
+
+If inputQuery("Import into Stocktake") then
+ Dim Directory as object
+ Directory = Createobject("Accredo.Directory")
+ FiletoUse = Directory.SystemDirectory & "Stocktake - " & Formatdatetime(Date,"DDMMYY")  & ".TXT"
+  tblExport.Refresh
+  tblExport.SaveToFile(FiletoUse)
+
+  Dim Form1 as Object
+  Form1 = CreateObject("Accredo.ICStocktakeImportForm")
+  Form1.FileName = FiletoUse
+  Form1.Location = Location
+  'Form1.CompareBasis = "Closing Stock (Current Period)"
+  Form1.CompareBasis = "Stock on Hand (Incl. Future)"
+
+  Form1.Run
+
+    Dim Form1 as Object
+    Form1 = CreateObject("Accredo.ICStockTakeVarianceReport")
+    Form1.Layout = "Stocktake Variance Report"
+    Form1.Location = Location
+    Form1.Destination = "Printer"
+'    IF Bin <> "" then Form1.ReportFilterSort.Filter = "(BinLocation=""" & Bin  & """)"
+'    Form1.Destination = "Printer"
+    IF Company.CompanyCode = "LINKUP" OR Company.CompanyCode = "PSGLTD" then
+      Form1.Printer.PrinterName = "\\LUPS-DC1\HP LJP1606DN - Inward Goods"
+    End IF
+    Form1.Run
+    Do
+    Dim WhatNextForm as Object
+    WhatNextForm = CreateCustomForm("Barcoding\IC_StockTakeWhatNext.pfd")
+    WhatNextForm.ShowModal
+    WNFormExitStatus = WhatNextForm.pExitStatus
+    WNFormExitDate = WhatNextForm.PDate
+    If WNFormExitStatus = Upper("AdjustVariance") Then
+      IF Not inputquery("Adjust Variance , Are you Sure? ") Then
+        WNFormExitStatus = "Canit"
+      End iF
+    End IF
+    If WNFormExitStatus = Upper("AdjustVariance") Then
+      Dim Form1 as Object
+      Form1 = CreateObject("Accredo.ICUpdateVariancesForm")
+      Form1.Location = Location
+      Form1.TransactionDate = WNFormExitDate
+      Form1.Period = PeriodForDate(Form1.TransactionDate)
+      Form1.Reference = "STOCKTAKE:" & Location
+      Form1.Run
+
+      Report = CreateObject("Accredo.ICProductReport")
+      Report.Layout = "Inventory Levels"
+      Report.Destination = "Printer"
+      IF Company.CompanyCode = "LINKUP" OR Company.CompanyCode = "PSGLTD" then
+        Report.Printer.PrinterName = "\\LUPS-DC1\HP LJP1606DN - Inward Goods"
+      End IF
+      'Report.Destination = "Screen"
+      Report.Location = Location
+      Report.Ignoreminimumquantity = False
+      IF Bin <> "" Then
+        Report.ReportFilterSort.Filter = "((BinLocation=""" & Bin & """) Or (Z_BinLocation2=""" & Bin & """)) and (ClosingPeriodToDate<>0.0)"
+      Else
+        Report.ReportFilterSort.Filter = "(ClosingPeriodToDate<>0.0)"
+      End IF
+      Report.Displayinactive = False
+      Report.Preferences.IncludeRecordsWithEmptyDetail = True
+
+      Report.Run
+
+      Reset
+      ForceClose = True
+      Self.Close
+      WhatNextForm = Nothing
+      Exit Do
+    ElseIF WNFormExitStatus = Upper("ChangeVariance") Then
+      Sql = " SELECT ICQTY.LocationCode " & Chr(13) &_
+            "       ,ICQTY.ProductCode " & Chr(13) &_
+            "       ,ICQTY.Binlocation " & Chr(13) &_
+            "       ,ICQTY.QuantityInStock " & Chr(13) &_
+            "       ,ICQTY.StocktakeVariance as Variance " & Chr(13) &_
+            "       ,ICQTY.QuantityAllocated " & Chr(13) &_
+            "       ,ICQTY.Z_BinLocation2 as BinLocation2 " & Chr(13) &_
+            "       ,(ICQTY.QuantityInStock + ICQTY.StocktakeVariance) as Quantity " & Chr(13) &_
+            " FROM   ICQTY " & Chr(13) &_
+            " WHERE (ICQTY.StocktakeVariance <> 0) and ICQTY.LocationCode = :Loc "
+      Table = executesql(SQL, Location)
+      PopulateGrids(tblStocktake, Table, tblStocktake_Clone)
+      tblStocktake.Fields.Item("QuantityInStock").Visible = True
+      tblStocktake.Fields.Item("Variance").Visible = True
+
+      tblStocktake_clone.Refresh
+      tblStocktake_clone.indexname = "Product"
+      tblvariance.First
+      Do Until tblvariance.EOF
+        IF tblStocktake_clone.Findexact(tblvariance.Productcode) then
+           tblStocktake_clone.Edit
+           If tblvariance.SourceModule = "OE" Then tblStocktake_clone.AlloOE = tblvariance.QTY * -1
+           If tblvariance.SourceModule = "IN" Then tblStocktake_clone.AlloIN = tblvariance.QTY * -1
+           tblStocktake_clone.Save
+        End IF
+       tblvariance.Next
+      Loop
+      tblStocktake.refresh
+
+      WhatNextForm = Nothing
+      Exit Do
+    ElseIF WNFormExitStatus = "Canit" Then
+      ' Canceled ask questions Again
+    Else
+      Msgbox("Unknown exit Status:" & WNFormExitStatus)
+    End IF
+    Loop
+' Reset
+' ForceClose = True
+' Self.Close
+End IF
+'TransferExitForm = Createcustomform("Barcoding\StockPurchaseOExitForm.pfd")
+'  TransferExitForm.ShowModal
+'  Dim ExitStatus as String
+'  ExitStatus = TransferExitForm.pExitStatus
+'  If ExitStatus = "Purchase" then
+'    SavePurchasesOrder(True)
+'    Reset
+''  ElseIf ExitStatus = "Transfer" then
+''    SaveTransfer(False)
+
+'  ElseIf ExitStatus = "Close" then
+'  Else
+'  Error("Exit Status Unkown")
+'  End IF
+
+  eBarcode.SetFocus
+End Sub
+
+sub OnCalcCellColors(Sender as Object, Field as Object, Row as Number, Highlight as Boolean, CellFont as Object, ByRef BackColor as Number)
+'IF  (User.LoginUserName <>  "JH" and User.LoginUserName <>  "SJH" and User.LoginUserName <>  "ACCREDO") Then
+'  IF LEFT(tblsummary.JobGroupCode,3) = "FF-" Then CellFont.Bold = True
+   IF tblStocktake.productcode = eProductCode.text Then
+
+     BackColor = 65535 '3158271  '12701121 '13481613  '16760576
+     CellFont.Bold = False
+   End If
+   MSGDisp = False
+'End If
+End Sub
+
+Sub btbLoadPrev_Click
+  DIM ICQTY as Object
+  ICQTY = opentable("ICQTY")
+  ICQTY.indexname = "ProductLocation"
+  IF inputquery("Confirm Load Previous Count") Then
+    tblStocktake.First
+    Do until tblStocktake.Eof
+      IF ICQTY.Findexact(tblStocktake.ProductCode, Location) Then
+        tblStocktake.Edit
+        tblStocktake.Quantity =  (ICQTY.QuantityInStock + ICQTY.StocktakeVariance)
+        tblStocktake.Variance = ICQTY.StocktakeVariance
+        tblStocktake.Save
+      End IF
+     tblStocktake.Next
+    Loop
+  End IF
+End Sub
+
+
+Sub OnEnter
+  eBarcode.Text = ""
+End Sub
+
+Sub OnLeave
+
+  IF CreditorSet and eBarcode.text = "000000000000" then
+    CompleteStockTake
+  ElseIF eBarcode.text <> "" then
+    ProductScanCheck
+  End IF
+IF eBarcode.Text <> "" then eBarcode.SetFocus
+End Sub
+
+
+
+Sub Ref_Leave
+  eBarcode.SetFocus
+End Sub
+
+
+Sub ProductCode_OnEnter
+
+  If tblStocktake.ProductCode <> "" Then
+    ProductDetails
+    tblStocktake.Refresh
+  End IF
+
+End Sub]]>
+</Design>

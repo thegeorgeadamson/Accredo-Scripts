@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="2" DPI="120">
+  <Form Caption="Select Existing or New Stocktake" Color="clBtnFace" Constraints.MaxHeight="102399" Constraints.MaxWidth="102399" Constraints.MinHeight="125" Constraints.MinWidth="250" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Segoe UI" Font.Style="" Height="548" OnShow="formload" SaveSizeName="frmICSTOCKTAKE_Open" Visible="True" Width="839" WindowState="wsNormal">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblICSTKHD" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="536" Top="300">
+      <TnIntegerField DisplayLabel="ID" DisplayWidth="10" DomainName="IC Stocktake ID" FieldName="DocumentID">
+      </TnIntegerField>
+      <TnStringField DisplayWidth="30" DomainName="Description" FieldName="Details">
+      </TnStringField>
+      <TnDateField DisplayLabel="Created Date" DisplayWidth="15" FieldName="Createddate">
+      </TnDateField>
+      <TnUpperField DisplayLabel="Location" DisplayWidth="10" DomainName="IC Location Code" FieldName="LocationCode">
+      </TnUpperField>
+      <TnIntegerField DisplayLabel="CntID" DisplayWidth="10" DomainName="IC Count ID" FieldName="CountID">
+      </TnIntegerField>
+      <TIndexDef Fields="DocumentID" Name="DocumentID" Options="ixPrimary">
+      </TIndexDef>
+      <TIndexDef Fields="Createddate;LocationCode" Name="DateLocation">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblCountnum" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="393" Top="276">
+      <TnIntegerField DisplayWidth="10" DomainName="IC Count ID" FieldName="CountID">
+      </TnIntegerField>
+      <TnStringField DisplayWidth="30" DomainName="Description" FieldName="Details">
+      </TnStringField>
+      <TnDateField DisplayLabel="Created Date" DisplayWidth="15" FieldName="Createddate">
+      </TnDateField>
+      <TnUpperField DisplayLabel="Location" DisplayWidth="10" DomainName="IC Location Code" FieldName="LocationCode">
+      </TnUpperField>
+      <TnIntegerField DisplayLabel="DocID" DomainName="IC Stocktake ID" FieldName="DocumentID">
+      </TnIntegerField>
+      <TIndexDef Fields="CountID" Name="CountID" Options="ixPrimary">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Color="15259083" Height="265" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="panNew" TabOrder="0" Top="294" Width="800">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="28" LabelCaption="Reference" LabelWidth="125" Left="13" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eDetail" OnChange="" OnEnter="" OnExit="" TabOrder="0" TabStop="True" Text="" Top="5" Width="312">
+      </TUserEdit>
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Height="28" IndexName="" LabelCaption="Location" LabelWidth="125" Left="13" LookupSource="ICLOCN" LookupType="ltNormal" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eLocation" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="1" TabStop="True" Text="" Top="35" Width="312">
+      </TUserDataCombo>
+      <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Height="28" LabelCaption="Date" LabelWidth="125" Left="13" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eDate" OnChange="" OnEnter="" OnExit="" TabOrder="2" TabStop="True" Text="" Top="65" Width="312">
+      </TUserDateEdit>
+      <TUserButton Caption="Create Stocktake &amp;&amp; Enter First Count" Height="50" ImageIndex="2013" Left="9" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnCreateStocktake" OnClick="Okay_Click" ShortCut="0" TabOrder="3" TabStop="True" Top="96" Width="340">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="48" Height="69" Left="89" LineLength="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eMemo5" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ScrollBars="ssNone" TabOrder="4" TabStop="True" Top="149" Width="177">
+        <TUserStringItem Value="Create Stocktake.">
+        </TUserStringItem>
+        <TUserStringItem Value="Create Count ">
+        </TUserStringItem>
+        <TUserStringItem Value="and marks as counted">
+        </TUserStringItem>
+      </TUserMemo>
+    </TUserPanel>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Color="15259083" Height="243" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="panExisting" TabOrder="1" Top="51" Width="800">
+      <TUserDataCombo Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" ButtonsAvailable="dcbLookup" Enabled="True" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-26" Font.Name="Segoe UI" Font.Style="" Height="39" IndexName="DocumentID" LabelCaption="Stocktake Number" LabelWidth="219" Left="11" LookupSource="tblICSTKHD" LookupType="ltMemory" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="StktakeNo" OnChange="" OnEnter="" OnExit="" ShowAlternateLookup="False" TabOrder="0" TabStop="True" Text="" Top="9" Width="394">
+      </TUserDataCombo>
+      <TUserButton Caption="Enter Additional Count" Height="50" ImageIndex="2013" Left="9" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnAdditionalCount" OnClick="Okay_Click" ShortCut="0" TabOrder="1" TabStop="True" Top="60" Width="196">
+      </TUserButton>
+      <TUserButton Caption="Print Variance" Height="50" ImageIndex="2226" Left="209" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnPrintVariance" OnClick="PrintVariance" ShortCut="0" TabOrder="2" TabStop="True" Top="60" Width="196">
+      </TUserButton>
+      <TUserButton Caption="Confirm Stocktake" Height="50" ImageIndex="2076" Left="409" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnPendingVariance" OnClick="CreatePendingVariance" ShortCut="0" TabOrder="3" TabStop="True" Top="60" Width="196">
+      </TUserButton>
+      <TUserButton Caption="Post Stocktake" Height="50" ImageIndex="2156" Left="609" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnPostStocktake" OnClick="PostStockTake" ShortCut="0" TabOrder="4" TabStop="True" Top="60" Width="196">
+      </TUserButton>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="48" Height="69" Left="18" LineLength="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eMemo1" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ScrollBars="ssNone" TabOrder="5" TabStop="True" Top="111" Width="177">
+        <TUserStringItem Value="Create Count ">
+        </TUserStringItem>
+        <TUserStringItem Value="and mark as counted">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="48" Height="69" Left="218" LineLength="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eMemo2" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ScrollBars="ssNone" TabOrder="6" TabStop="True" Top="111" Width="177">
+        <TUserStringItem Value="Print Variance">
+        </TUserStringItem>
+        <TUserStringItem Value="From Stocktake">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="48" Height="69" Left="409" LineLength="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eMemo3" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ScrollBars="ssNone" TabOrder="7" TabStop="True" Top="111" Width="195">
+        <TUserStringItem Value="Confirm Stocktake.">
+        </TUserStringItem>
+        <TUserStringItem Value="This will show variance ">
+        </TUserStringItem>
+        <TUserStringItem Value="against products">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserMemo Alignment="taCenter" Color="clWindow" Constraints.MinHeight="48" Height="48" Left="618" LineLength="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eMemo4" OnChange="" OnEnter="" OnExit="" ReadOnly="True" ScrollBars="ssNone" TabOrder="8" TabStop="True" Top="111" Width="177">
+        <TUserStringItem Value="Post &amp; Lock Stocktake">
+        </TUserStringItem>
+      </TUserMemo>
+      <TUserButton Caption="View Stocktake" Height="39" ImageIndex="2032" Left="464" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnViewStocktake" OnClick="BtnOpenStocktake_Click" ShortCut="0" TabOrder="9" TabStop="True" Top="9" Width="155">
+      </TUserButton>
+      <TUserButton Height="39" Hint="Refresh Stocktake List" ImageIndex="2311" Left="414" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnRefresh" OnClick="RefreshStocktakeList" ShortCut="0" TabOrder="10" TabStop="True" Top="9" Width="37">
+      </TUserButton>
+    </TUserPanel>
+    <TUserPanel Align="alTop" AlternateColour="False" BevelOuter="bvNone" Height="51" Left="0" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="panPanel2" TabOrder="2" Top="0" Width="800">
+      <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Segoe UI" Font.Style="fsBold" Height="27" LabelCaption="Existing Stocktake" LabelWidth="125" Left="13" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eExisting" OnChange="eExisting_Clicked" OnEnter="" OnExit="" ReadOnly="False" TabOrder="0" TabStop="True" Top="14" Width="160">
+      </TUserCheckBox>
+      <TUserCheckBox Align="alNone" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-15" Font.Name="Segoe UI" Font.Style="fsBold" Height="27" LabelCaption="New Stocktake" LabelWidth="125" Left="196" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="eNew" OnChange="eNew_Clicked" OnEnter="" OnExit="" ReadOnly="False" TabOrder="1" TabStop="True" Top="14" Width="158">
+      </TUserCheckBox>
+      <TUserButton Caption="Help" Height="39" ImageIndex="2298" Left="705" Margins.Bottom="4" Margins.Left="4" Margins.Right="4" Margins.Top="4" Name="btnButton6" OnClick="OpenHelpFile" ShortCut="0" TabOrder="2" TabStop="True" Top="9" Width="94">
+      </TUserButton>
+    </TUserPanel>
+  </Form>
+  <![CDATA[Dim ICStocktakeData as Object
+ICStocktakeData = CreateObject("Accredo.ICStocktakeData")
+ICStocktakeData.indexname = "Document"
+
+Dim ICSttable as object
+ICSttable = opentable("ICSTKHD")
+
+Dim ICCnttable as object
+ICCnttable = opentable("ICCNTHD")
+
+panNew.Align = alClient
+panExisting.Align = alClient
+
+Sub RefreshStocktakeList
+  StktakeNo.Text = 0
+  tblICSTKHD.Empty
+  ICSttable.first
+  DO until ICSttable.eof
+    If ICSttable.PostStatus <> "P" Then
+      tblICSTKHD.insert
+      copyfieldsbyname(ICSttable,tblICSTKHD)
+      tblICSTKHD.save
+    End IF
+    ICSttable.next
+  loop
+
+  IF User.DefaultLocationCode <> "" then
+    tblICSTKHD.IndexName = "DateLocation"
+    Try
+      tblICSTKHD.Last
+      Do Until tblICSTKHD.BOF
+        IF tblICSTKHD.LocationCode = User.DefaultLocationCode then
+          StktakeNo.Text = tblICSTKHD.DocumentID
+          Exit Do
+        End IF
+       tblICSTKHD.Prev
+      Loop
+    Catch
+
+    End Try
+
+    ';;Reset Index
+    tblICSTKHD.IndexName = "DocumentID"
+  End IF
+End Sub
+
+
+sub formload
+  RefreshStocktakeList
+end sub
+
+sub S_Shell(URL as String)
+  Shells = CreateObject("Shell.Application")
+  Shells.ShellExecute(URL)
+End Sub
+
+Sub BtnOpenStocktake_Click
+'  IF User.LoginUserName = "ACCREDO" then msgbox(StktakeNo.Text)
+  IF ICStocktakeData.findexact(StktakeNo.Text) Then
+    ICStocktakeData.Openform
+  End IF
+End Sub
+
+Sub PrintVariance
+
+  '## METHOD 1 ##
+  IF ICStocktakeData.FindExact(StktakeNo.Text) Then
+
+    VarRep = CreateObject("Accredo.ICStocktakeStatusReport")
+    VarRep.Layout = "Stocktake Status"
+    VarRep.ReportFilterSort.Filter = "DocumentID = " & StktakeNo.Text & " AND QuantityVariance <> 0"
+    VarRep.Location = ICStocktakeData.LocationCode
+    VarRep.Run
+'    documentobject(VarRep)
+  End IF
+
+
+  '## METHOD 2 ##
+
+
+'  IF ICStocktakeData.findexact(StktakeNo.Text) Then
+'      ICStocktakeData.openform
+'  End IF
+'
+'  ICStocktakeData.Product.FilterSort.Filter = "(QuantityVariance<>0.000)"
+'
+'  Form1 = ICStocktakeData.openform
+'  Form1.Product.Print
+'  Form1.Close
+
+End Sub
+
+
+Sub OpenHelpFile
+  Dim DIR as object
+  DIR = Createobject("Accredo.Directory")
+  S_Shell(DIR.SystemDirectory & "Images\V4 Stocktaking.jpg")
+End Sub
+
+Sub DoNothing
+End Sub
+
+
+Sub Events_Clear
+  eNew.OnChange = GetREf("DoNothing")
+  eExisting.OnChange = GetREf("DoNothing")
+End Sub
+
+
+Sub Events_Set
+  eNew.OnChange = GetREf("eNew_Clicked")
+  eExisting.OnChange = GetREf("eExisting_Clicked")
+End Sub
+
+
+Sub eNew_Clicked
+  Events_Clear
+  panNew.Visible = True
+  panExisting.Visible = False
+  StktakeNo.Visible = False
+  eNew.checked = True
+  eExisting.checked = False
+  Events_Set
+  IF User.DefaultLocationCode <> "" then
+    eLocation.Text = User.DefaultLocationCode
+  End IF
+  'eERNewRep_Change
+End Sub
+
+Sub eExisting_Clicked
+  Events_Clear
+  panNew.Visible = False
+  panExisting.Visible = True
+  StktakeNo.Visible = True
+  eExisting.checked = True
+  eNew.checked = False
+  Events_Set
+  'eERNewRep_Change
+End Sub
+
+eNew_Clicked
+
+Sub OpenICStocktakeForm(byref ICID as Number, byref Location as string)
+  Formstktake = Createcustomform("IC_Stocktaking.pfd")
+  Formstktake.eStocktakeID.Value = ICID
+  Formstktake.eLocationCode.text = Location
+End Sub
+
+'eDate.value = PeriodEndDate(CurrentPeriod("IC"))
+eDate.value = systemdate
+
+
+
+Sub PostStocktake
+
+  IF StktakeNo.text = "" Then
+    StktakeNo.ShowErrorHint("Select a StockTake")
+    Exit Sub
+  End IF
+
+  IF ICStocktakeData.Findexact(StktakeNo.text) Then
+    Try
+      ICStocktakeData.Post
+      btnPostStocktake.ShowStatusHint("Stockatke Posted Successfully")
+      RefreshStocktakeList
+    Catch e
+      btnPostStocktake.ShowErrorHint("ERROR: " & e.message)
+    End Try
+  End IF
+End Sub
+
+Sub CreatePendingVariance
+
+
+  IF ICStocktakeData.FindExact(StktakeNo.Text) then
+    Try
+      ICStocktakeData.Counted
+      btnPendingVariance.ShowStatusHint("Pending Variance Counted - Stocktake Marked as Counted")
+    Catch e
+      btnPendingVariance.ShowErrorHint("ERROR: " & e.message)
+    End Try
+  End IF
+
+End Sub
+
+Sub Okay_Click
+
+
+  Dim ICCountdata as object
+  ICCountdata = CreateObject("Accredo.ICStocktakeCountData")
+
+  If eExisting.value = True Then
+
+  '####################   EXISTING   ###################
+
+
+
+    IF StktakeNo.text = "" Then
+      StktakeNo.ShowErrorHint("Select a StockTake")
+      Exit Sub
+    End IF
+
+'    ICStocktakeData.DocumentID = StktakeNo 'Stocktake Dropdown"
+'    MSGBOX(eExisting.value&" "&StktakeNo.value)
+    IF ICStocktakeData.Findexact(StktakeNo.text) Then
+      OpenICStocktakeForm(StktakeNo.text, ICStocktakeData.LocationCode)
+    Else
+      Throw "Logic Error Unable to Find Stocktake"
+    End IF
+  Else
+
+  '#######################   NEW   #####################
+
+    IF eDetail.text = "" Then
+      eDetail.ShowErrorHint("Details Cannot be Blank")
+      Exit Sub
+    End IF
+    IF eLocation.text = "" Then
+      eLocation.ShowErrorHint("Location Cannot be Blank")
+      Exit Sub
+    End IF
+'    Abort
+    ICStocktakeData.InsertStocktake
+'    ICStocktakeData.CountType = "Single"
+    ICStocktakeData.CountType = "Additive"
+    ICStocktakeData.DocumentDate = eDate.value
+    ICStocktakeData.LocationCode = eLocation.text
+    ICStocktakeData.PeriodID = PeriodForDate(eDate.value)
+    ICStocktakeData.Details = eDetail.text
+
+
+
+
+    'ICStocktakeData.IncludeNilQuantity = True
+    'ICStocktakeData.GenerateCounts = True
+    'ICStocktakeData.StocktakeFilterSort.Filter = "(ProductCode=""1.8MWARDROBE"" Or ProductCode=""DRESSTABLE"")"
+    ICStocktakeData.Save
+    OpenICStocktakeForm(ICStocktakeData.DocumentID, eLocation.text)
+'    DocID = ICStocktakeData.DocumentID
+'
+'    countform = ICStocktakeData.count.insert
+'    countform.save
+'    countid = countform.CountID
+
+'
+'  'MSGbox(countid)
+'    If countid = null then
+'        MSGBOX("CountID is Blank")
+'        Abort
+'      Else
+'        ICCountdata.FindExact(countid)
+'        ICCountdata.Edit
+'        ICCountdata.Details = ICStocktakeData.Details
+'        ICCountdata.Line.Edit
+'        ICCountdata.Line.Append
+'        ICCountdata.Line.ProductCode = "CDRAW"
+'        ICCountdata.Line.QuantityCounted = 10
+'
+'        ICCountdata.Save
+'    End IF
+
+'     FormInv = Createcustomform("C:\Users\Jordan\Desktop\Scripts and Froms\testformlink.pfd")
+'     FormInv.P_JobCode = DocID.text
+'     FormInv.Show
+ ' ICStocktakeData = Nothing
+
+  End if
+  Try
+    eExisting_Clicked
+    RefreshStocktakeList
+  Catch e
+    IF User.LoginUserName = "ACCREDO" then msgbox("Accredo Only Message: " & e.message)
+  End Try
+
+End Sub]]>
+</Design>

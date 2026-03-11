@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1">
+  <Form Caption="Stocktake What Next" Color="clBtnFace" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-12" Font.Name="Arial" Font.Style="" Height="424" OnShow="Onshow" SaveSizeName="frmIC_StockTakeWhatNext" Visible="False" Width="730" WindowState="wsNormal">
+    <TUserButton Caption="Change Variance" Height="200" ImageIndex="2157" Left="417" Name="btnChangeVariance" OnClick="btnChangeVariance_Click" ShortCut="0" TabOrder="0" TabStop="True" Top="77" Width="284">
+    </TUserButton>
+    <TUserButton Caption="Adjust Variance" Height="200" ImageIndex="2147" Left="46" Name="btnAdjustVariance" OnClick="BtnbtnAdjustVariance_Click" ShortCut="0" TabOrder="1" TabStop="True" Top="80" Width="284">
+    </TUserButton>
+    <TUserDateEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-24" Font.Name="Arial" Font.Style="" Height="56" LabelCaption="Stocktake Date" LabelWidth="165" Left="27" Name="eStocktakeDate" TabOrder="2" TabStop="True" Top="305" Width="345">
+    </TUserDateEdit>
+  </Form>
+  <![CDATA['
+ExitStatus = ""
+'
+'DIM ICPROD as Object
+'ICPROD = Opentable("ICPROD")
+'ICPROD.Indexname = "Product"
+'
+'DIM ICQTY as Object
+'ICQTY = Opentable("ICQTY")
+'ICQTY.Indexname = "ProductLocation"
+'
+'Sub OnShow
+'  IF ICPROD.Findexact(eCode.Text) then
+'    eDescription.Text = ICPROD.Description
+'    IF ICQTY.Findexact(eCode.Text, eLocation.text) then
+'      eBin.text = ICQTY.BinLocation
+'    End IF
+'  End IF
+'End Sub
+'
+'
+'Property Let pCode( fCode as String)
+'  eCode.Text = fCode
+'End Property
+'
+'
+'Property Let pLocation( fLocation as String)
+'  eLocation.Text = fLocation
+'End Property
+'
+'
+
+Property Get PDate as Date
+  PDate = eStocktakeDate.value
+End Property
+
+Property Get pExitStatus as String
+  pExitStatus = Upper(ExitStatus)
+End Property
+'
+'
+Sub BtnbtnAdjustVariance_Click
+  ExitStatus = "AdjustVariance"
+  self.Close
+End Sub
+
+Sub btnChangeVariance_Click
+  ExitStatus = "ChangeVariance"
+  self.Close
+End SUb
+
+Sub Onshow
+eStocktakeDate.value = Date
+End Sub]]>
+</Design>
