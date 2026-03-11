@@ -6,11 +6,11 @@
 
     <!-- Order Lines Table (same as existing) -->
     <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="OrderLineScroll" BeforeDelete="tblOrder_BeforeDelete" IndexName="" Name="tblOrder" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
-      <TnIntegerField DisplayWidth="10" FieldName="LineID">
+      <TnIntegerField DisplayWidth="6" FieldName="LineID" Visible="False">
       </TnIntegerField>
       <TnUpperField DisplayLabel="Code" DisplayWidth="20" DomainName="IC Product Code" FieldName="ProductCode">
       </TnUpperField>
-      <TnStringField DisplayWidth="40" DomainName="Description" FieldName="Description">
+      <TnStringField DisplayWidth="60" DomainName="Description" FieldName="Description" Size="200">
       </TnStringField>
       <TnQuantityField DisplayLabel="Ordered" DisplayWidth="10" FieldName="QuantityOrdered">
       </TnQuantityField>
@@ -64,7 +64,7 @@
       </TnStringField>
       <TnUpperField DisplayLabel="Customer" DisplayWidth="12" FieldName="CustomerCode">
       </TnUpperField>
-      <TnStringField DisplayLabel="Name" DisplayWidth="28" FieldName="CustomerName">
+      <TnStringField DisplayLabel="Name" DisplayWidth="40" FieldName="CustomerName" Size="100">
       </TnStringField>
       <TnDateField DisplayLabel="Date" DisplayWidth="10" FieldName="DocumentDate">
       </TnDateField>
@@ -229,8 +229,12 @@ Sub Reset
   DG_Flag = False
   MainF = False
   eDocID.Value = 0
+  tblOrder.AllowInsertDelete = True
   tblOrder.Empty
+  tblOrder.AllowInsertDelete = False
+  tblToDelete.AllowInsertDelete = True
   tblToDelete.Empty
+  tblToDelete.AllowInsertDelete = False
   eCustomerCode.Text = ""
   eCustomerName.Text = ""
   ePackingSlipNo.Text = ""
@@ -251,7 +255,7 @@ Sub RefreshOrderList
   Dim QryOrders as Object
   QryOrders = ExecuteSQL( _
     "SELECT OEHEAD.DocumentID, OEHEAD.PackingSlipNo, " & _
-    "OEHEAD.CustomerCode, OEHEAD.DocumentDate, OEHEAD.Reference " & _
+    "OEHEAD.CustomerCode, OEHEAD.DocumentDate " & _
     "FROM OEHEAD " & _
     "WHERE OEHEAD.PostStatus = 'U' " & _
     "AND OEHEAD.DocumentClass IN ('O','B') " & _
@@ -264,7 +268,6 @@ Sub RefreshOrderList
     tblOrderList.PackingSlipNo = QryOrders.PackingSlipNo
     tblOrderList.CustomerCode = QryOrders.CustomerCode
     tblOrderList.DocumentDate = QryOrders.DocumentDate
-    tblOrderList.Reference = QryOrders.Reference
     ' Look up customer name
     If ARCUST.FindExact(QryOrders.CustomerCode) Then
       tblOrderList.CustomerName = ARCUST.CustomerName
@@ -346,7 +349,11 @@ Sub Load(ByRef OrderID as Number)
       eCustomerName.Text = ""
     End If
     ePackingSlipNo.Text = OEHEAD.PackingSlipNo
-    eOrderRef.Text = OEHEAD.Reference
+    Try
+      eOrderRef.Text = OEHEAD.InternalReference
+    Catch e
+      eOrderRef.Text = ""
+    End Try
   Else
     OrderLoad = False
     Error("Order not Found " & OrderID)
@@ -544,8 +551,10 @@ End Sub
 ' ============================================================
 
 Sub OrderLineScroll
-  ' Keep grid sorted by bin
-  tblOrder.IndexName = "Bin"
+  ' Only sort by bin when not loading (Append triggers AfterScroll)
+  If OrderLoad And Not tblOrder.AllowInsertDelete Then
+    tblOrder.IndexName = "Bin"
+  End If
 End Sub
 
 Sub ProductB4Change
