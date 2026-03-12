@@ -96,3 +96,27 @@ Option 2 is more reliable for forms that also programmatically add rows.
 **Solution:** Not yet fully resolved. The button/double-click handler sub may not fire at all. Debug by adding `MsgBox("test")` at the very first line of the sub to confirm it's being called.
 **Tags:** ShowModal, modal, nested modal, CreateCustomForm, button not working
 ---
+
+## INInvoiceListForm.Invoice.Open conflicts if invoice is already open in UI
+**Problem:** Using `INInvoiceListForm` + `Invoice.Open` to edit an invoice that is already open in the Accredo UI causes "Error resolving Save (80020006)". This is a COM conflict — the form-level object clashes with the already-open form.
+**Solution:** Use `INInvoiceData` (data-level object) instead of `INInvoiceListForm` (form-level). Find the invoice DocumentID via `ExecuteSQL` on INHEAD, then use `CreateObject("Accredo.INInvoiceData")` with `FindExact(DocumentID)` to edit at the data level. This avoids any conflict with open UI forms.
+**Tags:** INInvoiceListForm, INInvoiceData, Invoice.Open, Error resolving Save, 80020006, MIXJOTUN, COM error
+---
+
+## tblMemoryTable.Eof can be True even with rows present
+**Problem:** After operations like Append/Save/Delete, the cursor can end up past the last record, making `.Eof` return True even though the table has rows (RecordCount > 0).
+**Solution:** Before accessing current row data, check `RecordCount` first, then call `.First` or `.Last` to reposition the cursor. Don't rely solely on `.Eof` to determine if rows exist.
+**Tags:** Eof, RecordCount, memory table, cursor position, TUserMemoryTable
+---
+
+## IN Invoice lines use QuantitySupplied, not Quantity
+**Problem:** Setting `INDATA.Line.Quantity = value` on an IN Invoice line silently fails — the field doesn't exist. Lines save but with no quantity, so they appear blank/zero.
+**Solution:** Use `INDATA.Line.QuantitySupplied` instead. IN Invoice lines use `QuantitySupplied` as the quantity field, not `Quantity`.
+**Tags:** INInvoiceData, QuantitySupplied, Quantity, invoice line, silent fail
+---
+
+## OEDATA.GenerateInvoice returns DocumentID not DocumentNo
+**Problem:** `OEDATA.GenerateInvoice` returns the invoice's internal `DocumentID` (e.g. 3187), not the display invoice number (e.g. "11608"). Passing this directly as an invoice reference shows wrong number.
+**Solution:** Look up the actual display number: `INInvoiceData.FindExact(INNumber)` then use `INInvoiceData.DocumentNo`.
+**Tags:** GenerateInvoice, DocumentID, DocumentNo, invoice number, OEOrderData
+---

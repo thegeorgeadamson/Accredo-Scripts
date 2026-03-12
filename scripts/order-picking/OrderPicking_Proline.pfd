@@ -135,9 +135,11 @@
     </TUserButton>
     <TUserButton Anchors="akLeft;akTop" Caption="Clear Picked" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="220" Name="btnClearPicked" OnClick="ClearPicked" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="296" Width="150">
     </TUserButton>
-    <TUserButton Anchors="akTop;akRight" Caption="Add Item" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2034" Left="950" Name="btnAddItem" OnClick="AddNewItem" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="296" Width="120">
+    <TUserButton Anchors="akTop;akRight" Caption="Add Item" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2034" Left="820" Name="btnAddItem" OnClick="AddNewItem" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="296" Width="110">
     </TUserButton>
-    <TUserButton Anchors="akTop;akRight" Caption="Change Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2019" Left="1075" Name="btnChangeQty" OnClick="ChangeQuantity" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="296" Width="110">
+    <TUserButton Anchors="akTop;akRight" Caption="Edit Order Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2019" Left="935" Name="btnEditOrderQty" OnClick="ChangeOrderQuantity" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="296" Width="130">
+    </TUserButton>
+    <TUserButton Anchors="akTop;akRight" Caption="Change Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2019" Left="1070" Name="btnChangeQty" OnClick="ChangeQuantity" ParentFont="False" ShortCut="0" TabOrder="8" TabStop="True" Top="296" Width="115">
     </TUserButton>
 
     <!-- Order Lines Grid -->
@@ -807,6 +809,7 @@ Sub GenerateInvoice(ByRef PrintInvoice as Boolean, ByRef ZeroFreight as Boolean)
         Try
           OEDATA.Line.Edit
           OEDATA.Line.Description = tblOrder.Description
+          OEDATA.Line.QuantityOrdered = tblOrder.QuantityOrdered + OEDATA.Line.QuantityInvoiced
           OEDATA.Line.QuantitySupplied = tblOrder.QuantityPicked
           OEDATA.Line.Z_SortBin = tblOrder.PackBin
           Try
@@ -1061,9 +1064,20 @@ Sub GenerateInvoice(ByRef PrintInvoice as Boolean, ByRef ZeroFreight as Boolean)
       Loop
 
       If HasGRP Then
+        ' Look up the actual invoice display number
+        Dim InvDisplayNo as String
+        Dim INLookup as Object
+        INLookup = CreateObject("Accredo.INInvoiceData")
+        INLookup.IndexName = "Document"
+        If INLookup.FindExact(INNumber) Then
+          InvDisplayNo = INLookup.DocumentNo
+        Else
+          InvDisplayNo = "" & INNumber
+        End If
+
         Dim TintForm as Object
         TintForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\TintingForm.pfd")
-        TintForm.pInvoiceNumber = CStr(INNumber)
+        TintForm.pInvoiceNumber = InvDisplayNo
         TintForm.ShowModal
       End If
 

@@ -90,7 +90,21 @@ Sub AddLine
 End Sub
 
 Sub ChangeQty
-  MsgBox("ChangeQty fired - Eof=" & tblTint.Eof)
+  If tblTint.RecordCount = 0 Then
+    MsgBox("No lines to change.")
+    Exit Sub
+  End If
+  If tblTint.Eof Then tblTint.Last
+  Dim QtyForm as Object
+  QtyForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\Qty_Entry_Tint.pfd")
+  QtyForm.pProduct = tblTint.Description
+  QtyForm.pQuantity = tblTint.Quantity
+  QtyForm.ShowModal
+  If QtyForm.pCancelled = 0 Then
+    tblTint.Edit
+    tblTint.Quantity = QtyForm.pQuantity
+    tblTint.Save
+  End If
 End Sub
 
 Sub DeleteLine
@@ -116,35 +130,52 @@ Sub CompleteTinting
   Loop
 
   Try
-    Dim frmINInvoiceList as Object
-    frmINInvoiceList = CreateObject("Accredo.INInvoiceListForm")
-    frmINInvoiceList.CustomerCode = "MIXJOTUN"
-    frmINInvoiceList.AutoSelect = True
-    frmINInvoiceList.Find("MIXJOTUN")
+    ' Find the open MIXJOTUN invoice via SQL
+    Dim QryMix as Object
+    QryMix = ExecuteSQL( _
+      "SELECT INHEAD.DocumentID FROM INHEAD " & _
+      "WHERE INHEAD.CustomerCode = 'MIXJOTUN' " & _
+      "AND INHEAD.PostStatus = 'O' " & _
+      "ORDER BY INHEAD.DocumentID DESC")
+    QryMix.First
+    If QryMix.Eof Then
+      MsgBox("No open MIXJOTUN invoice found.")
+      Exit Sub
+    End If
 
-    Dim frmINInvoice as Object
-    frmINInvoice = frmINInvoiceList.Invoice.Open
-    frmINInvoiceList.Close
-    frmINInvoice.Edit
+    Dim INDATA as Object
+    INDATA = CreateObject("Accredo.INInvoiceData")
+    INDATA.IndexName = "Document"
+    If Not INDATA.FindExact(QryMix.DocumentID) Then
+      MsgBox("Could not open MIXJOTUN invoice.")
+      Exit Sub
+    End If
 
-    frmINInvoice.Line.Append
-    frmINInvoice.Line.Description = "INV " & InvoiceNumber
-    frmINInvoice.Line.Save
+    INDATA.Edit
 
+    ' Header line with invoice reference
+    INDATA.Line.Last
+    INDATA.Line.Append
+    INDATA.Line.LineType = "N"
+    INDATA.Line.Description = "INV " & InvoiceNumber
+    INDATA.Line.Save
+
+    ' Append each tint line
     tblTint.First
     Do Until tblTint.Eof
-      frmINInvoice.Line.Append
-      frmINInvoice.Line.Description = tblTint.Description
-      frmINInvoice.Line.Quantity = tblTint.Quantity
-      frmINInvoice.Line.Save
+      INDATA.Line.Append
+      INDATA.Line.Description = tblTint.Description
+      INDATA.Line.QuantitySupplied = tblTint.Quantity
+      INDATA.Line.Save
       tblTint.Next
     Loop
 
-    frmINInvoice.Line.Append
-    frmINInvoice.Line.Save
+    ' Blank separator line
+    INDATA.Line.Append
+    INDATA.Line.LineType = "N"
+    INDATA.Line.Save
 
-    frmINInvoice.Save
-    frmINInvoice.Close
+    INDATA.Save
 
     ExitStatus = "Completed"
     Self.Close

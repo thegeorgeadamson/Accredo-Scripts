@@ -57,6 +57,8 @@ This file contains every bug, workaround, and gotcha discovered in previous sess
 - You find a workaround for an Accredo limitation
 - An approach that seemed right turned out wrong
 
+**Scaling rule:** If `KNOWN_ISSUES.md` exceeds ~50 entries, split it into topic files (e.g. `known_issues_maxbasic.md`, `known_issues_forms.md`, `known_issues_api.md`) and turn the main file into an index. Always Grep across all `known_issues*.md` files.
+
 ## Accredo API Basics
 - The Accredo API is a RESTful OData 4 JSON API using OAuth 2.0 (password grant) for authorisation.
 - Demo/test API base URL: https://demo.accredo.co.nz:6569/saturn/odata4/v1/Company('demo')

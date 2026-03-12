@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Design Version="1" DPI="96">
+  <Form Caption="Edit Order Lines" Color="clBtnFace" Constraints.MaxHeight="52428" Constraints.MaxWidth="52428" Constraints.MinHeight="100" Constraints.MinWidth="200" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="750" Interactive="True" OnClose="" OnShow="" SaveSizeName="" Visible="False" Width="1200" WindowState="wsMaximized">
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="tblLines_BeforeDelete" IndexName="" Name="tblLines" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
+      <TnIntegerField DisplayWidth="6" FieldName="LineID" Visible="False">
+      </TnIntegerField>
+      <TnUpperField DisplayLabel="Code" DisplayWidth="20" FieldName="ProductCode" Size="30">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="50" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty Ordered" DisplayWidth="12" FieldName="QuantityOrdered">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Qty Invoiced" DisplayWidth="12" FieldName="QuantityInvoiced">
+      </TnQuantityField>
+      <TnQuantityField DisplayLabel="Outstanding" DisplayWidth="12" FieldName="QuantityOutstanding">
+      </TnQuantityField>
+      <TIndexDef Fields="LineID" Name="LineID">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblToDelete" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="40">
+      <TnIntegerField DisplayWidth="6" FieldName="LineID" Visible="False">
+      </TnIntegerField>
+      <TIndexDef Fields="LineID" Name="LineID">
+      </TIndexDef>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="PreviewOrder" BeforeDelete="" IndexName="" Name="tblOrderList" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="70">
+      <TnIntegerField DisplayWidth="10" FieldName="DocumentID">
+      </TnIntegerField>
+      <TnStringField DisplayLabel="P/Slip" DisplayWidth="12" FieldName="PackingSlipNo">
+      </TnStringField>
+      <TnUpperField DisplayLabel="Customer" DisplayWidth="12" FieldName="CustomerCode">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Name" DisplayWidth="30" FieldName="CustomerName" Size="100">
+      </TnStringField>
+      <TnDateField DisplayLabel="Date" DisplayWidth="10" FieldName="DocumentDate">
+      </TnDateField>
+    </TUserMemoryTable>
+    <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblPreview" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="100">
+      <TnUpperField DisplayLabel="Code" DisplayWidth="20" FieldName="ProductCode" Visible="False">
+      </TnUpperField>
+      <TnStringField DisplayLabel="Description" DisplayWidth="55" FieldName="Description" Size="200">
+      </TnStringField>
+      <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="QuantityOrdered">
+      </TnQuantityField>
+    </TUserMemoryTable>
+    <TUserGroupBox Anchors="akLeft;akTop" Caption="Unprocessed Orders" Height="195" Left="4" Name="grpSelectOrder" TabOrder="0" Top="3" Width="650">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="140" Left="8" Name="gridOrderList" OnCalcCellColors="" OnDblClick="LoadSelectedOrder" Table="tblOrderList" TabOrder="0" Top="20" Width="634">
+      </TUserEditGrid>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Load Selected" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="8" Name="btnLoadSelected" OnClick="LoadSelectedOrder" ParentFont="False" ShortCut="0" TabOrder="1" TabStop="True" Top="162" Width="140">
+      </TUserButton>
+      <TUserButton Anchors="akLeft;akBottom" Caption="Refresh" Height="30" ImageIndex="2069" Left="155" Name="btnRefreshList" OnClick="RefreshOrderList" ShortCut="0" TabOrder="2" TabStop="True" Top="162" Width="90">
+      </TUserButton>
+      <TUserEdit Anchors="akBottom;akRight" Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="28" LabelCaption="Order #" LabelWidth="55" Left="350" Name="eOrderInput" OnChange="" OnEnter="" OnExit="ManualLoadOrder" ParentFont="False" TabOrder="3" TabStop="True" Text="" Top="163" Width="170">
+      </TUserEdit>
+      <TUserButton Anchors="akBottom;akRight" Caption="Load" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="30" ImageIndex="2026" Left="528" Name="btnLoadManual" OnClick="ManualLoadOrder" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="162" Width="114">
+      </TUserButton>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Preview" Height="195" Left="660" Name="grpPreview" TabOrder="1" Top="3" Width="525">
+      <TUserEditGrid ActiveColumn="0" ActiveFocused="False" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="172" Left="8" Name="gridPreview" OnCalcCellColors="" OnDblClick="" Table="tblPreview" TabOrder="0" Top="20" Width="509">
+      </TUserEditGrid>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Caption="Order Details" Height="55" Left="4" Name="grpOrderHeader" TabOrder="2" Top="200" Width="1181">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Font.Charset="DEFAULT_CHARSET" Font.Color="clNavy" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="22" LabelCaption="Customer" LabelWidth="70" Left="10" Name="eCustomer" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="20" Width="400">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="P/Slip" LabelWidth="50" Left="420" Name="ePackingSlip" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="1" TabStop="False" Text="" Top="20" Width="200">
+      </TUserEdit>
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Height="22" LabelCaption="Order Ref" LabelWidth="70" Left="640" Name="eOrderRef" OnChange="" OnEnter="" OnExit="" ReadOnly="True" TabOrder="2" TabStop="False" Text="" Top="20" Width="200">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserGroupBox Anchors="akLeft;akTop;akRight" Color="clRed" Height="35" Left="4" Name="grpStatus" TabOrder="3" Top="257" Width="1181">
+      <TUserEdit Align="alNone" Alignment="taLeftJustify" Anchors="akLeft;akTop;akRight" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="fsBold" Height="22" LabelVisible="False" Left="8" Name="eStatus" OnChange="" OnEnter="" OnExit="" ParentFont="False" ReadOnly="True" TabOrder="0" TabStop="False" Text="" Top="8" Width="1160">
+      </TUserEdit>
+    </TUserGroupBox>
+    <TUserButton Anchors="akLeft;akTop" Caption="Change Qty" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2019" Left="30" Name="btnChangeQty" OnClick="ChangeQty" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="140">
+    </TUserButton>
+    <TUserGridNavigator AlternateColour="False" Anchors="akLeft;akTop;akBottom" Height="330" HookControl="gridLines" Left="4" Name="navLines" Table="tblLines" Top="345" Width="26">
+      <TUserSpeedButton Height="24" Hint="Delete Line" ImageIndex="2113" Left="1" Name="btnNavDelete" NavIndex="22" OnClick="DeleteLine" ShortCut="0" Top="145" Width="24">
+      </TUserSpeedButton>
+    </TUserGridNavigator>
+    <TUserEditGrid ActiveColumn="0" ActiveFocused="True" ActiveRowColor="16760540" Anchors="akLeft;akTop;akRight;akBottom" Height="330" Left="30" Name="gridLines" OnCalcCellColors="" OnDblClick="ChangeQty" Table="tblLines" TabOrder="5" Top="345" Width="1155">
+    </TUserEditGrid>
+    <TUserButton Anchors="akRight;akBottom" Caption="SAVE CHANGES" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnSave" OnClick="SaveChanges" ParentFont="False" ShortCut="0" TabOrder="6" TabStop="True" Top="685" Width="210">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akBottom" Caption="Cancel / New Order" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="4" Name="btnCancel" OnClick="ResetAndRefresh" ParentFont="False" ShortCut="0" TabOrder="7" TabStop="True" Top="685" Width="200">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="Exit" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="870" Name="btnExit" OnClick="CloseForm" ParentFont="False" ShortCut="0" TabOrder="8" TabStop="True" Top="685" Width="100">
+    </TUserButton>
+    <TUserNumberEdit Align="alNone" Alignment="taRightJustify" Decimals="0" Height="22" Left="10" Name="eDocID" TabOrder="9" TabStop="False" Text="" Top="10" Visible="False" Width="100">
+    </TUserNumberEdit>
+  </Form>
+  <![CDATA[Dim OrderLoaded as Boolean
+OrderLoaded = False
+
+Dim OrderDocID as Number
+OrderDocID = 0
+
+Dim OEHEAD as Object
+OEHEAD = OpenTable("OEHEAD")
+OEHEAD.IndexName = "Document"
+
+Dim ARCUST as Object
+ARCUST = OpenTable("ARCUST")
+
+tblLines.AllowInsertDelete = False
+tblToDelete.IndexName = "LineID"
+
+Sub UpdateStatus
+  If Not OrderLoaded Then
+    eStatus.Text = "Select an order from the list or enter an order number"
+    grpStatus.Color = 255
+  Else
+    eStatus.Text = "Order loaded - Change quantities or delete lines, then SAVE CHANGES"
+    grpStatus.Color = 65280
+  End If
+  btnSave.Enabled = OrderLoaded
+  btnChangeQty.Enabled = OrderLoaded
+End Sub
+
+Sub Reset
+  OrderLoaded = False
+  OrderDocID = 0
+  eDocID.Value = 0
+  tblLines.AllowInsertDelete = True
+  tblLines.Empty
+  tblLines.AllowInsertDelete = False
+  tblToDelete.AllowInsertDelete = True
+  tblToDelete.Empty
+  tblToDelete.AllowInsertDelete = False
+  eCustomer.Text = ""
+  ePackingSlip.Text = ""
+  eOrderRef.Text = ""
+  btnSave.Enabled = False
+  UpdateStatus
+End Sub
+
+Sub PreviewOrder
+  tblPreview.AllowInsertDelete = True
+  tblPreview.Empty
+
+  If tblOrderList.RecordCount = 0 Then
+    tblPreview.AllowInsertDelete = False
+    Exit Sub
+  End If
+
+  Dim QryLines as Object
+  QryLines = ExecuteSQL( _
+    "SELECT OELINE.ProductCode, OELINE.Description, " & _
+    "OELINE.QuantityOrdered - OELINE.QuantityInvoiced AS Qty " & _
+    "FROM OELINE " & _
+    "WHERE OELINE.DocumentID = :DocID " & _
+    "AND OELINE.LineType <> 'N' " & _
+    "ORDER BY OELINE.LineID", tblOrderList.DocumentID)
+
+  QryLines.First
+  Do Until QryLines.Eof
+    tblPreview.Append
+    tblPreview.ProductCode = QryLines.ProductCode
+    tblPreview.Description = QryLines.Description
+    tblPreview.QuantityOrdered = QryLines.Qty
+    tblPreview.Save
+    QryLines.Next
+  Loop
+
+  tblPreview.AllowInsertDelete = False
+  tblPreview.First
+End Sub
+
+Sub RefreshOrderList
+  tblOrderList.AllowInsertDelete = True
+  tblOrderList.Empty
+
+  Dim QryOrders as Object
+  QryOrders = ExecuteSQL( _
+    "SELECT OEHEAD.DocumentID, OEHEAD.PackingSlipNo, " & _
+    "OEHEAD.CustomerCode, OEHEAD.DocumentDate " & _
+    "FROM OEHEAD " & _
+    "WHERE OEHEAD.PostStatus = 'U' " & _
+    "AND OEHEAD.DocumentClass IN ('O','B') " & _
+    "ORDER BY OEHEAD.DocumentID DESC")
+
+  QryOrders.First
+  Do Until QryOrders.Eof
+    tblOrderList.Append
+    tblOrderList.DocumentID = QryOrders.DocumentID
+    tblOrderList.PackingSlipNo = QryOrders.PackingSlipNo
+    tblOrderList.CustomerCode = QryOrders.CustomerCode
+    tblOrderList.DocumentDate = QryOrders.DocumentDate
+    If ARCUST.FindExact(QryOrders.CustomerCode) Then
+      tblOrderList.CustomerName = ARCUST.CustomerName
+    Else
+      tblOrderList.CustomerName = ""
+    End If
+    tblOrderList.Save
+    QryOrders.Next
+  Loop
+
+  tblOrderList.AllowInsertDelete = False
+  tblOrderList.First
+End Sub
+
+Sub ResetAndRefresh
+  Reset
+  RefreshOrderList
+End Sub
+
+Sub LoadSelectedOrder
+  If tblOrderList.RecordCount = 0 Then
+    MsgBox("No orders in list")
+    Exit Sub
+  End If
+  Reset
+  OrderLoaded = True
+  LoadOrder(tblOrderList.DocumentID)
+End Sub
+
+Sub ManualLoadOrder
+  If eOrderInput.Text = "" Then Exit Sub
+  Reset
+  OrderLoaded = True
+  LoadOrder(Val(eOrderInput.Text))
+  eOrderInput.Text = ""
+End Sub
+
+Sub LoadOrder(ByRef OrderID as Number)
+  OEHEAD.CancelRange
+  OEHEAD.IndexName = "Document"
+  tblLines.AllowInsertDelete = True
+  eDocID.Value = OrderID
+
+  If OEHEAD.FindExact(eDocID.Value) Then
+    If OEHEAD.PostStatus <> "U" Then
+      OrderLoaded = False
+      eStatus.Text = "Order is not unprocessed - cannot edit"
+      grpStatus.Color = 255
+      tblLines.AllowInsertDelete = False
+      Exit Sub
+    End If
+
+    OrderDocID = OEHEAD.DocumentID
+
+    If ARCUST.FindExact(OEHEAD.CustomerCode) Then
+      eCustomer.Text = OEHEAD.CustomerCode & " - " & ARCUST.CustomerName
+    Else
+      eCustomer.Text = OEHEAD.CustomerCode
+    End If
+    ePackingSlip.Text = OEHEAD.PackingSlipNo
+    Try
+      eOrderRef.Text = OEHEAD.InternalReference
+    Catch e
+      eOrderRef.Text = ""
+    End Try
+
+    Dim OELINE as Object
+    OELINE = OpenTable("OELINE")
+    OELINE.IndexName = "DocumentLine"
+    OELINE.SetRange(OEHEAD.DocumentID)
+    OELINE.First
+    Do Until OELINE.Eof
+      If OELINE.LineType <> "N" Then
+        tblLines.Append
+        tblLines.LineID = OELINE.LineID
+        tblLines.ProductCode = OELINE.ProductCode
+        tblLines.Description = OELINE.Description
+        tblLines.QuantityOrdered = OELINE.QuantityOrdered
+        tblLines.QuantityInvoiced = OELINE.QuantityInvoiced
+        tblLines.QuantityOutstanding = OELINE.QuantityOrdered - OELINE.QuantityInvoiced
+        tblLines.Save
+      End If
+      OELINE.Next
+    Loop
+
+    tblLines.AllowInsertDelete = False
+    tblLines.First
+    UpdateStatus
+  Else
+    OrderLoaded = False
+    MsgBox("Order " & OrderID & " not found.")
+    tblLines.AllowInsertDelete = False
+    UpdateStatus
+  End If
+End Sub
+
+Sub ChangeQty
+  If Not OrderLoaded Then
+    MsgBox("Load an order first.")
+    Exit Sub
+  End If
+  If tblLines.RecordCount = 0 Then
+    MsgBox("No lines to change.")
+    Exit Sub
+  End If
+  If tblLines.Eof Then tblLines.Last
+
+  Dim QtyForm as Object
+  QtyForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\Qty_Entry_Tint.pfd")
+  QtyForm.pProduct = tblLines.ProductCode & " - " & tblLines.Description
+  QtyForm.pQuantity = tblLines.QuantityOrdered
+  QtyForm.ShowModal
+  If QtyForm.pCancelled = 0 Then
+    Dim newQty as Number
+    newQty = QtyForm.pQuantity
+    If newQty < tblLines.QuantityInvoiced Then
+      MsgBox("Cannot set quantity below already invoiced amount (" & tblLines.QuantityInvoiced & ").")
+      Exit Sub
+    End If
+    tblLines.Edit
+    tblLines.QuantityOrdered = newQty
+    tblLines.QuantityOutstanding = newQty - tblLines.QuantityInvoiced
+    tblLines.Save
+  End If
+End Sub
+
+Sub DeleteLine
+  If Not OrderLoaded Then
+    MsgBox("Load an order first.")
+    Exit Sub
+  End If
+  If tblLines.RecordCount = 0 Then
+    MsgBox("No lines to delete.")
+    Exit Sub
+  End If
+  If tblLines.Eof Then tblLines.Last
+
+  If tblLines.QuantityInvoiced > 0 Then
+    MsgBox("Cannot delete a line that has already been partially invoiced.")
+    Exit Sub
+  End If
+
+  tblLines.AllowInsertDelete = True
+  tblLines.Delete
+  tblLines.AllowInsertDelete = False
+End Sub
+
+Sub tblLines_BeforeDelete
+  tblToDelete.Append
+  tblToDelete.LineID = tblLines.LineID
+  tblToDelete.Save
+End Sub
+
+Sub SaveChanges
+  If Not OrderLoaded Then
+    MsgBox("No order loaded.")
+    Exit Sub
+  End If
+
+  Dim OEDATA as Object
+  OEDATA = CreateObject("Accredo.OEOrderData")
+  OEDATA.IndexName = "Document"
+  If OEDATA.FindExact(OrderDocID) Then
+    Try
+      OEDATA.Edit
+      OEDATA.Line.First
+      tblLines.IndexName = "LineID"
+      Do Until OEDATA.Line.Eof
+        If tblToDelete.FindExact(OEDATA.Line.LineID) Then
+          OEDATA.Line.Delete
+        Else
+          If tblLines.FindExact(OEDATA.Line.LineID) Then
+            OEDATA.Line.Edit
+            OEDATA.Line.QuantityOrdered = tblLines.QuantityOrdered
+            OEDATA.Line.Save
+          End If
+          OEDATA.Line.Next
+        End If
+      Loop
+      OEDATA.Save
+      MsgBox("Order saved successfully.")
+      Reset
+      RefreshOrderList
+    Catch e
+      MsgBox("Error saving order: " & e.Message)
+    End Try
+  Else
+    MsgBox("Could not find order to save.")
+  End If
+End Sub
+
+Sub CloseForm
+  Self.Close
+End Sub
+
+Reset
+RefreshOrderList
+]]>
+</Design>

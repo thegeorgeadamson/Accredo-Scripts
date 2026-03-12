@@ -1,0 +1,3 @@
+Dim EditForm as Object
+EditForm = CreateCustomForm("H:\DBNZ\Warehouse\George Custom Accredo Scripts\EditOrder.pfd")
+EditForm.Show
