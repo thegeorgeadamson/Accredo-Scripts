@@ -1,0 +1,89 @@
+Accredo,CustomReport,72,CustomReportClass
+Report="Lot Expiry Report",P,"Calibri,9,0",1,"",3
+Margins=10.00,10.00,10.00,10.00
+BeforeReport=TotalInStock = 0
+=TotalAllocated = 0
+=TotalAvailable = 0
+=Dim scForm as Object
+=scForm = CreateObject("Accredo.ScriptedForm")
+=scForm.Caption = "Expiry Report Selections"
+=scForm.InputInteger("MonthsAhead", "Months ahead")
+=scForm.SetValue("MonthsAhead", 3)
+=Do
+=  If Not scForm.Execute Then
+=    Abort("", True)
+=  Else
+=    MonthsAhead = scForm.GetValue("MonthsAhead")
+=    If MonthsAhead > 0 Then
+=      Exit Do
+=    End If
+=  End If
+=Loop
+=Params.MonthsAhead = MonthsAhead
+Band="bandHead",H,Y,25.00,215.90,Y,N,T,0,"",N,N,N,
+Component=TrwExpressionComponent,"expCompanyName",Y,10.00,20.00,6.91,120.00,"","Company.Name",Y,L,T,N,Y,0,0000,0,1,1,"Calibri,16,0,B",0,16777215
+Component=TrwExpressionComponent,"expDate",Y,10.00,175.90,3.86,30.00,"","Date",Y,R,T,N,Y,0,0000,0,0,7,,0,16777215
+Component=TrwExpressionComponent,"expPageNumber",Y,13.86,175.90,3.86,30.00,"","PageOfNumber",Y,R,T,N,Y,0,0000,0,0,0,,0,16777215
+Component=TrwExpressionComponent,"expReportTitle",Y,18.72,20.00,6.91,170.00,"","ReportTitle",Y,L,T,N,Y,0,0000,0,2,1,"Calibri,16,0,B",0,16777215
+Band="bandColumnHeading",C,Y,6.00,215.90,N,N,T,0,"",Y,N,N,"Calibri,9,0,B"
+Component=TrwLabelComponent,"lblProduct",Y,0.00,10.00,3.86,35.00,"Product",Y,N,L,T,Y,Y,0,0000,0,1,1,,20,16777215
+Component=TrwLabelComponent,"lblDescription",Y,0.00,45.00,3.86,45.00,"Description",Y,N,L,T,Y,Y,0,0000,0,1,2,,25,16777215
+Component=TrwLabelComponent,"lblStockGroup",Y,0.00,90.00,3.86,20.00,"Group",Y,N,L,T,Y,Y,0,0000,0,1,3,,10,16777215
+Component=TrwLabelComponent,"lblLocation",Y,0.00,110.00,3.86,15.00,"Location",Y,N,L,T,Y,Y,0,0000,0,1,4,,8,16777215
+Component=TrwLabelComponent,"lblLotNo",Y,0.00,125.00,3.86,20.00,"Lot No",Y,N,L,T,Y,Y,0,0000,0,1,5,,12,16777215
+Component=TrwLabelComponent,"lblExpiryDate",Y,0.00,145.00,3.86,20.00,"Expiry Date",Y,N,L,T,Y,Y,0,0000,0,1,6,,12,16777215
+Component=TrwLabelComponent,"lblInStock",Y,0.00,165.00,3.86,16.00,"In Stock",Y,N,R,T,Y,Y,0,0000,0,1,7,,10,16777215
+Component=TrwLabelComponent,"lblAllocated",Y,0.00,181.00,3.86,16.00,"Allocated",Y,N,R,T,Y,Y,0,0000,0,1,8,,10,16777215
+Component=TrwLabelComponent,"lblAvailable",Y,0.00,197.00,3.86,16.00,"Available",Y,N,R,T,Y,Y,0,0000,0,1,9,,10,16777215
+Band="bandStandard",D,Y,4.11,215.90,N,N,T,0,"",N,N,N,
+AfterBand=TotalInStock = TotalInStock + Query.InStock
+=TotalAllocated = TotalAllocated + Query.Allocated
+=TotalAvailable = TotalAvailable + Query.Available
+Component=TrwExpressionComponent,"expProduct",Y,0.00,10.00,3.86,35.00,"","Query.Product",Y,L,T,N,Y,0,0000,0,1,1,,20,16777215
+Component=TrwExpressionComponent,"expDescription",Y,0.00,45.00,3.86,45.00,"","Query.Description",Y,L,T,N,Y,0,0000,0,1,2,,25,16777215
+Component=TrwExpressionComponent,"expStockGroup",Y,0.00,90.00,3.86,20.00,"","Query.StockGroup",Y,L,T,N,Y,0,0000,0,1,3,,10,16777215
+Component=TrwExpressionComponent,"expLocation",Y,0.00,110.00,3.86,15.00,"","Query.Location",Y,L,T,N,Y,0,0000,0,1,4,,8,16777215
+Component=TrwExpressionComponent,"expLotNo",Y,0.00,125.00,3.86,20.00,"","Query.LotNo",Y,L,T,N,Y,0,0000,0,1,5,,12,16777215
+Component=TrwExpressionComponent,"expExpiryDate",Y,0.00,145.00,3.86,20.00,"","Query.ExpiryDate",Y,L,T,N,Y,0,0000,0,1,6,,12,16777215
+Component=TrwExpressionComponent,"expInStock",Y,0.00,165.00,3.86,16.00,"Quantity","Query.InStock",Y,R,T,N,Y,0,0000,0,1,7,,10,16777215
+Component=TrwExpressionComponent,"expAllocated",Y,0.00,181.00,3.86,16.00,"Quantity","Query.Allocated",Y,R,T,N,Y,0,0000,0,1,8,,10,16777215
+Component=TrwExpressionComponent,"expAvailable",Y,0.00,197.00,3.86,16.00,"Quantity","Query.Available",Y,R,T,N,Y,0,0000,0,1,9,,10,16777215
+Band="bandTotal",S,Y,6.36,215.90,N,N,T,0,"",N,N,N,
+Component=TrwExpressionComponent,"expTotalInStock",Y,1.59,165.00,3.86,16.00,"Quantity","TotalInStock",Y,R,T,N,Y,0,1020,0,1,7,,10,16777215
+Component=TrwExpressionComponent,"expTotalAllocated",Y,1.59,181.00,3.86,16.00,"Quantity","TotalAllocated",Y,R,T,N,Y,0,1020,0,1,8,,10,16777215
+Component=TrwExpressionComponent,"expTotalAvailable",Y,1.59,197.00,3.86,16.00,"Quantity","TotalAvailable",Y,R,T,N,Y,0,1020,0,1,9,,10,16777215
+Band="bandFoot",F,Y,10.00,215.90,Y,N,T,0,"",N,N,N,
+Component=TrwExpressionComponent,"expPrintedDate",Y,3.00,120.90,3.86,85.00,"","Date",Y,R,T,N,Y,0,0000,0,0,7,,0,16777215
+Iterator=Query,"","",bandStandard
+SQL=SELECT ICTRKQTY.ProductCode AS Product
+=      ,ICPROD.Description
+=      ,ICPROD.StockGroupCode AS StockGroup
+=      ,ICTRKQTY.LocationCode AS Location
+=      ,ICTRKQTY.LotNo
+=      ,CAST(ICTRKQTY.ExpiryDate AS DATE) AS ExpiryDate
+=      ,ICTRKQTY.QuantityInStock AS InStock
+=      ,ICTRKQTY.QuantityAllocated AS Allocated
+=      ,ICTRKQTY.QuantityAvailable AS Available
+=FROM ICTRKQTY
+=INNER JOIN ICPROD ON ICTRKQTY.ProductCode = ICPROD.ProductCode
+=WHERE ICTRKQTY.ExpiryDate >= Current_date
+=AND ICTRKQTY.ExpiryDate <= AddMonths(Current_date, :MonthsAhead)
+=AND ICTRKQTY.QuantityInStock > 0
+=ORDER BY ICTRKQTY.ExpiryDate, ICTRKQTY.ProductCode
+Param="MonthsAhead","3",N
+ManualChange=Y
+Wizard=3
+Report="Lot Expiry Report"
+Selections=""
+RetainBeforeReport="N"
+RetainAfterQuery="N"
+PageOrientation="Automatic"
+Column="Product","Product",20,"Yes","No",0,"No"
+Column="Description","Description",25,"Yes","No",0,"No"
+Column="StockGroup","Stock Group",10,"Yes","No",0,"No"
+Column="Location","Location",8,"Yes","No",0,"No"
+Column="LotNo","Lot No",12,"Yes","No",0,"No"
+Column="ExpiryDate","Expiry Date",12,"Yes","No",0,"No"
+Column="InStock","In Stock",10,"Yes","Yes",0,"No"
+Column="Allocated","Allocated",10,"Yes","Yes",0,"No"
+Column="Available","Available",10,"Yes","Yes",0,"No"

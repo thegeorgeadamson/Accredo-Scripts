@@ -97,10 +97,11 @@ Option 2 is more reliable for forms that also programmatically add rows.
 **Tags:** ShowModal, modal, nested modal, CreateCustomForm, button not working
 ---
 
-## INInvoiceListForm.Invoice.Open conflicts if invoice is already open in UI
-**Problem:** Using `INInvoiceListForm` + `Invoice.Open` to edit an invoice that is already open in the Accredo UI causes "Error resolving Save (80020006)". This is a COM conflict — the form-level object clashes with the already-open form.
-**Solution:** Use `INInvoiceData` (data-level object) instead of `INInvoiceListForm` (form-level). Find the invoice DocumentID via `ExecuteSQL` on INHEAD, then use `CreateObject("Accredo.INInvoiceData")` with `FindExact(DocumentID)` to edit at the data level. This avoids any conflict with open UI forms.
-**Tags:** INInvoiceListForm, INInvoiceData, Invoice.Open, Error resolving Save, 80020006, MIXJOTUN, COM error
+## Error resolving Save (80020006) when invoice is already open in UI
+**Problem:** Any COM-based `.Save` or `.Line.Save` on an IN Invoice that is already open in the Accredo UI causes "Error resolving Save (80020006)". This applies to ALL approaches: `INInvoiceListForm`, `INInvoiceData`, and `OpenForm("INHEAD", DocumentID)`. Both header `.Save` and `.Line.Save` fail.
+**Failed approaches:** (1) `INInvoiceData` + `.Save` — fails. (2) `OpenForm` + `.Line.Save` — fails. (3) `OpenForm` without header `.Save` — still fails on `.Line.Save`.
+**Solution:** Close the UI form first, then use `INInvoiceData` to edit/save, then reopen with `OpenForm`. Pattern: `OpenForm("INHEAD", DocID).Close` → `INInvoiceData.FindExact(DocID)` → Edit/Add lines/Save → `OpenForm("INHEAD", DocID)` to reopen.
+**Tags:** INInvoiceListForm, INInvoiceData, Invoice.Open, OpenForm, Error resolving Save, 80020006, MIXJOTUN, COM error
 ---
 
 ## tblMemoryTable.Eof can be True even with rows present
@@ -115,8 +116,45 @@ Option 2 is more reliable for forms that also programmatically add rows.
 **Tags:** INInvoiceData, QuantitySupplied, Quantity, invoice line, silent fail
 ---
 
+## ICTRKQTY is the correct table for lot tracking quantities, not ICTRKLOT
+**Problem:** `ICTRKLOT` only stores lot definitions (LotID, ProductCode, LotNo, LotDate, ExpiryDate, LastTransaction, RecordRevision). It has NO LocationCode or quantity columns.
+**Solution:** Use `ICTRKQTY` (IC Tracked Quantity) for lot quantity queries. Its columns: LocationCode, LotNo, BinCode, LotDate, ExpiryDate, QuantityInStock, QuantityAllocated, QuantityAvailable, QuantityShipped, QuantityCommitted, QuantityTransferIn, QuantityTransferOut, QuantityReturned, StocktakeVariance, Available, BinPickingPriority, LastTransactionPeriod, ProductCode, QuantityInTransit, RecordRevision, TrackingID. Use `BrowseDataset(ExecuteSQL("SELECT * FROM tablename"), "title")` to discover columns on undocumented tables.
+**Tags:** ICTRKLOT, ICTRKQTY, lot tracking, quantity, LocationCode, BrowseDataset, column names
+---
+
+## LPad requires CAST to VARCHAR for numeric inputs
+**Problem:** `LPad(Day(SomeDate), 2, '0')` fails with "Datatype for LPad function expected to be WideString but Day(...) has datatype Integer." Same applies to `Month()` and `Year()`.
+**Solution:** Wrap in CAST: `LPad(CAST(Day(SomeDate) AS VARCHAR(2)), 2, '0')`. Full date formatting pattern: `LPad(CAST(Day(d) AS VARCHAR(2)), 2, '0') || '/' || LPad(CAST(Month(d) AS VARCHAR(2)), 2, '0') || '/' || CAST(Year(d) AS VARCHAR(4))`
+**Tags:** LPad, CAST, VARCHAR, Day, Month, Year, WideString, Integer, date formatting, SQL
+---
+
+## Excel COM automation from MaxBasic is unreliable
+**Problem:** Using `CreateObject("Excel.Application")` for formatting (column widths, bold headers, sheet renaming) frequently fails with "Error resolving Name (80020006)" on properties like `xlSheet.Name`. Hidden Excel processes also get orphaned on failure, locking files.
+**Solution:** Avoid Excel COM automation. Instead, format data in SQL (e.g. CAST dates to strings) and use `SaveToExcel()` for clean export. Use `Shell("cmd /c start ...", 0, False)` to open the file for the user to format manually.
+**Tags:** Excel, COM, CreateObject, Error resolving Name, 80020006, SaveToExcel, formatting, orphaned process
+---
+
 ## OEDATA.GenerateInvoice returns DocumentID not DocumentNo
 **Problem:** `OEDATA.GenerateInvoice` returns the invoice's internal `DocumentID` (e.g. 3187), not the display invoice number (e.g. "11608"). Passing this directly as an invoice reference shows wrong number.
 **Solution:** Look up the actual display number: `INInvoiceData.FindExact(INNumber)` then use `INInvoiceData.DocumentNo`.
 **Tags:** GenerateInvoice, DocumentID, DocumentNo, invoice number, OEOrderData
+---
+
+## `ColorByName("Gray")` causes runtime error 80020006
+**Problem:** `ColorByName("Gray")` throws "Error resolving Color (80020006)". "Gray" is not a recognized color name in Accredo's `ColorByName` function.
+**Solution:** Use `ColorRGB(160, 160, 160)` instead. Known valid `ColorByName` values include: Orange, Blue, Green, Red, Yellow, Black, Brown. For any colour not in that list, use `ColorRGB(r, g, b)`.
+**Tags:** ColorByName, ColorRGB, Color, Gray, Grey, 80020006, button color
+---
+
+## `Font.Color` cannot be set at runtime on TUserButton
+**Problem:** Setting `btnComplete.Font.Color = ColorRGB(...)` on a `TUserButton` throws "Error resolving Color (80020006)". The `Font.Color` property is only settable at runtime on edits (`TUserEdit`) and labels (`TUserLabel`), not buttons.
+**Solution:** Set the button's font color in the XML definition (e.g. `Font.Color="clWhite"`) and only change the button's background `Color` property at runtime. Do not attempt to change `Font.Color` on buttons in MaxBasic code.
+**Tags:** Font.Color, TUserButton, button, 80020006, Color, runtime
+---
+
+## `TUserButton.Color` cannot be set at runtime in MaxBasic
+**Problem:** Setting `btnComplete.Color = ColorRGB(...)` or any `.Color` assignment on a `TUserButton` throws "Error resolving Color (80020006)". Neither `Color` nor `Font.Color` can be changed at runtime on buttons.
+**Solution:** Use overlapping buttons with different colors defined in the XML, and toggle `Visible = True/False` to swap between them. For example, create `btnPickAll` (grey), `btnPickAllRed` (red), and `btnPickAllGreen` (green) at the same position, then show/hide the appropriate one.
+**Limitation:** This overlapping button technique only works reliably for buttons with `Anchors="akLeft;akTop"`. Buttons anchored to `akRight;akBottom` do NOT change visually when toggling Visible — the grey button always renders on top regardless of z-order or XML ordering. No known workaround for bottom-right anchored buttons.
+**Tags:** TUserButton, Color, Font.Color, 80020006, button color, runtime, Visible, Anchors, z-order
 ---

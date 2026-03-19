@@ -1,0 +1,34 @@
+Dim SQL as String
+SQL = "SELECT ICPROD.ProductCode AS Product, " & _
+      "ICPROD.Description, " & _
+      "ICPROD.StockGroupCode AS StockGroup, " & _
+      "ICQTY.LocationCode AS Location, " & _
+      "ICQTY.QuantityInstock AS InStock, " & _
+      "ICQTY.QuantityAllocated AS Allocated, " & _
+      "ICQTY.QuantityAvailable AS Available, " & _
+      "ICQTY.QuantityOnOrder AS OnOrder " & _
+      "FROM ICPROD " & _
+      "INNER JOIN ICQTY ON ICPROD.ProductCode = ICQTY.ProductCode " & _
+      "WHERE ICPROD.Inactive = False " & _
+      "AND ICPROD.NonDiminishing = False " & _
+      "AND ICQTY.QuantityInstock <> 0 " & _
+      "ORDER BY ICPROD.ProductCode, ICQTY.LocationCode"
+
+Dim tblStock as Object
+tblStock = ExecuteSQL(SQL)
+
+' Save to Excel file
+Dim ExcelFile as String
+ExcelFile = "H:\DBNZ\Warehouse\George Custom Accredo Scripts\StockReport_" & Replace("" & Date, "/", "-") & ".xlsx"
+DeleteFile(ExcelFile)
+tblStock.SaveToExcel(ExcelFile, True)
+
+' Create Outlook email with Excel attached
+Dim olApp as Object
+olApp = CreateObject("Outlook.Application")
+Dim olMail as Object
+olMail = olApp.CreateItem(0)
+olMail.Subject = "Stock On Hand Report - " & Date
+olMail.Body = "Please find attached the Stock On Hand Report."
+olMail.Attachments.Add(ExcelFile)
+olMail.Display

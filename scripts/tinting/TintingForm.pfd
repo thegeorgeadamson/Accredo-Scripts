@@ -4,6 +4,8 @@
     <TUserMemoryTable Active="True" AfterDelete="" AfterScroll="" BeforeDelete="" IndexName="" Name="tblTint" OnCanDelete="" OnCanInsert="" OnCanModify="" OnNewRecord="" Left="10" Top="10">
       <TnIntegerField DisplayWidth="4" FieldName="LineNo" Visible="False">
       </TnIntegerField>
+      <TnStringField DisplayLabel="Product" DisplayWidth="20" FieldName="ProductCode" Size="30" Visible="False">
+      </TnStringField>
       <TnStringField DisplayLabel="Description" DisplayWidth="60" FieldName="Description" Size="200">
       </TnStringField>
       <TnQuantityField DisplayLabel="Qty" DisplayWidth="8" FieldName="Quantity">
@@ -68,6 +70,7 @@ Sub ProductSelected
       LineCounter = LineCounter + 1
       tblTint.Append
       tblTint.LineNo = LineCounter
+      tblTint.ProductCode = eProductSearch.Text
       tblTint.Description = ICPROD.Description
       tblTint.Quantity = qty
       tblTint.Save
@@ -143,10 +146,21 @@ Sub CompleteTinting
       Exit Sub
     End If
 
+    Dim MixDocID as Number
+    MixDocID = QryMix.DocumentID
+
+    ' Close the MIXJOTUN form in the UI first to avoid COM conflict (80020006).
+    ' Any approach (INInvoiceData, OpenForm) fails with Line.Save/Save if the
+    ' invoice is already open in the UI.
+    Dim INForm as Object
+    INForm = OpenForm("INHEAD", MixDocID)
+    INForm.Close
+
+    ' Now use data-level object to add lines — no UI form conflict
     Dim INDATA as Object
     INDATA = CreateObject("Accredo.INInvoiceData")
     INDATA.IndexName = "Document"
-    If Not INDATA.FindExact(QryMix.DocumentID) Then
+    If Not INDATA.FindExact(MixDocID) Then
       MsgBox("Could not open MIXJOTUN invoice.")
       Exit Sub
     End If
@@ -164,6 +178,7 @@ Sub CompleteTinting
     tblTint.First
     Do Until tblTint.Eof
       INDATA.Line.Append
+      INDATA.Line.ProductCode = tblTint.ProductCode
       INDATA.Line.Description = tblTint.Description
       INDATA.Line.QuantitySupplied = tblTint.Quantity
       INDATA.Line.Save
@@ -176,6 +191,9 @@ Sub CompleteTinting
     INDATA.Line.Save
 
     INDATA.Save
+
+    ' Reopen the MIXJOTUN invoice in the UI so user can continue editing
+    OpenForm("INHEAD", MixDocID)
 
     ExitStatus = "Completed"
     Self.Close

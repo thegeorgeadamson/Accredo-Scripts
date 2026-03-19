@@ -1,0 +1,12 @@
+Showalarms(True)
+
+Dim Form1 as Object
+Form1 = CreateObject("Accredo.INInvoiceEntryForm")
+Form1.InsertQuote
+CustCode = InputCode("ARCUST", "Select Customer")
+Form1.CustomerCode = CustCode
+Form1.Line.Insert
+ProdCode = InputCode("ICPROD", "Select Product")
+Form1.Line.ProductCode = ProdCode
+
+

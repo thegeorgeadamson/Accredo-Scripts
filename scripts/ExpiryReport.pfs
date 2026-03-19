@@ -1,0 +1,3 @@
+' ExpiryReport.pfs
+' Opens the Lot Expiry Report
+PlayScript("H:\DBNZ\Warehouse\George Custom Accredo Scripts\ExpiryReport.pfd")

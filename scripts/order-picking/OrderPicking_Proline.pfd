@@ -131,7 +131,12 @@
     </TUserGroupBox>
 
     <!-- Action Buttons Row -->
-    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAll" OnClick="PickAll" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="180">
+    <!-- PICK ALL: 3 overlapping buttons (grey=default, red=no staff ref, green=ready) -->
+    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="clGray" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAll" OnClick="PickAll" ParentFont="False" ShortCut="0" TabOrder="4" TabStop="True" Top="296" Width="180">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="clRed" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAllRed" OnClick="PickAll" ParentFont="False" ShortCut="0" TabStop="True" Top="296" Visible="False" Width="180">
+    </TUserButton>
+    <TUserButton Anchors="akLeft;akTop" Caption="PICK ALL" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="45" ImageIndex="2026" Left="30" Name="btnPickAllGreen" OnClick="PickAll" ParentFont="False" ShortCut="0" TabStop="True" Top="296" Visible="False" Width="180">
     </TUserButton>
     <TUserButton Anchors="akLeft;akTop" Caption="Clear Picked" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="45" ImageIndex="2074" Left="220" Name="btnClearPicked" OnClick="ClearPicked" ParentFont="False" ShortCut="0" TabOrder="5" TabStop="True" Top="296" Width="150">
     </TUserButton>
@@ -166,7 +171,12 @@
 
     <!-- ============ BOTTOM SECTION: ACTION BAR ============ -->
 
-    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="16744448" Font.Charset="DEFAULT_CHARSET" Font.Color="clWhite" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnComplete" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="685" Width="210">
+    <!-- COMPLETE ORDER: 3 overlapping buttons (red/green first, grey last for z-order) -->
+    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="clRed" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnCompleteRed" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabStop="True" Top="685" Visible="False" Width="210">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="32768" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnCompleteGreen" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabStop="True" Top="685" Visible="False" Width="210">
+    </TUserButton>
+    <TUserButton Anchors="akRight;akBottom" Caption="COMPLETE ORDER" Color="clGray" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-16" Font.Name="Arial" Font.Style="fsBold" Height="55" ImageIndex="2026" Left="975" Name="btnComplete" OnClick="CompleteOrder" ParentFont="False" ShortCut="0" TabOrder="12" TabStop="True" Top="685" Width="210">
     </TUserButton>
     <TUserButton Anchors="akLeft;akBottom" Caption="Cancel / New Order" Font.Charset="DEFAULT_CHARSET" Font.Color="clWindowText" Font.Height="-14" Font.Name="Arial" Font.Style="" Height="55" ImageIndex="2074" Left="4" Name="btnCancelOrder" OnClick="ResetAndRefresh" ParentFont="False" ShortCut="0" TabOrder="13" TabStop="True" Top="685" Width="200">
     </TUserButton>
@@ -221,15 +231,34 @@ Sub UpdateStatus
   If Not OrderLoad Then
     eStatus.Text = "Select an order from the list or enter a packing slip number"
     grpStatus.Color = 255
+    ' Show grey buttons (default)
+    btnComplete.Visible = True
+    btnCompleteRed.Visible = False
+    btnCompleteGreen.Visible = False
+    btnPickAll.Visible = True
+    btnPickAllRed.Visible = False
+    btnPickAllGreen.Visible = False
   ElseIf Not StaffScan Then
     eStatus.Text = "Enter Staff Reference to enable completion"
     grpStatus.Color = 65535
+    ' Show RED buttons to indicate staff ref needed
+    btnComplete.Visible = False
+    btnCompleteRed.Visible = True
+    btnCompleteGreen.Visible = False
+    btnPickAll.Visible = False
+    btnPickAllRed.Visible = True
+    btnPickAllGreen.Visible = False
   Else
     eStatus.Text = "Ready - Pick items or click PICK ALL, then COMPLETE ORDER"
     grpStatus.Color = 65280
+    ' Show GREEN buttons when ready
+    btnComplete.Visible = False
+    btnCompleteRed.Visible = False
+    btnCompleteGreen.Visible = True
+    btnPickAll.Visible = False
+    btnPickAllRed.Visible = False
+    btnPickAllGreen.Visible = True
   End If
-  btnComplete.Enabled = (OrderLoad And StaffScan)
-  btnPickAll.Enabled = OrderLoad
   btnClearPicked.Enabled = OrderLoad
   btnAddItem.Enabled = OrderLoad
   btnChangeQty.Enabled = OrderLoad
@@ -256,7 +285,6 @@ Sub Reset
   ePackingSlipNo.Text = ""
   eOrderRef.Text = ""
   eReference.Text = ""
-  btnComplete.Enabled = False
   UpdateStatus
 End Sub
 
@@ -484,7 +512,6 @@ Sub Load(ByRef OrderID as Number)
   Loop
 
   tblOrder.AllowInsertDelete = False
-  btnComplete.Enabled = False
   tblOrder.IndexName = "Bin"
   tblOrder.First
   CustomerMemoAlarms(OEHEAD.CustomerCode)

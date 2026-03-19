@@ -1,0 +1,12 @@
+Dim InvNo as String
+InvNo = InputBox("Enter Invoice Number")
+If InvNo = "" Then Exit Script
+
+Dim INDATA as Object
+INDATA = CreateObject("Accredo.INInvoiceData")
+INDATA.IndexName = "Document"
+If INDATA.FindExact(Val(InvNo)) Then
+  INDATA.OpenForm
+Else
+  MsgBox("Invoice " & InvNo & " not found.")
+End If
